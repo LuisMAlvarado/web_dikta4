@@ -1,0 +1,113 @@
+{% extends 'frontend.html.twig' %}
+
+{% block content %}
+    {% if is_granted(expression('"ROLE_ADMININISTRADOR" in roles or "ROLE_ASISTENTEDIV" in roles')) %}
+        <h3>Registro del Aspirante al CEC</h3>
+
+            <a class="btn btn-default" href="{{ path('homepage') }}"><span class="glyphicon glyphicon-home"></span>_MENU</a>
+
+    {% endif %}
+
+    {% if is_granted(expression('"ROLE_ASPIRANTE" in roles')) %}
+        <h3>Convocatorias donde estas registrado {{ aspirante.nombre }}  {{ aspirante.apellidoPaterno }}</h3>
+
+        <a class="btn btn-info btn-sm" href="{{ path('aspirante_aspshow',{'id' : aspirante.rfc}) }}">Regresar a INICIO <span class=" glyphicon glyphicon-home"></span></a>
+
+    {% endif %}
+
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Registro</th>
+
+                {% if is_granted(expression('"ROLE_ASISTENTEDIV" in roles or "ROLE_ASPIRANTE" in roles or "ROLE_ASISTENTEDEP" in roles or "ROLE_ADMINISTRADOR" in roles ')) %}
+
+                    <th>Num. de Concurso</th>
+                    <th>No. Dictamen</th>
+
+                {% endif %}
+
+                <th>Prelacion</th>
+
+                {% if is_granted('ROLE_ASISTENTEDIV') %}
+                    <th>RFC Aspirante</th>
+                {% endif %}
+
+                {% if is_granted('ROLE_ADMINSTRADOR') %}
+                <th>Puntaje</th>
+                <th>Nivelasig</th>
+                <th>Fecha de Registro</th>
+                <th>Pdfanexo</th>
+                {% endif %}
+
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for registro in registros %}
+            <tr>
+                <td><a href="{{ path('registro_show', { 'id': registro.id }) }}"><span class=" glyphicon glyphicon-file"></span></a></td>
+
+                {% if is_granted(expression('"ROLE_ASISTENTEDIV" in roles or "ROLE_ASPIRANTE" in roles or "ROLE_ASISTENTEDEP" in roles or "ROLE_ADMINISTRADOR" in roles ')) %}
+
+                    <td>{{ registro.concurso.numConcurso }}</td>
+                    <td>{{ registro.concurso.dictamen }}</td>
+
+                {% endif %}
+
+                <td>{{ registro.prelacion }}</td>
+
+                {% if is_granted('ROLE_ASISTENTEDIV') %}
+                    <td> {{ registro.aspiranteRfc }} </td>
+                {% endif %}
+
+                {% if is_granted('ROLE_ADMINSTRADOR') %}
+
+                    <td>{{ registro.puntaje }}</td>
+                    <td>{{ registro.nivelAsig }}</td>
+                    <td>{% if registro.createAt %}{{ registro.createAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                    <td>{{ registro.pdfAnexo }}</td>
+
+                {% endif %}
+
+                <td>
+
+
+                           <a href="{{ path('RAspFORM_pdf',{'id': registro.id }) }}"><span class=" glyphicon glyphicon-save-file"></span>Generar formato PDF</a>
+                    <br>
+
+                            <a href="{{ path('registro_show', { 'id': registro.id }) }}"><span class=" glyphicon glyphicon-eye-open"></span>Datos de Registro</a>
+                    <br>
+                        {% if is_granted('ROLE_ADMINSTRADOR') %}
+
+                            <a href="{{ path('registro_edit', { 'id': registro.id }) }}">edit</a>
+
+                        {% endif %}
+                    <br>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {% if is_granted(expression('"ROLE_ADMININISTRADOR" in roles')) %}
+        <ul>
+            <li>
+                <a href="{{ path('registro_new') }}">Create a new entry</a>
+            </li>
+        </ul>
+
+    {% endif %}
+
+    {% if is_granted(expression('"ROLE_ASISTENTEDIV" in roles or "ASISTENTEDEP" in roles')) %}
+        <a class="btn btn-default" href="{{ path('homepage') }}"><span class="glyphicon glyphicon-home"></span>_MENU</a>
+    {% endif %}
+
+    {% if is_granted(expression('"ROLE_ASPIRANTE" in roles')) %}
+
+        <a class="btn btn-info btn-sm" href="{{ path('aspirante_aspshow',{'id' : aspirante.rfc}) }}">Regresar a INICIO <span class=" glyphicon glyphicon-home"></span></a>
+
+
+    {% endif %}
+{% endblock %}

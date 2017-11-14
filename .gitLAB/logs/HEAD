@@ -1,0 +1,10 @@
+0000000000000000000000000000000000000000 76c68f6e305707dd7c67d6d797b71421be68e7a7 Luis-M <luism.alvarado1@gmail.com> 1508173880 -0500	clone: from git@148.206.39.241:Luis-M/dikta4_web.git
+76c68f6e305707dd7c67d6d797b71421be68e7a7 cb113f90622c92816e4fa9ccd17e438fa92e909e Luis-M <luism.alvarado1@gmail.com> 1509143112 -0500	commit: actalizacion_nva_base_funciones
+cb113f90622c92816e4fa9ccd17e438fa92e909e 9174a231d2a740dbf3424605526b8c6880c28b83 Luis-M <luism.alvarado1@gmail.com> 1509167828 -0500	commit: repracion de logo y boton HOME para Asist
+9174a231d2a740dbf3424605526b8c6880c28b83 0dacb2a7881b9472df84eb9a09ae69fb64103af6 Luis-M <luism.alvarado1@gmail.com> 1509169839 -0500	commit: cambio de ligas y repraacion de listaAspirantes
+0dacb2a7881b9472df84eb9a09ae69fb64103af6 828fa4876cbaee07575fb0a7bd808aa089f058a7 Luis-M <luism.alvarado1@gmail.com> 1509382274 -0600	commit: cambios FILTRO -> BUSCAR
+828fa4876cbaee07575fb0a7bd808aa089f058a7 f8f910b989f9181f0daa7e53fabbd8403f0f1ea0 Luis-M <luism.alvarado1@gmail.com> 1509491112 -0600	commit: cambio de edit DICTAMINADOR_CAUSALES
+f8f910b989f9181f0daa7e53fabbd8403f0f1ea0 f7ac9bb4712269c07eb69bb3beaaa0284491d536 Luis-M <luism.alvarado1@gmail.com> 1509493114 -0600	commit: nvo formato dictamen y sin texto NIVEL
+f7ac9bb4712269c07eb69bb3beaaa0284491d536 810102548cb44a0f4627e4969fbb98394b4733ce Luis-M <luism.alvarado1@gmail.com> 1509607794 -0600	commit: correcionRFC_ESTATUS
+810102548cb44a0f4627e4969fbb98394b4733ce 2112faa061588b3ae7ca0537a453c787a4dabe67 Luis-M <luism.alvarado1@gmail.com> 1509735129 -0600	pull: Fast-forward
+2112faa061588b3ae7ca0537a453c787a4dabe67 9fa0c5be36c0b2aa75019df193675a17c61bc431 Luis-M <luism.alvarado1@gmail.com> 1510170825 -0600	pull: Fast-forward

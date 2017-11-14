@@ -1,0 +1,492 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Registro de la Convocatoria</h1>
+
+    {{ form_start(form) }}
+    <table width="100%">
+        <tbody>
+
+        <div id="selecClasificacion">
+            <tr>
+            <td colspan="3" width="50%"></td>
+
+            <td class="table-bordered text-right">
+                {{ form_label(form.clasificacion,"PARA: ") }}
+                {{ form_widget(form.clasificacion) }}
+                {{ form_errors(form.clasificacion) }}
+            </td>
+            </tr>
+        </div>
+
+        </tbody>
+    </table>
+    <br />
+
+    <table width="100%">
+        <tbody>
+        <tr>
+            <td colspan="3" width="50%"></td>
+
+                <td></td>
+                <td class="table-bordered text-center">
+                    {% if is_granted(expression('"ROLE_ASISTENTEDIV" in roles or "ROLE_ASISTENTEDEP" in roles')) %}
+                    {{ form_label(form.numConcurso,"No. EC. ") }}
+                    {{ form_widget(form.numConcurso) }}
+                    {{ form_errors(form.numConcurso) }}
+                        {% else %}
+                        No. EC.
+                    {% endif %}
+                </td>
+
+                <td class="table-bordered text-center">
+                {{ form_label(form.createAt,"FECHA DE ELABORACIÓN") }}
+                {{ form_widget(form.createAt) }}
+                {{ form_errors(form.createAt) }}
+                </td></tr>
+
+        </tbody>
+    </table>
+    <br>
+    <TABLE WIDTH="90%" align="center" class="table table-bordered">
+
+
+
+        <tr>
+           <div id="selectcategoria">
+            <td colspan="2">
+
+                {{ form_label(form.categoria) }}
+                {{ form_widget(form.categoria) }}
+                {{ form_errors(form.categoria) }}
+
+            </td>
+           </div>
+            <td colspan="2">
+
+                {{ form_label(form.tiempoDedicacion) }}
+                {{ form_widget(form.tiempoDedicacion) }}
+                {{ form_errors(form.tiempoDedicacion) }}
+
+            </td>
+
+
+        </tr>
+
+        <tr>
+            <td >
+                {{ form_label(form.tpHclase,"DE CLASE:  ") }}
+                {{ form_widget(form.tpHclase) }}
+                {{ form_errors(form.tpHclase) }}
+
+            </td>
+            <td colspan="2" >
+
+                {{ form_label(form.tpHacademia,"DE OTRAS ACTIVIDADES ACADÉMICAS:  ") }}
+                {{ form_widget(form.tpHacademia) }}
+                {{ form_errors(form.tpHacademia) }}
+
+            </td>
+            <td>
+
+                {{ form_label(form.tpHayudantia,"DE AYUDANTÍA:  ") }}
+                {{ form_widget(form.tpHayudantia) }}
+                {{ form_errors(form.tpHayudantia) }}
+
+            </td>
+
+        </tr>
+
+        <tr>
+            <td colspan="2">
+
+                {{ form_label(form.unidad) }}
+                {{ form_widget(form.unidad) }}
+                {{ form_errors(form.unidad) }}
+
+            </td>
+            <td colspan="2">
+
+                <strong>DIVISION</strong> <br>
+                {{ app.user.division.nombre }}
+
+
+
+            </td>
+
+
+        </tr>
+
+        <tr>
+            <td colspan="2">
+
+                {{ form_label(form.departamento) }}
+                {{ form_widget(form.departamento) }}
+                {{ form_errors(form.departamento) }}
+
+            </td>
+
+            <td colspan="2">
+
+                {{ form_label(form.areaDepartamental) }}
+                {{ form_widget(form.areaDepartamental) }}
+                {{ form_errors(form.areaDepartamental) }}
+
+            </td>
+
+        </tr>
+
+        <tr>
+            <td colspan="2">
+                <strong>SALARIO</strong> <br><br>
+                {{  form_label(form.salarioA,"DE: " ) }}
+                {{ form_widget(form.salarioA) }}
+                {{ form_errors(form.salarioA) }}
+&nbsp;&nbsp;
+                {{  form_label(form.salarioB,"A: ") }}
+                {{ form_widget(form.salarioB) }}
+                {{ form_errors(form.salarioB) }}
+             </td>
+
+            <td width="47%" colspan="2">
+                <br>
+                {{ form_label(form.horario) }}
+                {{ form_widget(form.horario,{'attr':{
+                    'class':'form-control',
+                    'rows' : '1',
+                    'cols' : '1'
+
+                }}) }}
+                {{ form_errors(form.horario) }}
+
+
+            </td>
+
+
+        </tr>
+
+        <tr>
+            <td align="center" width="20%"><br><strong>DURACIÓN DE <br> LA CONTRATACION</strong></td>
+            <td align="center" width="20%"><br><strong>FECHA DE INICIO <br> DE LABORES</strong></td>
+            <td>
+                <strong>FECHA DE: </strong>
+                {{  form_label(form.fechaIn,"INGRESO " ) }}
+                {{ form_widget(form.fechaIn) }}
+                <div class="alert-danger">{{ form_errors(form.fechaIn) }}</div>
+
+
+            </td>
+            <td>
+                <strong>FECHA DE: </strong>
+                {{ form_label(form.fechaTer,"TERMINACION DE LABORES ") }}
+                {{ form_widget(form.fechaTer) }}
+                <div class="alert-danger">{{ form_errors(form.fechaTer) }}</div>
+
+
+            </td>
+
+
+        </tr>
+
+
+    </TABLE>
+
+    <br>
+
+    <TABLE WIDTH="90%" align="center" class="table table-bordered">
+          <tr>
+            <td colspan="2">
+
+                 {{ form_label(form.actividades,"FUNCIONES A REALIZAR") }}
+                 {{ form_widget(form.actividades,{'attr':{
+                     'class':'form-control',
+                     'rows' : '15'
+
+                 }}) }}
+                 {{ form_errors(form.actividades) }}
+
+
+             </td>
+         </tr>
+
+         <tr>
+             <td>
+
+                 {{ form_label(form.aConocimiento,"AREA DE CONOCIMIENTO") }}
+                 {{ form_widget(form.aConocimiento) }}
+                 {{ form_errors(form.aConocimiento) }}
+
+
+             </td>
+             <td>
+
+                 {{ form_label(form.disciplina,"DISCIPLINA") }}
+                 {{ form_widget(form.disciplina,{'attr':{
+                     'class':'form-control',
+                     'rows' : '1',
+                     'cols' :'40',
+
+                 }}) }}
+                 {{ form_errors(form.disciplina) }}
+
+
+
+             </td>
+         </tr>
+
+         <tr>
+             <td colspan="2">
+
+                 {{ form_label(form.requisitos,"REQUISITOS ACADEMICOS") }}
+                 {{ form_widget(form.requisitos,{'attr':{
+                     'class':'form-control',
+                     'rows' : '2'
+
+                 }}) }}
+                 {{ form_errors(form.requisitos) }}
+
+
+             </td>
+         </tr>
+
+        <tr>
+            <td width="20%">{{ form_label(form.causal,"SELECCIONE CAUSAL") }}
+                {{ form_widget(form.causal) }}
+                {{ form_errors(form.causal) }}</td>
+
+            <td>{{ form_label(form.causaltxt,"CAUSA QUE ORIGINA LA NECESIDAD") }}
+                {{ form_widget(form.causaltxt,{'attr':{
+                    'class':'form-control',
+                    'rows' : '1'
+
+                }}) }}
+                {{ form_errors(form.causaltxt) }}</td>
+
+        </tr>
+
+    </TABLE>
+    <br>
+    <table width="100%">
+        <tbody>
+        <tr>
+
+
+
+            <td class="table-bordered text-left">
+                {{ form_label(form.plaza,"No. DE PLAZA DEFINITVA QUE CUBRE") }}
+                {{ form_widget(form.plaza) }}
+                {{ form_errors(form.plaza) }}</td>
+            <td colspan="3" width="50%"></td>
+        </tr>
+        </tbody>
+    </table>
+
+
+    <br>
+    <table WIDTH="90%" align="center" class="table table-bordered">
+        <tbody>
+        <tr>
+
+            <td>
+
+                {{ form_label(form.clavePlaza,"No. DE PLAZA EN PLANTILLA (COD. INTERN)") }}
+                {{ form_widget(form.clavePlaza) }}
+                {{ form_errors(form.clavePlaza) }}
+
+            </td>
+
+
+        </tr>
+        </tbody>
+    </table>
+
+    <br>
+        <input class="alert-info" type="submit" value="CONFIRMAR" />
+    <br>
+
+    {{ form_end(form) }}
+
+
+
+            <a CLASS="btn bg-warning" href="{{ path('concurso_index') }}">VER TODOS LOS CONCURSOS</a>
+
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function () {
+            //$('.link-modal').click(function (e) {
+            //    var statusId= $(this).attr('status');
+            //    var statusnombre= $(this).attr('status_nombre');
+               // var lk = '{#{{ path('next_estatus',{ 'concurso': concurso.id ,'nest': '__id1__' }) }}';#}
+               // var link = lk.replace('__id1__', statusId);
+           //     $('#modal-body').html('<p>Cambio al estado &hellip; <strong>'+statusnombre+'</strong></p>');
+            //    $('#link-confirma').attr('href', link)
+           // });
+        });
+    </script>
+
+    <script>
+
+        $('#{{ form.clasificacion.vars.id }}').change(function (event) {
+            $('#{{ form.categoria.vars.id }}').empty();
+            $('#{{ form.tiempoDedicacion.vars.id }}').empty();
+            $('#{{ form.tiempoDedicacion.vars.id }}').empty();
+            $('#{{ form.salarioA.vars.id }}').val('');
+            $('#{{ form.salarioB.vars.id }}').val('');
+            $('#{{ form.actividades.vars.id }}').val('');
+            $('#{{ form.requisitos.vars.id }}').val('');
+            var clasificacionId = $(this).val();
+
+            if(clasificacionId != '')
+            {
+                //alert(clasificacionId);
+
+                var url = '{{ path('categoria_search', {'id': '__id__' }) }}';
+
+                url = url.replace('__id__', clasificacionId);
+                $.ajax({
+                    // la URL para la petición
+                    url : url,
+
+                    type : 'GET',
+
+                    // el tipo de información que se espera de respuesta
+                    dataType : 'json',
+
+                    // código a ejecutar si la petición es satisfactoria;
+                    // la respuesta es pasada como argumento a la función
+                    success : function(json) {
+                        $('#{{ form.categoria.vars.id }}').append('<option value=""></option>');
+                        for(var i in json)
+                        {
+                            console.log(json[i].abreviacion);
+                            //  var option =
+                            $('#{{ form.categoria.vars.id }}').append('<option value='+json[i].id+'>'+json[i].abreviacion+'</option>');
+                        }
+                    },
+
+                    // código a ejecutar si la petición falla;
+                    // son pasados como argumentos a la función
+                    // el objeto de la petición en crudo y código de estatus de la petición
+                    error : function(xhr, status) {
+                        alert('Disculpe, existió un problema');
+                    },
+                });
+            }
+        });
+
+        $('#{{ form.categoria.vars.id }}').change(function (event) {
+            $('#{{ form.tiempoDedicacion.vars.id }}').empty();
+            $('#{{ form.salarioA.vars.id }}').val('');
+            $('#{{ form.salarioB.vars.id }}').val('');
+            $('#{{ form.actividades.vars.id }}').val('');
+            $('#{{ form.requisitos.vars.id }}').val('');
+            var clasificacionId = $('#{{ form.clasificacion.vars.id }}').val();
+            var categoriaId = $(this).val();
+
+            if(clasificacionId !='' && categoriaId != '')
+            {
+                var url = '{{ path('tiempodedicacion_search', {'clasificacion': '__clasificacion__', 'categoria': '__categoria__' }) }}';
+                url = url.replace('__clasificacion__', clasificacionId);
+                url = url.replace('__categoria__', categoriaId);
+                $.ajax({
+                    // la URL para la petición
+                    url : url,
+
+                    type : 'GET',
+
+                    // el tipo de información que se espera de respuesta
+                    dataType : 'json',
+
+                    // código a ejecutar si la petición es satisfactoria;
+                    // la respuesta es pasada como argumento a la función
+                    success : function(json) {
+                        $('#{{ form.tiempoDedicacion.vars.id }}').append('<option value=""></option>');
+                        for(var i in json)
+                        {
+                            console.log(json[i].abreviacion);
+                            //  var option =
+                            $('#{{ form.tiempoDedicacion.vars.id }}').append('<option value='+json[i].id+'>'+json[i].abreviacion+'</option>');
+                        }
+
+                    },
+
+                    // código a ejecutar si la petición falla;
+                    // son pasados como argumentos a la función
+                    // el objeto de la petición en crudo y código de estatus de la petición
+                    error : function(xhr, status) {
+                        alert('Disculpe, existió un problema');
+                    },
+                });
+            }
+        });
+
+
+        // CODIGO PARA EL LLENADO de CADA CAMPO
+
+        $('#{{ form.tiempoDedicacion.vars.id }}').change(function (event) {
+            $('#{{ form.tpHclase.vars.id }}').empty();
+            $('#{{ form.tpHacademia.vars.id }}').empty();
+            $('#{{ form.tpHayudantia.vars.id }}').empty();
+            var clasificacionId = $('#{{ form.clasificacion.vars.id }}').val();
+            var categoriaId = $('#{{ form.categoria.vars.id }}').val();
+            var tiempoDedicacionId = $(this).val();
+
+            if(clasificacionId !='' && categoriaId != '' && tiempoDedicacionId !='' )
+            {
+                var url = '{{ path('clatesal_search', {'clasificacion': '__clasificacion__', 'categoria': '__categoria__' , 'tiempoDedicacion': '__tiempoDedicacion__' }) }}';
+                url = url.replace('__clasificacion__', clasificacionId);
+                url = url.replace('__categoria__', categoriaId);
+                url = url.replace('__tiempoDedicacion__', tiempoDedicacionId);
+                $.ajax({
+                    // la URL para la petición
+                    url : url,
+
+                    type : 'GET',
+
+                    // el tipo de información que se espera de respuesta
+                    dataType : 'json',
+
+                    // código a ejecutar si la petición es satisfactoria;
+                    // la respuesta es pasada como argumento a la función
+                    success : function(json) {
+                        $('#{{ form.salarioA.vars.id }}').val(json[0].salA);
+                        $('#{{ form.salarioB.vars.id }}').val(json[0].salB);
+                        $('#{{ form.actividades.vars.id }}').val(json[0].actividad);
+                        $('#{{ form.requisitos.vars.id }}').val(json[0].requisitos);
+                        console.log(json[0].salA);
+                        console.log(json[0].salB);
+                        console.log(json[0].actividad);
+                        console.log(json[0].requisitos);
+
+                    },
+
+                    // código a ejecutar si la petición falla;
+                    // son pasados como argumentos a la función
+                    // el objeto de la petición en crudo y código de estatus de la petición
+                    error : function(xhr, status) {
+                        alert('Disculpe, existió un problema');
+                    },
+                });
+            }
+        });
+
+
+
+
+
+
+
+    </script>
+
+
+
+
+
+
+
+{% endblock %}
+

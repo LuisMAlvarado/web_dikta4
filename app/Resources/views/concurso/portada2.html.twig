@@ -1,0 +1,338 @@
+{% extends 'frontend.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+
+    <style type="text/css">
+        .tableaviso, .thaviso , .tdaviso {
+            border: 1px solid red; padding: 15px;}
+    </style>
+
+{% endblock %}
+
+
+{% block content %}
+
+    {% if is_granted('IS_AUTHENTICATED_ANONYMOUSLY') %}
+        <h3>Listado de Concursos de Evaluacion Vigentes </h3>
+
+    {% endif %}
+
+    {% if is_granted(expression('"ROLE_ADMININISTRADOR" in roles or "ROLE_ASISTENTE" in roles or "ROLE_DICTAMINADOR" in roles')) %}
+
+    <a href="{{ path('homepage') }}">HOME</a>
+    {% endif %}
+
+    {% if is_granted(expression('"ROLE_ASPIRANTE" in roles')) %}
+        <h4> <span class="label label-default">{{ aspirante.nombre }}  {{ aspirante.apellidoPaterno }} </span></h4>
+        <a class="btn btn-info btn-sm" href="{{ path('aspirante_aspshow',{'id' : aspirante.rfc}) }}">Regresar a INICIO <span class=" glyphicon glyphicon-home"></span></a>
+        <br>
+
+    {% endif %}
+<br>
+    <table class="tableaviso"  >
+        <tr>
+            <td class="tdaviso" align="center" >
+                Los datos en este portal son  de caracter Informativo , la Difusion e Informacion OFICIAL de las CONVOCATORIAS
+                    <br> se puede consultar en <a href="http://www.uam.mx/convoacad/index.html" target="_blank">UAM.CONVOCATORIAS</a>
+            </td>
+        </tr>
+    </table>
+    <br />
+
+    {% if is_granted(expression('"ROLE_ASPIRANTE" in roles')) %}
+
+        <p> <strong>BUSCAR CONVOCATORIAS POR:</strong></p>
+        <table>
+            <tr>
+                <td><strong>DIVISION: &nbsp </strong></td>
+                <td><select id="selectAsp-div">
+
+                        <option value=" ">VER TODAS</option>
+                        {% for division in divisiones  %}
+                            <option value="{{ division.id }}">{{ division.abreviatura }}</option>
+                        {% endfor %}
+                    </select></td>
+                <td width="5%"></td>
+                <td>DEPARTAMENTO: </td>
+                <td>
+                    <select id="selectAsp-depto"></select>
+                </td>
+            </tr>
+        </table>
+
+        <div class="row">
+        <div id="formatAsp-concursos" class="col-md-9">
+
+        </div>
+            <br />
+    {% elseif is_granted('IS_AUTHENTICATED_ANONYMOUSLY') %}
+
+
+    <p> <strong>BUSCAR CONVOCATORIA POR:</strong></p>
+    <table>
+        <tr>
+            <td><strong>DIVISION: &nbsp </strong></td>
+            <td><select id="select-div">
+
+                    <option value=" ">VER TODAS</option>
+                    {% for division in divisiones  %}
+                        <option value="{{ division.id }}">{{ division.abreviatura }}</option>
+                    {% endfor %}
+                </select></td>
+            <td width="5%"></td>
+            <td>DEPARTAMENTO: </td>
+            <td>
+                <select id="select-depto"></select>
+            </td>
+        </tr>
+    </table>
+
+            <div class="row">
+                <div id="format-concursos" class="col-md-9">
+
+                </div>
+
+    {% endif %}
+    <br>
+
+
+
+        {% if not (is_granted(expression('"ROLE_ASPIRANTE" in roles or "ROLE_ASISTENTEDIV" in roles or "ROLE_ASISTENTEDEP" in roles or "ROLE_DICTAMINADOR" in roles  '  ))) %}
+
+
+     <div class="col-md-2 col-md-offset-1">
+
+        <aside>
+            <strong>ACCESO A LA PLATAFORMA</strong><br><br>
+            <form action="{{ path('login_check') }}" method="post" role="form">
+                <div class="form-group">
+                    <label for="username">RFC / # Eco. </label>
+                    <input type="text" id="username" name="_username" value="{{ last_username }}" class="form-control"  placeholder="ASPIRANTES / USUARIOS" />
+                </div>
+                <div class="form-group">
+                    <label for="password">Contraseña:</label>
+                    <input type="password" id="password" name="_password" class="form-control"/>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" id="remember_me" name="_remember_me" checked />
+                        <label for="remember_me">No cerrar sesión</label>
+                        {# AQUI SE PUEDE REDIRIGIR A LA PAGINA QUE NO QUIERA<input type="hidden" name="_target_path" value="/concurso/" />#}
+                    </label>
+                </div>
+                <div class="pull-right">
+                    <input type="submit" name="login" value="Acceder" />
+                </div>
+
+            </form>
+            <br><br>
+            <a  href="{{ path('aspirante_prenew') }}">Solicitar Acceso como ASPIRANTE</a>
+
+        </aside>
+    </div>
+        {% endif %}
+
+
+
+
+
+
+    <footer>
+        <br>&copy; {{ 'now' |date('Y') }}- DICTAMINADORA-UAMI
+        <br>
+        <a href="#">Ayuda</a>
+        <a href="#">Contacto</a>
+        <a href="#">Privacidad</a>
+        <a href="#">Sobre nosotros</a>
+    </footer>
+
+
+
+
+
+   <ul>
+    {% if is_granted(expression('"ROLE_ADMINISTRADOR" in roles')) %}
+
+            <li>
+                <a href="{{ path('concurso_new') }}">Create a new entry</a>
+            </li>
+    {% endif %}
+                {% if is_granted(expression('"ROLE_ADMINISTRADOR" in roles or "ROLE_ASISTENTE" in roles or "ROLE_DICTAMINADOR" in roles')) %}
+                    <li> <a href="{{ path('homepage') }}">HOMES</a> </li>
+                </ul>
+                {% endif %}
+                    {% if is_granted(expression('"ROLE_ASPIRANTE" in roles')) %}
+
+                       <a href="{{ path('aspirante_aspshow',{'id' : aspirante.rfc}) }}">Regresar a sitio</a>
+
+                    {% endif %}
+
+{% endblock %}
+
+
+
+{% block javascripts %}
+
+    {{ parent() }}
+    <script>
+        $(document).ready(function () {
+
+            {#
+            $('#f_sa').submit(function (e) {
+                e.preventDefault();
+                var cadena = $('#search').val();
+                var urlAux = '{{ path('concurso_index', {'cadena': '__cadena__'}) }}';
+                var url = urlAux.replace('__cadena__', cadena);
+                $('#formatAsp-concursos').html('<iframe width="100%" height="400px" scrolling="yes" src="'+url+'"  frameborder="0">');
+            }); #}
+
+
+            $("#format-concursos").html('<iframe width="100%" height="400px" scrolling="yes" src="{{ path('concurso_formatop',{'div': ' ', 'dep': ' ' }) }}"  frameborder="0"> </iframe>')
+            var iframeaux= '<iframe width="100%" height="400px" scrolling="yes" src="{{ path('concurso_formatop',{'div': '__div__', 'dep': '__dep__' }) }}" frameborder="0"> </iframe>';
+
+            $("#select-div").change(function () {
+                var div = $(this).val();
+
+                $("#format-concursos").html('<img src="{{ asset('resource/img/load.gif') }}" >')
+
+                $('#select-depto').empty();
+                //RELLENAR DEPTOS
+                if (div != ' ')
+                {
+                    //alert(div);
+
+                        var Auxurl = '{{ path('depto_search', {'id': '__id__' }) }}';
+
+                    url = Auxurl.replace('__id__', div);
+                    //alert(url);
+
+                    $.ajax({
+                        // la URL para la petición
+                        url: url,
+
+                        type: 'GET',
+
+                        // el tipo de información que se espera de respuesta
+                        dataType: 'json',
+
+                        // código a ejecutar si la petición es satisfactoria;
+                        // la respuesta es pasada como argumento a la función
+                        success: function (departamentos) {
+                            $('#select-depto').append('<option value="%20">Seleccione</option>');
+                            for (var i in departamentos) {
+                                //  alert(departamentos[i].abreviatura);
+                                //    console.log(departamento.abreviatura);
+                                //  var option =
+                                $('#select-depto').append('<option value="' + departamentos[i].id + '">' + departamentos[i].abreviatura + '</option>');
+                            }
+                        },
+
+                        // código a ejecutar si la petición falla;
+                        // son pasados como argumentos a la función
+                        // el objeto de la petición en crudo y código de estatus de la petición
+                        error: function (xhr, status) {
+                            alert('Disculpe, existió un problema');
+                        },
+                    });
+                } else {
+                    div = '%20';
+                }
+                iframe =iframeaux.replace('__div__', div);
+                iframe =iframe.replace('__dep__', '%20');
+                console.log(iframe);
+                $("#format-concursos").html(iframe);
+            });
+
+            $("#select-depto").change(function () {
+                var depto =$(this).val();
+                var div = $("#select-div").val();
+                $("#format-concursos").html('<img src="{{ asset('resource/img/load.gif') }}" >')
+
+                iframe =iframeaux.replace('__div__', div);
+                iframe =iframe.replace('__dep__', depto);
+                console.log(iframe);
+                $("#format-concursos").html(iframe);
+            });
+
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $("#formatAsp-concursos").html('<iframe width="100%" height="400px" scrolling="yes" src="{{ path('concursoAsp_formatop',{'div': ' ', 'dep': ' ' }) }}"  frameborder="0"> </iframe>')
+            var iframeaux= '<iframe width="100%" height="400px" scrolling="yes" src="{{ path('concursoAsp_formatop',{'div': '__div__', 'dep': '__dep__' }) }}" frameborder="0"> </iframe>';
+
+            $("#selectAsp-div").change(function () {
+                var div = $(this).val();
+
+                $("#format-concursos").html('<img src="{{ asset('resource/img/load.gif') }}" >')
+
+                $('#selectAsp-depto').empty();
+                //RELLENAR DEPTOS
+                if (div != ' ')
+                {
+                    //alert(div);
+
+                    var Auxurl = '{{ path('depto_search', {'id': '__id__' }) }}';
+
+                    url = Auxurl.replace('__id__', div);
+                    //alert(url);
+
+                    $.ajax({
+                        // la URL para la petición
+                        url: url,
+
+                        type: 'GET',
+
+                        // el tipo de información que se espera de respuesta
+                        dataType: 'json',
+
+                        // código a ejecutar si la petición es satisfactoria;
+                        // la respuesta es pasada como argumento a la función
+                        success: function (departamentos) {
+                            $('#selectAsp-depto').append('<option value="%20">Seleccione</option>');
+                            for (var i in departamentos) {
+                                //  alert(departamentos[i].abreviatura);
+                                //    console.log(departamento.abreviatura);
+                                //  var option =
+                                $('#selectAsp-depto').append('<option value="' + departamentos[i].id + '">' + departamentos[i].abreviatura + '</option>');
+                            }
+                        },
+
+                        // código a ejecutar si la petición falla;
+                        // son pasados como argumentos a la función
+                        // el objeto de la petición en crudo y código de estatus de la petición
+                        error: function (xhr, status) {
+                            alert('Disculpe, existió un problema');
+                        },
+                    });
+                } else {
+                    div = '%20';
+                }
+                iframe =iframeaux.replace('__div__', div);
+                iframe =iframe.replace('__dep__', '%20');
+                console.log(iframe);
+                $("#formatAsp-concursos").html(iframe);
+            });
+
+            $("#selectAsp-depto").change(function () {
+                var depto =$(this).val();
+                var div = $("#selectAsp-div").val();
+                $("#formatAsp-concursos").html('<img src="{{ asset('resource/img/load.gif') }}" >')
+
+                iframe =iframeaux.replace('__div__', div);
+                iframe =iframe.replace('__dep__', depto);
+                console.log(iframe);
+                $("#formatAsp-concursos").html(iframe);
+            });
+
+        });
+    </script>
+
+
+
+
+
+
+{% endblock %}
+

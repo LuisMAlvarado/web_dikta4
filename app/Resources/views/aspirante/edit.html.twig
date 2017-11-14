@@ -1,0 +1,258 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1 class="text-right">Correción de datos del Aspirante</h1>
+
+    {{ form_start(edit_form) }}
+      {#  {{ form_widget(edit_form) }} #}
+
+
+
+
+
+
+
+
+
+
+
+
+    <TABLE WIDTH="90%" align="center" class="table table-bordered">
+        <tr>
+            <td>
+
+                {{ form_label(edit_form.apellidoPaterno) }}
+                {{ form_widget(edit_form.apellidoPaterno) }}
+                {{ form_errors(edit_form.apellidoPaterno) }}
+
+            </td>
+            <td>
+
+                {{ form_label(edit_form.apellidoMaterno) }}
+                {{ form_widget(edit_form.apellidoMaterno) }}
+                {{ form_errors(edit_form.apellidoMaterno) }}
+
+            </td>
+            <td COLSPAN="3">
+
+                {{ form_label(edit_form.nombre) }}
+                {{ form_widget(edit_form.nombre) }}
+                {{ form_errors(edit_form.nombre) }}
+
+            </td>
+
+        </tr>
+
+        <tr>
+
+            <td>
+
+                {{ form_label(edit_form.nacionalidad) }}
+                {{ form_widget(edit_form.nacionalidad) }}
+                <div class="alert-danger"> {{ form_errors(edit_form.nacionalidad) }} </div>
+
+            </td>
+            <td>
+
+                {{ form_label(edit_form.rfc,"RFC") }}
+                {{ form_widget(edit_form.rfc) }}
+                {{ form_errors(edit_form.rfc) }}
+
+            </td>
+            <td>
+
+                {{ form_label(edit_form.curp,"CURP") }}
+                {{ form_widget(edit_form.curp) }}
+                <div class="alert-danger">{{ form_errors(edit_form.curp) }}</div>
+
+            </td>
+            <td colspan="2">
+                {{ form_label(edit_form.fechaBirthday,"FECHA DE NACIMIENTO") }}
+                {{ form_widget(edit_form.fechaBirthday) }}
+                {{ form_errors(edit_form.fechaBirthday) }}</td>
+
+        </tr>
+
+        <tr>
+            <td>
+
+                {{ form_label(edit_form.edad) }}
+                {{ form_widget(edit_form.edad) }}
+                {{ form_errors(edit_form.edad) }}
+
+
+            <td>
+
+                {{ form_label(edit_form.sexo) }}
+                {{ form_widget(edit_form.sexo) }}
+                {{ form_errors(edit_form.sexo) }}
+
+            </td>
+            <td>
+
+                {{ form_label(edit_form.estadoCivil) }}
+                {{ form_widget(edit_form.estadoCivil) }}
+                {{ form_errors(edit_form.estadoCivil) }}
+
+            </td>
+            <td>
+
+                {{ form_label(edit_form.telefonos) }}
+                {{ form_widget(edit_form.telefonos) }}
+                {{ form_errors(edit_form.telefonos) }}
+
+            </td>
+            <td>
+
+                {{ form_label(edit_form.correoElectronico) }}
+                {{ form_widget(edit_form.correoElectronico) }}
+                {{ form_errors(edit_form.correoElectronico) }}
+
+            </td>
+
+        </tr>
+
+        <tr>
+            <td colspan="2">
+
+                {{ form_label(edit_form.calle) }}
+                {{ form_widget(edit_form.calle,{'attr':{
+                    'class':'form-control',
+                    'rows' : '1',
+                    'cols' :'15',
+
+                }}) }}
+                <div class="alert-danger"> {{ form_errors(edit_form.calle) }} </div>
+
+            </td>
+            <td>
+
+                {{ form_label(edit_form.noExt,"No.EXT") }}
+                {{ form_widget(edit_form.noExt) }}
+                <div class="alert-danger">  {{ form_errors(edit_form.noExt) }} </div>
+
+            </td>
+
+            <td>
+
+                {{ form_label(edit_form.edif,"EDIF.") }}
+                {{ form_widget(edit_form.edif) }}
+                {{ form_errors(edit_form.edif) }}
+
+            </td>
+            <td>
+
+                {{ form_label(edit_form.depto,"DEPTO .") }}
+                {{ form_widget(edit_form.depto) }}
+                {{ form_errors(edit_form.depto) }}
+
+            </td>
+        </tr>
+
+        <tr><td colspan="5">
+
+                {{ form_label(edit_form.coloniaFracc) }}
+                {{ form_widget(edit_form.coloniaFracc,{'attr':{
+                    'class':'form-control',
+                    'rows' : '1',
+                    'cols' :'15',
+
+                }}) }}
+                <div class="alert-danger">{{ form_errors(edit_form.coloniaFracc) }} </div>
+
+            </td></tr>
+
+        <tr>
+            <td colspan="2">
+
+                {{ form_label(edit_form.delegMunc) }}
+                {{ form_widget(edit_form.delegMunc,{'attr':{
+                    'class':'form-control',
+                    'rows' : '1',
+                    'cols' :'15',
+
+                }}) }}
+                {{ form_errors(edit_form.delegMunc) }}
+
+            </td>
+            <td colspan="2">
+
+                {{ form_label(edit_form.estado) }}
+                {{ form_widget(edit_form.estado,{'attr':{
+                    'class':'form-control',
+                    'rows' : '1',
+                    'cols' :'15',
+
+                }}) }}
+                {{ form_errors(edit_form.estado) }}
+
+            </td>
+            <td>
+
+                {{ form_label(edit_form.codPost,"CÓDIGO POSTAL") }}
+                {{ form_widget(edit_form.codPost) }}
+                {{ form_errors(edit_form.codPost) }}
+
+            </td>
+
+        </tr>
+
+
+        <tr> <td>
+
+                {{ form_label(edit_form.numeroEconomico) }}
+                {{ form_widget(edit_form.numeroEconomico) }}
+                {{ form_errors(edit_form.numeroEconomico) }}
+
+            </td>
+        </tr>
+
+    </TABLE>
+    <br>
+    <TABLE class="table table-bordered">
+        <tr> <td>
+
+                {{ form_label(edit_form.password,'Nva. Contraseña') }}
+                {{ form_widget(edit_form.password) }}
+                {{ form_errors(edit_form.password) }}
+
+            </td>
+        </tr>
+        {% if is_granted('ROLE_ADMINSTRADOR') %}
+            <tr> <td>
+
+                    {{ form_label(edit_form.locked) }}
+                    {{ form_widget(edit_form.locked) }}
+                    {{ form_errors(edit_form.locked) }}
+
+                </td>
+            </tr>
+        {% endif %}
+    </TABLE>
+
+    <input class="btn btn-success" type="submit" value="MODIFICAR" />
+
+    {{ form_end(edit_form) }}
+
+
+
+
+    <ul>
+        {% if is_granted('ROLE_ADMINSTRADOR') %}
+        <li>
+            <a href="{{ path('aspirante_index') }}">Back to the list</a>
+        </li>
+            <li>
+            {{ form_start(delete_form) }}
+            <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+        {% elseif is_granted('ROLE_ASPIRANTE') %}
+            <br/>
+            <a class="btn btn-info btn-sm" href="{{ path('aspirante_aspshow',{'id' : aspirante.rfc}) }}">Regresar a INICIO <span class=" glyphicon glyphicon-home"></span></a>
+
+
+        {% endif %}
+
+    </ul>
+{% endblock %}

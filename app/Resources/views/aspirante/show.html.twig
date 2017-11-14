@@ -1,0 +1,137 @@
+{% extends 'frontend.html.twig' %}
+
+{% block header %}
+    <table class="table">
+        <tr>
+            <td> <img src="{{ asset('resource/img/encabezado.png') }}"  /></td>
+            <td class="text-right"><strong>Datos utilizados  <br />  para su Registro</strong></td>
+        </tr>
+    </table>
+{% endblock %}
+
+{% block content %}
+    <h1>Aspirante</h1>
+
+    <table width="100%">
+        <tbody>
+        <tr>
+            <td colspan="3" width="50%"></td>
+            <th class="table-bordered text-right" >Fecha: &nbsp;</th>
+
+            <td class="table-bordered text-center">{% if aspirante.createAt %}{{  aspirante.createAt|date('d-M-Y') }}{% endif %}</td></tr>
+
+        </tbody>
+    </table>
+    <br />
+
+    <table  align="center" class="table table-bordered">
+        <tbody>
+
+
+
+        <tr>
+            <td><strong>Apellido Paterno</strong><br />
+                {{ aspirante.apellidoPaterno }}
+            </td>
+            <td> <strong>Apellido Materno</strong><br>
+                {{ aspirante.apellidoMaterno }}
+            </td>
+            <td><strong>Nombre</strong><br>
+                {{ aspirante.nombre }}
+            </td>
+
+        </tr>
+
+        <tr>
+            <td><strong>Nacionalidad</strong><br />
+                {{ aspirante.nacionalidad }}
+            </td>
+            <td> <strong>RFC</strong><br>
+                {{ aspirante.rfc }}
+            </td>
+            <td><strong>CURP</strong><br>
+                {{ aspirante.curp }}
+            </td>
+
+        </tr>
+
+
+        <tr>
+            <th>Edad</th> <th>Sexo</th> <th>Estado Civil</th> <th>Telefonos</th> <th>mail</th>
+        </tr>
+        <tr>
+            <td>{{ aspirante.edad }}</td>
+
+            <td>{{ aspirante.sexo }}</td>
+
+            <td>{{ aspirante.estadoCivil }}</td>
+
+            <td>{{ aspirante.telefonos }}</td>
+
+            <td>{{ aspirante.correoElectronico }}</td>
+
+        </tr>
+
+        <tr>
+            <th>Calle</th>
+            <td>{{ aspirante.calle }}</td>
+        </tr>
+
+
+
+        </tbody>
+    </table>
+    <br>
+
+    <table width="100%">
+        <tbody>
+        <tr>
+
+            <th class="table-bordered text-left" >Número de Empleado <br> (si fue o es empleado  de la UAM)</th>
+
+            <td class="table-bordered text-center">{{ aspirante.numeroEconomico }}</td>
+            <td colspan="3" width="50%"></td>
+        </tr>
+        </tbody>
+    </table>
+    <br><br>
+
+    <ul>
+        {% if is_granted(expression('"ROLE_ASISTENTEDIV" in roles ')) and aspirante.enable == 0  %}
+        <a href="{{ path('aspirante_enable', { 'aspirante': aspirante.rfc }) }}" class=" btn btn-success btn-xs "><span class="glyphicon glyphicon-ok"></span>ACTIVAR Aspirante</a>
+        {% endif %}
+
+
+        {% if is_granted(expression('"ROLE_ASISTENTEDIV" in roles ')) %}
+
+            <a href="{{ path('aspirante_index') }}" class=" btn btn-warning btn-xs " ><span class="glyphicon glyphicon-ban-circle"></span>Activar más ASPIRANTES</a>
+            <br><br>
+
+            <a class="btn btn-default" href="{{ path('homepage') }}"><span class="glyphicon glyphicon-home"></span>_MENU</a>
+
+        {% endif %}
+
+        {% if is_granted(expression('"ROLE_ADMINISTRADOR" in roles ')) %}
+        <li>
+            <a href="{{ path('aspirante_edit', { 'id': aspirante.rfc }) }}">Corregir Datos</a>
+        </li>
+
+        <li>
+            {{ form_start(delete_form) }}
+            <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+        {#
+        {% elseif is_granted(expression('"ROLE_ASISTENTEDIV" in roles ')) and aspirante.enable == 0  %}
+
+                <a href="{{ path('aspirante_enable', { 'aspirante': aspirante.rfc }) }}" class=" btn btn-success btn-xs "><span class="glyphicon glyphicon-log-out"></span>ACTIVAR Aspirante</a>
+
+        #}
+
+        {% endif %}
+    </ul>
+
+
+
+
+{% endblock %}

@@ -1,0 +1,96 @@
+{% extends 'frontend.html.twig' %}
+
+{% block content %}
+    {% if is_granted(expression('"ROLE_ADMININISTRADOR" in roles or "ROLE_ASISTENTEDEP" in roles or "ROLE_ASISTENTEDIV" in roles or "ROLE_DICTAMINADOR" in roles')) %}
+        <h1>Concursos</h1>
+        <a class="btn btn-default" href="{{ path('homepage') }}"><span class="glyphicon glyphicon-home"></span>_MENU</a>
+    {% endif %}
+
+    {% if is_granted(expression('"ROLE_ASPIRANTE" in roles')) %}
+        <h1>Concursos Vigentes donde puedes generar tu Registro {{ aspirante.nombre }}  {{ aspirante.apellidoPaterno }}</h1>
+
+        <a href="{{ path('aspirante_aspshow',{'id' : aspirante.rfc}) }}">Regresar a sitio</a>
+
+    {% endif %}
+
+    <div class="nav">
+        <lu class="list-inline">
+            <li> <a href="#"></a></li>
+            <li>menu2 <a href="#"></a></li>
+            <li>menu3 <a href="#"></a></li>
+        </lu>
+    </div>
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>No. Concurso</th>
+                <th>Estatus</th>
+                {#<th>Createat</th>#}
+                <th>Departamento</th>
+                <th>Fechapublicacion</th>
+                {% if is_granted(expression('"ROLE_DICTAMINADOR" in roles')) %}
+                    <th>Dictamen</th>
+                {% endif %}
+
+                <th>Clasificacion</th>
+                <th>Categoria</th>
+                <th>Tiempodedicacion</th>
+
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for concurso in concursos %}
+            <tr>
+                <td><a href="{{ path('concurso_show', { 'id': concurso.id }) }}">{{ concurso.id }}</a></td>
+                <td><a href="{{ path('concurso_show', { 'id': concurso.id }) }}">{{ concurso.numConcurso }}</a></td>
+                <td>{{ concurso.estatus }}</td>
+                <td>{{ concurso.departamento }}</td>
+                {# <td>{% if concurso.createAt %}{{ concurso.createAt|date('Y-m-d H:i:s') }}{% endif %}</td>#}
+                <td>{% if concurso.fechaPublicacion %}{{ concurso.fechaPublicacion|date('Y-m-d H:i:s') | date("d-M-Y") }}{% endif %}</td>
+                {% if is_granted(expression('"ROLE_DICTAMINADOR" in roles')) %}
+                    <td>{{ concurso.dictamen }}</td>
+                {% endif %}
+
+                <td>{{ concurso.clasificacion }}</td>
+                <td>{{ concurso.categoria }}</td>
+                <td>{{ concurso.tiempoDedicacion }}</td>
+
+
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('concurso_show', { 'id': concurso.id }) }}">show</a>
+                        </li>
+                        {% if is_granted(expression('"ROLE_ASISTENTEDIV" in roles or "ROLE_ADMINISTRADOR" in roles')) %}
+                            <li>
+                                <a href="{{ path('concurso_edit', { 'id': concurso.id }) }}">edit</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('reconvocar_edit', { 'concurso': concurso.id }) }}">RECONVOCAR</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('concurso_showreg', { 'id': concurso.id }) }}">ASP. REGISTRADOS</a>
+                            </li>
+                        {% endif %}
+                        {% if is_granted(expression('"ROLE_DICTAMINADOR" in roles')) %}
+                            <li>
+                                <a href="{{ path('dictamen_new', { 'id': concurso.id }) }}">DICTAMINAR</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+    <ul>
+        <li>
+            <a href="{{ path('concurso_new') }}">Registro de Nvo. Concurso</a>
+        </li>
+    </ul>
+{% endblock %}

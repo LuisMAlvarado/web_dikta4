@@ -1,0 +1,430 @@
+{% extends 'frontend.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+
+    <link href="{{ asset('resource/css/usershow.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('resource/css/tablita_curva.css') }}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+
+
+
+
+
+{% block header %}
+    {% if is_granted(expression('"ROLE_ASISTENTEDIV" in roles or "ROLE_ASISTENTEDEP" in roles or "ROLE_ADMINISTRADOR" in roles ')) %}
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+
+                </button>
+               <p class="navbar-brand"><strong>Estatus actual: </strong> <a  href="{{ path('concurso_indexest',{'est':concurso.estatus.id}) }}">{{ concurso.estatus }}</a></p>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li ><a href="{{ path('concurso_index') }}">Ver Todos <span class=" glyphicon glyphicon-list-alt"></span></a></li>
+                    <li><a href="{{ path('cecFORM_pdf', { 'id': concurso.id }) }}" target="_self"
+                           rel="popover"  data-container="body" data-toggle= "popover" data-placement="bottom"
+                           title= "PARA VER EL ARCHIVO" data-content= "Seleccione el directorio donde se guardara y genera el PDF por default es la carpeta DESCARGAS / DOWNLOAD"
+                        >Guardar y Generar en PDF<span class=" glyphicon glyphicon-file"></span></a></li>
+
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    {% if is_granted(expression('"ROLE_ASISTENTEDIV" in roles or "ROLE_ADMINISTRADOR" in roles ')) and concurso.estatus.id < 3 %}
+                        <li><a href="{{ path('concurso_edit', { 'id': concurso.id }) }}">Editar</a></li>
+                    {% elseif  is_granted(expression('"ROLE_ASISTENTEDEP" in roles')) and concurso.estatus.id < 2  %}
+                        <li><a href="{{ path('concurso_edit', { 'id': concurso.id }) }}">Editar</a></li>
+                    {% endif %}
+
+                    {% if (is_granted(expression('"ROLE_ASISTENTEDIV" in roles'))) and concurso.estatus != 'Reconvocado' %}
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cambiar Estatus <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            {% for estadosSiguiente in concurso.estatus.estadosSiguientes %}
+                                <li>
+                                    <a href="#" data-toggle="modal" data-target="#estatusModal"  status="{{estadosSiguiente.id}}" status_nombre="{{ estadosSiguiente.estatus }}" class="link-modal">{{ estadosSiguiente.estatus }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    {% elseif  is_granted(expression('"ROLE_ASISTENTEDIV" in roles')) and concurso.estatus == 'Reconvocado'  %}
+                       <li> <a href="{{ path('reconvocar_edit', { 'concurso': concurso.id }) }}">RECONVOCAR este concurso</a>
+
+                    {% endif %}
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+
+    {% endif %}
+
+
+
+
+
+    <table border="0" width="99%" >
+
+        <tr>
+
+            <td border="0" rowspan="2" valign="bottom"> <img src="{{ asset('resource/img/encabezado.png') }}"  /></td>
+            <td align="right" valign="bottom"><font size="0">FI-DIPPPA-03 / 01122015 PÁGINA 1/2 </font></td>
+        </tr>
+        <tr>
+            <td valign="top" class="  text-right "> <strong>CONVOCATORIA A CONCURSO DE EVALUACIÓN CURRICULAR</strong></td>
+        </tr>
+    </table>
+{% endblock %}
+
+
+{% block content  %}
+
+
+    <table  width="100%">
+        <tbody class=" small">
+        <tr>
+            <td colspan="3" width="50%"></td>
+            <th class="table-bordered text-right " >PARA: &nbsp;</th>
+
+            <td class="table-bordered text-center ">{{ concurso.clasificacion.nombre }}</td></tr>
+
+        </tbody>
+    </table>
+    <br />
+    <table width="100%">
+        <tbody class="small">
+        <tr>
+            <td colspan="3" width="50%"></td>
+            <th class="table-bordered text-right small" >No. EC. &nbsp;</th>
+
+            <td class="table-bordered text-center small">{{ concurso.numConcurso }}</td>
+            <th class="table-bordered text-right small" >FECHA: &nbsp;</th>
+
+            <td class="table-bordered text-center small">{% if concurso.createAt %}{{ concurso.createAt|date('d-M-Y') }}{% endif %}</td>
+        </tr>
+
+        </tbody>
+    </table> <br>
+    <font size="0"><p   > CONFORME A LO PREVISTO EN EL REGLAMENTO DE INGRESO, PROMOCIÓN Y PERMANENCIA DEL PERSONAL ACADÉMICO, LA UNIVERSIDAD AUTÓNOMA
+            METROPOLITANA CONVOCA AL CONCURSO PARA OCUPAR CON CARÁCTER DE TEMPORAL LA SIGUIENTE PLAZA: </p></font>
+    <table class="table-curved" align="center"  width="100%">
+        <tbody>
+
+        <tr>
+            <td ><strong>Categoria</strong><br />
+                {{ concurso.clasificacion }}  {{ concurso.categoria.nombre }}
+            </td>
+            <td  colspan="2"> <strong>Tiempo de Dedicación</strong><br>
+                {{ concurso.tiempoDedicacion.nombre }}
+            </td>
+        </tr>
+
+        <tr>
+            <td > <strong>Unidad</strong><br>
+                {{ concurso.unidad }}
+            </td>
+            <td  colspan="2"><strong>División</strong><br />
+                {{ concurso.departamento.division.nombre }}
+            </td>
+
+
+        </tr>
+
+        <tr>
+            <td > <strong>DE CLASE:  </strong>
+                {{ concurso.tpHclase }}
+            </td>
+            <td ><strong>DE OTRAS ACTIVIDADES ACADÉMICAS:  </strong>
+                {{ concurso.tpHacademia }}
+            </td>
+
+            <td ><strong>DE AYUDANTÍA:  </strong>
+                {{ concurso.tpHayudantia }}
+            </td>
+
+        </tr>
+
+
+        <tr>
+            <td  > <strong>Departamento</strong><br>
+                {{ concurso.departamento.nombre}}
+            </td>
+
+
+
+            <td  colspan="2"> <strong>Area Departamental</strong><br>
+                {{ concurso.areaDepartamental }}
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <strong>SALARIO</strong> <br>
+                DE: ${{ concurso.salarioA |number_format(2, '.', ',')  }}
+            </td>
+            <td > <br>
+                A: ${{ concurso.salarioB |number_format(2, '.', ',')  }}
+            </td>
+            <td ><strong>Horario</strong><br />
+                {{ concurso.horario }}
+            </td>
+
+        </tr>
+
+        <tr>
+            <td  >
+                <strong>FECHA  DE INGRESO: </strong> <br>
+                {{ concurso.fechaIn |date('d-M-Y')  }}
+            </td>
+
+            <td  colspan="2" >
+                <strong>FECHA DE TERMINACIÓN DE LABORES: </strong> <br>
+                {{ concurso.fechaTer |date('d-M-Y') }}
+        </tr>
+        <tr>
+            <td  colspan="3"> <strong>DURACIÓN DE LA CONTRATACIÓN</strong><br>
+
+            </td>
+        </tr>
+        <tr>
+            <td  align="center" colspan="3">
+                {{ dias }}
+            </td>
+        </tr>
+
+    </table> <br />
+
+    <TABLE  class="table-curved"  align="center"  width="99%">
+        <tr>
+            <td valign="top" height="50" colspan="2" class="small">
+                <strong>ACTIVIDADES A REALIZAR</strong> <br>
+                {{ concurso.actividades |nl2br }}
+
+
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <strong>ÁREA DE CONOCIMIENTO</strong> <br>
+                {{ concurso.aConocimiento }}
+
+
+            </td>
+            <td>
+                <strong>DISCIPLINA</strong> <br>
+
+                {{ concurso.disciplina }}
+
+            </td>
+        </tr>
+
+        <tr>
+            <td  valign="top" height="40" colspan="2">
+                <strong>REQUISITOS ACADÉMICOS</strong> (para poder participar en los concursos, no deberán encontrarse en los supuestos establecidos en los articulos 137 bis y 137 ter. del RIPPPA) <br>
+                {{ concurso.requisitos }}
+
+
+            </td>
+        </tr>
+
+        <tr>
+            <td  valign="top" height="40" colspan="2">
+                <strong>CAUSA QUE ORIGINA LA NECESIDAD</strong> <br>
+                {{ concurso.causalC }}
+
+
+            </td>
+        </tr>
+
+    </TABLE>
+    <br>
+    <TABLE class="table-curved" align="center" width="100%">
+        <tr>
+            <td ccolspan="2">
+                <strong>NÚMERO DE PLAZA DEFINITIVA QUE CUBRE: &nbsp;</strong>
+                {{ concurso.plaza }}
+
+
+            </td>
+        </tr>
+
+    </TABLE>
+
+    <br>
+    <div class="div1">
+    <TABLE WIDTH="95%"  align="center" class="table table-bordered small">
+        <tr>
+            <td width="30%"  height="90" class="text-center small"> <strong>JEFE DE DEPARTAMENTO</strong><br><br><br><br>
+                {{ concurso.departamento.dpNombreCompleto }}
+            </td>
+            <td width="40%" class="text-center small"><strong>DIRECTOR DE DIVISIÓN  </strong><br><br><br><br>
+                {{ concurso.departamento.division.dNombreCompleto }}
+            </td>
+
+            <td width="30%" class="text-center small"><strong>SUBDIRECTOR DE RELACIONES DE TRABAJO  </strong><br><br><br><br>
+                M. EN C. HIPÓLITO LARA RESÉNDIZ
+            </td>
+
+        </tr>
+    </TABLE>
+    </div>
+    <br>
+
+    <font size="0"><p align="center" class="visible-print">T1 DIPPPA &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;T4 DIRECTOR DE DIVISIÓN<br>
+            T2 RECTORÍA GENERAL &nbsp;&nbsp;&nbsp; T5 CMGVPIPPA<br>
+            T3 CMGVPIPPA &nbsp; </p></font>
+    <br>
+
+
+
+    <br>
+    {% if is_granted(expression('"ROLE_ADMINISTRADOR" in roles or "ROLE_DICTAMINADOR" in roles ')) %}
+        <table class="table table-striped hidden-print">
+            <tbody>
+            <tr>
+                <th>Pdfconcurso</th>
+                <td>{{ concurso.pdfConcurso }}</td>
+            </tr>
+            </tbody>
+        </table>
+
+
+    {% endif %}
+    
+    {% if is_granted(expression('"ROLE_DICTAMINADOR" in roles '))%}
+        <a    href="{{ path('concurso_index')}}">Listado de CONVOCATORIAS</a>
+    {% endif %}
+
+    <ul class="hidden-print  text-center">
+
+        {% if is_granted(expression('"ROLE_ASISTENTEDIV" in roles')) %}
+
+            {# <a    href="{{ path('registro_new',{'idc':concurso.id })}}">REGISTRAR ASPIRANTES</a>
+             <br>
+              <a href="{{ path('concurso_showreg', { 'id': concurso.id }) }}">VER ASPIRANTES REGISTRADOS</a> #}
+
+        {%  endif %}
+    </ul>
+
+    {% if is_granted(expression('"ROLE_ASISTENTEDIV" in roles or "ROLE_ASISTENTEDEP" in roles ')) %}
+
+    <div class="hidden-print">
+        <br>
+        {% if is_granted(expression('"ROLE_ADMINISTRADOR" in roles '))%}
+            {{ form_start(delete_form) }}
+                <input type="submit" value="BORRAR">
+            {{ form_end(delete_form) }}
+        {% endif %}
+
+
+
+    </div>
+
+    <div class="visible-print" >
+    <font size="0"><p class="text-right">FI-DIPPPA-03 / 01122015 PÁGINA 2/2 </p></font>
+    <br>
+    <br>
+
+    <font size="0"><p class="text-left">NOTA: SE UTILIZA ÚNICAMENTE AL REVERSO DEL TANTO 1 </p></font>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="small">
+        <table border="0" cellpadding="0" cellspacing="0" align="center"   width="80%" >
+            <tr>
+                <td  width="250" class="text-center table-bordered small"> <strong>Vo. BO PLANTILLA DE UNIDAD</strong><br><br><br><br><br><br>
+                    <strong>SELLO</strong>
+                </td>
+
+                <td>  </td>
+
+                <td width="250" class="text-center table-bordered small"> <strong>Vo. BO PLANTILLA DE RECTORÍA GENERAL</strong><br><br><br><br><br><br>
+                    <strong>SELLO</strong>
+                </td>
+            </tr>
+        </table>
+
+        <br>
+        <br>
+        <br>
+        <table width="300" border="1" cellpadding="0" cellspacing="0" align="center">
+            <tr>
+                <td class=" table table-bordered text-center small"> <strong>CODIFICACIÓN INTERNA (No. DE PLAZA EN PLANTILLA)</strong><br>
+                    {{ concurso.plaza }}</td>
+
+            </tr>
+            <tr>
+                <td class="table table-bordered text-center small">
+                    <strong>CONTROL DE PLANTILLA</strong><br><br><br><br><br><br>
+                    <strong>LIC. CIRO M. DÍAZ ROJAS</strong>
+                </td>
+            </tr>
+
+        </table>
+
+    </div>
+
+    {% endif %}
+
+    {% if is_granted('IS_AUTHENTICATED_ANONYMOUSLY') %}
+        {# <a href="{{ path('portada') }}">REGRESAR</a>#}
+    {% endif %}
+
+    <br>
+</div>
+
+    <div class= "modal fade bd-modal-sm" id= "estatusModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" align="center">¿CONFIRMA?</h4>
+                </div>
+                <div id="modal-body" class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <a id="link-confirma" type="button" class="btn btn-primary" href="#">Confirmo Cambio</a>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script>
+    $(document).ready(function () {
+        $('.link-modal').click(function (e) {
+           // var edonumec = $('{#{ concurso.numConcurso.vars.id }#}').val();
+           // alert(edonumec);
+            var statusId= $(this).attr('status');
+            var statusnombre= $(this).attr('status_nombre');
+            var lk = '{{ path('next_estatus',{ 'concurso': concurso.id ,'nest': '__id1__' }) }}';
+            var link = lk.replace('__id1__', statusId);
+            $('#modal-body').html('<p>Cambio al estado &hellip; <strong>'+statusnombre+'</strong></p>');
+            $('#link-confirma').attr('href', link)
+        });
+    });
+</script>
+    <script>
+        $('[rel="popover"]').popover({
+            trigger:'hover',
+            html:true,
+            delay:500,
+        });
+    </script>
+{% endblock %}

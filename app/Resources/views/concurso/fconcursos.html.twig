@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+</head>
+
+<body>
+
+<header>
+
+</header>
+
+<table width="90%" class="table-condensed">
+
+    <tbody>
+    {% for concurso in concursos %}
+        <tr>
+            <td>
+                <br>
+                <strong><a href="{{ path('concurso_show', { 'id': concurso.id }) }}">{{ concurso.numConcurso }}</a> {{ concurso.clasificacion }} {{ concurso.categoria }} {{ concurso.tiempoDedicacion.nombre }} </strong> <br>
+                <strong>Departamento: {{ concurso.departamento }}</strong> <br>
+                <strong>Salario:</strong> ${{ concurso.salarioA |number_format(2, '.', ',')  }} <br>
+                <strong>Horario: </strong> {{ concurso.horario }} <br>
+                <strong>Fecha de inicio y término: </strong>  {{ concurso.fechaIn |date('d m y')  }} a  {{ concurso.fechaTer |date('d m y') }}<br>
+                <strong>Actividades a realizar:</strong> {{ concurso.actividades }}<br>
+                <strong>Área de Conocimiento:</strong>  {{ concurso.aConocimiento }}<br>
+                <strong>Disciplina:</strong>  {{ concurso.disciplina }}<br>
+                <strong>Requisitos académicos: </strong> {{ concurso.requisitos }}<br>
+                <strong>Causal: </strong> {{ concurso.causalC }}<br>
+
+            </td>
+            <td class="right">
+
+                <strong>Fecha de Publicación: </strong> {% if concurso.fechaPublicacion %}   {{ concurso.fechaPublicacion|date ('d M Y') }}{% endif %}<br><br>
+                {% if app.user %}
+                    <a href="{{ path('preregistro_show',{'concurso':concurso.id })}}" target="_parent"  class=" btn btn-success btn-xs ">REGISTRARSE </a> <p> antes del {% if concurso.fechaPublicacion %}   {{ concurso.fechaPublicacion|date_modify('+3 day')|date ('d M Y') }}{% endif %}</p>
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+
+</body>

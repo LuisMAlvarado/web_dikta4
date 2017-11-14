@@ -1,0 +1,356 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1 align="center">Alta de nuevo Aspirante</h1>
+
+    {{ form_start(form) }}
+    {#  {{ form_widget(form) }} #}
+
+    {#
+    <TABLE WIDTH="90%" align="center" class="table table-bordered">
+        <tr>
+            <td>
+
+                {{ form_label(form.apellidoPaterno) }}
+                {{ form_widget(form.apellidoPaterno) }}
+                {{ form_errors(form.apellidoPaterno) }}
+
+            </td>
+            <td>
+
+                {{ form_label(form.apellidoMaterno) }}
+                {{ form_widget(form.apellidoMaterno) }}
+                {{ form_errors(form.apellidoMaterno) }}
+
+            </td>
+            <td COLSPAN="2">
+
+                {{ form_label(form.nombre) }}
+                {{ form_widget(form.nombre) }}
+                {{ form_errors(form.nombre) }}
+
+            </td>
+
+        </tr>
+
+        <tr>
+
+            <td>
+
+                {{ form_label(form.nacionalidad) }}
+                {{ form_widget(form.nacionalidad) }}
+                {{ form_errors(form.nacionalidad) }}
+
+            </td>
+            <td>
+
+                {{ form_label(form.rfc) }}
+                {{ form_widget(form.rfc) }}
+                {{ form_errors(form.rfc) }}
+
+            </td>
+            <td>
+
+                {{ form_label(form.curp) }}
+                {{ form_widget(form.curp) }}
+                {{ form_errors(form.curp) }}
+
+            </td>
+
+        </tr>
+
+        <tr>
+            <td>
+
+                {{ form_label(form.edad) }}
+                {{ form_widget(form.edad) }}
+                {{ form_errors(form.edad) }}
+
+
+            <td>
+
+                {{ form_label(form.sexo) }}
+                {{ form_widget(form.sexo) }}
+                {{ form_errors(form.sexo) }}
+
+            </td>
+            <td>
+
+                {{ form_label(form.estadoCivil) }}
+                {{ form_widget(form.estadoCivil) }}
+                {{ form_errors(form.estadoCivil) }}
+
+            </td>
+            <td>
+
+                {{ form_label(form.telefonos) }}
+                {{ form_widget(form.telefonos) }}
+                {{ form_errors(form.telefonos) }}
+
+            </td>
+            <td>
+
+                {{ form_label(form.correoElectronico) }}
+                {{ form_widget(form.correoElectronico) }}
+                {{ form_errors(form.correoElectronico) }}
+
+            </td>
+
+        </tr>
+
+        <tr>
+            <td colspan="2">
+
+                {{ form_label(form.calle) }}
+                {{ form_widget(form.calle) }}
+                {{ form_errors(form.calle) }}
+
+            </td>
+
+
+        </tr>
+
+
+        <tr> <td>
+
+                {{ form_label(form.numeroEconomico) }}
+                {{ form_widget(form.numeroEconomico) }}
+                {{ form_errors(form.numeroEconomico) }}
+
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                {{ form_label(form.fechaBirthday) }}
+                {{ form_widget(form.fechaBirthday) }}
+                {{ form_errors(form.fechaBirthday) }}
+
+
+            </td>
+        </tr>
+
+    </TABLE>
+
+    #}
+
+    <TABLE WIDTH="90%" align="center" class="table table-bordered">
+        <tr>
+            <td>
+
+                {{ form_label(form.apellidoPaterno) }}
+                {{ form_widget(form.apellidoPaterno) }}
+                {{ form_errors(form.apellidoPaterno) }}
+
+            </td>
+            <td>
+
+                {{ form_label(form.apellidoMaterno) }}
+                {{ form_widget(form.apellidoMaterno) }}
+                {{ form_errors(form.apellidoMaterno) }}
+
+            </td>
+            <td COLSPAN="3">
+
+                {{ form_label(form.nombre) }}
+                {{ form_widget(form.nombre) }}
+                {{ form_errors(form.nombre) }}
+
+            </td>
+
+        </tr>
+
+        <tr>
+
+            <td>
+
+                {{ form_label(form.nacionalidad) }}
+                {{ form_widget(form.nacionalidad) }}
+                <div class="alert-danger"> {{ form_errors(form.nacionalidad) }} </div>
+
+            </td>
+            <td>
+
+                {{ form_label(form.rfc,"RFC") }}
+                {{ form_widget(form.rfc) }}
+                {{ form_errors(form.rfc) }}
+
+            </td>
+            <td>
+
+                {{ form_label(form.curp,"CURP") }}
+                {{ form_widget(form.curp) }}
+                <div class="alert-danger">{{ form_errors(form.curp) }}</div>
+
+            </td>
+            <td colspan="2">
+                {{ form_label(form.fechaBirthday,"FECHA DE NACIMIENTO") }}
+                {{ form_widget(form.fechaBirthday) }}
+                {{ form_errors(form.fechaBirthday) }}</td>
+
+        </tr>
+
+        <tr>
+            <td>
+
+                {{ form_label(form.edad) }}
+                {{ form_widget(form.edad) }}
+                {{ form_errors(form.edad) }}
+
+
+            <td>
+
+                {{ form_label(form.sexo) }}
+                {{ form_widget(form.sexo) }}
+                {{ form_errors(form.sexo) }}
+
+            </td>
+            <td>
+
+                {{ form_label(form.estadoCivil) }}
+                {{ form_widget(form.estadoCivil) }}
+                {{ form_errors(form.estadoCivil) }}
+
+            </td>
+            <td>
+
+                {{ form_label(form.telefonos) }}
+                {{ form_widget(form.telefonos) }}
+                {{ form_errors(form.telefonos) }}
+
+            </td>
+            <td>
+
+                {{ form_label(form.correoElectronico) }}
+                {{ form_widget(form.correoElectronico) }}
+                {{ form_errors(form.correoElectronico) }}
+
+            </td>
+
+        </tr>
+
+        <tr>
+            <td colspan="2">
+
+                {{ form_label(form.calle) }}
+                {{ form_widget(form.calle,{'attr':{
+                    'class':'form-control',
+                    'rows' : '1',
+                    'cols' :'15',
+
+                }}) }}
+                <div class="alert-danger"> {{ form_errors(form.calle) }} </div>
+
+            </td>
+            <td>
+
+                {{ form_label(form.noExt,"No.EXT") }}
+                {{ form_widget(form.noExt) }}
+                <div class="alert-danger">  {{ form_errors(form.noExt) }} </div>
+
+            </td>
+
+            <td>
+
+                {{ form_label(form.edif,"EDIF.") }}
+                {{ form_widget(form.edif) }}
+                {{ form_errors(form.edif) }}
+
+            </td>
+            <td>
+
+                {{ form_label(form.depto,"DEPTO .") }}
+                {{ form_widget(form.depto) }}
+                {{ form_errors(form.depto) }}
+
+            </td>
+        </tr>
+
+        <tr><td colspan="5">
+
+                {{ form_label(form.coloniaFracc) }}
+                {{ form_widget(form.coloniaFracc,{'attr':{
+                    'class':'form-control',
+                    'rows' : '1',
+                    'cols' :'15',
+
+                }}) }}
+                <div class="alert-danger">{{ form_errors(form.coloniaFracc) }} </div>
+
+            </td></tr>
+
+        <tr>
+            <td colspan="2">
+
+                {{ form_label(form.delegMunc) }}
+                {{ form_widget(form.delegMunc,{'attr':{
+                    'class':'form-control',
+                    'rows' : '1',
+                    'cols' :'15',
+
+                }}) }}
+                {{ form_errors(form.delegMunc) }}
+
+            </td>
+            <td colspan="2">
+
+                {{ form_label(form.estado) }}
+                {{ form_widget(form.estado,{'attr':{
+                    'class':'form-control',
+                    'rows' : '1',
+                    'cols' :'15',
+
+                }}) }}
+                {{ form_errors(form.estado) }}
+
+            </td>
+            <td>
+
+                {{ form_label(form.codPost,"CÓDIGO POSTAL") }}
+                {{ form_widget(form.codPost) }}
+                {{ form_errors(form.codPost) }}
+
+            </td>
+
+        </tr>
+
+
+        <tr> <td>
+
+                {{ form_label(form.numeroEconomico) }}
+                {{ form_widget(form.numeroEconomico) }}
+                {{ form_errors(form.numeroEconomico) }}
+
+            </td>
+
+            <td colspan="1">Escriba la
+
+                {{ form_label(form.password," ") }}
+                {{ form_widget(form.password) }}
+                {{ form_errors(form.password) }}
+
+            </td>
+        </tr>
+
+    </TABLE>
+
+    <br>
+    {{ form_label(form.enable,"ACTIVAR") }}
+    {{ form_widget(form.enable) }}
+    {{ form_errors(form.enable) }}
+    <br><br>
+        <input type="submit" value="AGREGAR ASPIRANTE" />
+
+    {{ form_end(form) }}
+{% if is_granted(expression('"ROLE_ADMINISTRADOR" in roles')) %}
+    <ul>
+        <li>
+            <a href="{{ path('aspirante_index') }}">Back to the list</a>
+        </li>
+    </ul>
+{% endif %}
+    <br><br>
+    {% if is_granted(expression('"ROLE_ASISTENTEDIV" in roles or "ASISTENTEDEP" in roles')) %}
+        <a class="btn btn-default" href="{{ path('homepage') }}"><span class="glyphicon glyphicon-home"></span>_MENU</a>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,176 @@
+{% extends 'frontend.html.twig' %}
+
+{% block content %}
+    {% if is_granted(expression('"ROLE_ADMININISTRADOR" in roles or "ROLE_ASISTENTEDEP" in roles or "ROLE_ASISTENTEDIV" in roles ')) %}
+        <h4><strong>CONVOCATORIAS</strong></h4>
+        <a class="btn btn-default" href="{{ path('homepage') }}"><span class="glyphicon glyphicon-home"></span>_MENU</a>
+        <a class="btn btn-default" href="{{ path('concurso_new') }}"><span class="glyphicon glyphicon-duplicate"></span>Generar Convocatoria</a>
+    {% endif %}
+
+    {% if is_granted(expression('"ROLE_ASPIRANTE" in roles')) %}
+        <h1>Listado de Concursos de Evaluación Curricular vigentes {{ aspirante.nombre }}  {{ aspirante.apellidoPaterno }}</h1>
+
+        <a href="{{ path('aspirante_aspshow',{'id' : aspirante.rfc}) }}">Regresar a INICIO <span class=" glyphicon glyphicon-home"></span></a>
+
+
+
+    {% endif %}
+    <br><br>
+
+    {% if is_granted(expression('"ROLE_ADMININISTRADOR" in roles or "ROLE_ASISTENTEDEP" in roles or "ROLE_ASISTENTEDIV" in roles')) %}
+        <br>
+        <form action="{{ path('concurso_index') }}" method="get">
+            <input type="text" name="cadena" value="{{ cadena }}">
+            <input type="submit" value="BUSCAR">
+        </form>
+
+        <br>
+
+
+     <div class="container">
+        <h3>Seguimiento de concursos</h3>
+        <ul class="nav nav-tabs">
+            <li id="t-1"><a href="{{ path('concurso_indexest', {'est':1}) }}">Revisando<span class="glyphicon glyphicon-transfer"></span></a></li>
+            <li id="t-2"><a href="{{ path('concurso_indexest', {'est':2}) }}">En Aprobación<span class="glyphicon glyphicon-send"></span></a></li>
+            <li id="t-3"><a href="{{ path('concurso_indexest', {'est':3}) }}">Publicado <span class="glyphicon glyphicon-thumbs-up"></span></a></li>
+            <li id="t-4"><a href="{{ path('concurso_indexest', {'est':4}) }}">Cierre de Reg.Asp<span class="glyphicon glyphicon-user"></span></a></li>
+            <li id="t-5"><a href="{{ path('concurso_indexest', {'est':5}) }}">Dictaminando <span class="glyphicon glyphicon-tasks"></span></a></li>
+            <li id="t-6"><a href="{{ path('concurso_indexest', {'est':6}) }}">Dic.Asignado <span class="glyphicon glyphicon-ok"></span></a></li>
+            <li id="t-7"><a href="{{ path('concurso_indexest', {'est':7}) }}">Reconvocado <span class="glyphicon glyphicon-duplicate"></span></a></li>
+            <li id="t-8"><a href="{{ path('concurso_indexest', {'est':8}) }}">Cancelado <span class="glyphicon glyphicon-thumbs-down"></span></a></li>
+            <li id="t-9"><a href="{{ path('concurso_indexest', {'est':9}) }}">Desierto <span class="glyphicon glyphicon-inbox"></span></a></li>
+            <li id="t-10"><a href="{{ path('concurso_index') }}">TODOS <span class="glyphicon glyphicon-list"></span></a></li>
+        </ul>
+    </div>
+    {% endif %}
+
+    {% if is_granted(expression('"ROLE_DICTAMINADOR" in roles')) %}
+        <h1>CONVOCATORIAS A DICTAMINAR</h1>
+        <a class="btn btn-default" href="{{ path('homepage') }}"><span class="glyphicon glyphicon-home"></span>_MENU</a>
+        <br>
+        <div class="container">
+            <h3>DICTAMEN de CONVOCATORAS</h3>
+            <ul class="nav nav-tabs">
+
+                <li id="t-5"><a href="{{ path('concurso_indexest', {'est':5}) }}">Dictaminando <span class="glyphicon glyphicon-tasks"></span></a></li>
+                <li id="t-6"><a href="{{ path('concurso_indexest', {'est':6}) }}">Dic.Asignado <span class="glyphicon glyphicon-ok"></span></a></li>
+                <li id="t-7"><a href="{{ path('concurso_indexest', {'est':7}) }}">Reconvocado <span class="glyphicon glyphicon-duplicate"></span></a></li>
+                <li id="t-8"><a href="{{ path('concurso_indexest', {'est':8}) }}">Cancelado <span class="glyphicon glyphicon-thumbs-down"></span></a></li>
+                <li id="t-9"><a href="{{ path('concurso_indexest', {'est':9}) }}">Desierto <span class="glyphicon glyphicon-inbox"></span></a></li>
+                <li id="t-10"><a href="{{ path('concurso_index') }}">TODOS <span class="glyphicon glyphicon-list"></span></a></li>
+            </ul>
+        </div>
+    {% endif %}
+
+    <br><br>
+
+
+
+
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th><span class="glyphicon glyphicon-folder-open"></span></th>
+                <th>No. Concurso</th>
+                <th>Estatus</th>
+                {#<th>Createat</th>#}
+                <th>Departamento</th>
+                <th>Fechapublicacion</th>
+                {% if is_granted(expression('"ROLE_DICTAMINADOR" in roles')) %}
+                    <th>Dictamen</th>
+                {% endif %}
+
+                <th>Clasificacion</th>
+                <th>Categoria</th>
+                <th>Tiempodedicacion</th>
+
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for concurso in concursos %}
+            <tr>
+                <td><a href="{{ path('concurso_show', { 'id': concurso.id }) }}"><span class="glyphicon glyphicon-open-file"></span></a></td>
+                <td><a href="{{ path('concurso_show', { 'id': concurso.id }) }}">{{ concurso.numConcurso }}</a></td>
+                <td>{{ concurso.estatus }}</td>
+                <td>{{ concurso.departamento }}</td>
+                {# <td>{% if concurso.createAt %}{{ concurso.createAt|date('Y-m-d H:i:s') }}{% endif %}</td>#}
+                <td>{% if concurso.fechaPublicacion %}{{ concurso.fechaPublicacion|date('Y-m-d H:i:s') | date("d-M-Y") }}{% endif %}</td>
+                {% if is_granted(expression('"ROLE_DICTAMINADOR" in roles')) %}
+                    <td>{{ concurso.dictamen }}</td>
+                {% endif %}
+
+                <td>{{ concurso.clasificacion }}</td>
+                <td>{{ concurso.categoria }}</td>
+                <td>{{ concurso.tiempoDedicacion }}</td>
+
+
+                <td>
+
+
+                            <a href="{{ path('concurso_show', { 'id': concurso.id }) }}"><span class="glyphicon glyphicon-eye-open"></span></a>
+                    <br>
+
+                        {% if is_granted(expression('"ROLE_ASISTENTEDIV" in roles or "ROLE_ADMINISTRADOR" in roles')) %}
+
+                            {% if concurso.estatus.id < 3 %}
+
+                                    <a href="{{ path('concurso_edit', { 'id': concurso.id }) }}"><span class="glyphicon glyphicon-pencil"></span></a>
+                                <br>
+
+                            {% endif %}
+
+
+                            {% if concurso.estatus=='Reconvocado' %}
+
+                                    <a href="{{ path('reconvocar_edit', { 'concurso': concurso.id }) }}"><span class="glyphicon glyphicon-retweet"></span></a>
+                                <br>
+
+                            {% endif %}
+                            {% if concurso.estatus.id == 3 %} {# icono de INFO para ver que ASPIRANTES se han registrado y ver ASP_REGISTRO pdf#}
+
+                                    <a href="{{ path('concurso_showPubreg', { 'id': concurso.id }) }}"><span class="glyphicon glyphicon-equalizer "></span></a>
+                                <br>
+
+                            {% endif %}
+
+                            {% if concurso.estatus.id == 4 %} {# icono de INFO2 para Registro FINAL de ASPIRANTES se han registrado y ver ASP_REGISTRO pdf#}
+
+                                <a href="{{ path('concurso_showreg', { 'id': concurso.id }) }}"><span class="glyphicon glyphicon-info-sign "></span></a>
+                                <br>
+
+                            {% endif %}
+
+                        {% elseif  is_granted(expression('"ROLE_ASISTENTEDEP" in roles')) and concurso.estatus.id < 2  %}
+
+                                <a href="{{ path('concurso_edit', { 'id': concurso.id }) }}">edit</a> <br>
+
+                        {% endif %}
+
+                        {% if is_granted(expression('"ROLE_DICTAMINADOR" in roles')) and concurso.dictamen is empty and concurso.estatus.id == 5 %}
+
+                                <a href="{{ path('dictamen_new', { 'id': concurso.id }) }}">DICTAMINAR</a> <br>
+
+                        {% endif %}
+
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+{% endblock %}
+
+ {% block javascripts %}
+     {{ parent() }}
+     <script type="text/javascript">
+         $(document).ready(function(){
+             $("#t-{{ est }}").addClass('active');
+         });
+
+     </script>
+ {% endblock %}

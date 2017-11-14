@@ -1,0 +1,78 @@
+{% extends 'frontend.html.twig' %}
+
+{% block content %}
+
+    {% if is_granted(expression('"ROLE_ADMININISTRADOR" in roles or "ROLE_ASISTENTEDEP" in roles or "ROLE_ASISTENTEDIV" in roles ')) %}
+        <h4><strong>Solicitud de usarios para ser ASPIRANTES, cuentas pendientes de ACTIVAR</strong></h4>
+        <a class="btn btn-default" href="{{ path('homepage') }}"><span class="glyphicon glyphicon-home"></span>_MENU</a>
+
+    {% endif %}
+
+
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>RFC</th>
+            <th>Nombre</th>
+            <th>Apellido Paterno</th>
+            <th>Apellido Materno</th>
+            <th>#Economico</th>
+            <th>Fecha de Conexion</th>
+            <th>CURP</th>
+            <th>mail</th>
+            <th>Nacionalidad</th>
+            <th>Edad</th>
+            <th>Sexo</th>
+            <th>Estadocivil</th>
+            <th>Telefonos</th>
+            <th>Calle</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for aspirante in aspirantes %}
+            <tr>
+                <td><a href="{{ path('aspirante_show', { 'id': aspirante.rfc }) }}">{{ aspirante.rfc }}</a></td>
+                <td>{{ aspirante.nombre }}</td>
+                <td>{{ aspirante.apellidoPaterno }}</td>
+                <td>{{ aspirante.apellidoMaterno }}</td>
+                <td>{{ aspirante.numeroEconomico }}</td>
+                <td>{% if aspirante.ultimaConexion %}{{ aspirante.ultimaConexion|date('Y-m-d H:i:s') }}{% endif %}</td>
+                {# <td>{% if aspirante.createAt %}{{ aspirante.createAt|date('Y-m-d H:i:s') }}{% endif %}</td> #}
+                <td>{{ aspirante.curp }}</td>
+                <td>{{ aspirante.correoElectronico }}</td>
+                <td>{{ aspirante.nacionalidad }}</td>
+                <td>{{ aspirante.edad }}</td>
+                <td>{{ aspirante.sexo }}</td>
+                <td>{{ aspirante.estadoCivil }}</td>
+                <td>{{ aspirante.telefonos }}</td>
+                <td>{{ aspirante.calle }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('aspirante_show', { 'id': aspirante.rfc }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('aspirante_edit', { 'id': aspirante.rfc }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('aspirante_new') }}">ALTA nuevo ASPIRANTE</a>
+        </li></ul>
+
+
+    {% if is_granted(expression('"ROLE_ADMININISTRADOR" in roles or "ROLE_ASISTENTEDEP" in roles or "ROLE_ASISTENTEDIV" in roles ')) %}
+
+        <a class="btn btn-default" href="{{ path('homepage') }}"><span class="glyphicon glyphicon-home"></span>_MENU</a>
+
+    {% endif %}
+
+{% endblock %}

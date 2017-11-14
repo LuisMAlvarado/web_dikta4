@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% if is_granted(expression('"ROLE_ASISTENTEDEP" in roles or "ROLE_DICTAMINADOR" in roles ')) %}
+    <h3>LISTADO DE DICTAMENES</h3> DEPARTAMENTO DE {{ app.user.departamento }} <br>
+        <br> <a class="btn btn-default" href="{{ path('homepage') }}"><span class="glyphicon glyphicon-home"></span>_MENU</a>
+    {% endif %}
+    {% if is_granted(expression('"ROLE_ASISTENTEDIV" in roles')) %}
+        <h3>LISTADO DE DICTAMENES</h3> DE LA DIVISION DE {{ app.user.departamento.division }}
+    {% endif %}
+
+{% if is_granted(expression('"ROLE_ASISTENTEDIV" in roles or "ASISTENTEDEP" in roles')) %}
+    <br><br>
+
+    <a class="btn btn-default" href="{{ path('homepage') }}"><span class="glyphicon glyphicon-home"></span>_MENU</a>
+{% endif %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+
+                <th>No. Dictamen</th>
+                <th>No. Concurso</th>
+                <th>Fecha de Publicación</th>
+                <th>PARA:</th>
+                <th>Departamento</th>
+                <th>Nivel</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for dictaman in dictamens %}
+            <tr>
+                <td><a href="{{ path('dictamen_show', { 'id': dictaman.id }) }}">{{ dictaman.numDictamen }}</a></td>
+                <td><a href="{{ path('concurso_show', { 'id': dictaman.concurso.id }) }}">{{ dictaman.concurso.numConcurso }}</a></td>
+                <td>{% if dictaman.concurso.fechaPublicacion %}{{ dictaman.concurso.fechaPublicacion|date('d-M-Y') }}{% endif %}</td>
+                <td>{{ dictaman.concurso.clasificacion }}</td>
+                <td>{{ dictaman.concurso.departamento }}</td>
+                <td>{{ dictaman.nivelAsignado }}</td>
+
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('dictamen_show', { 'id': dictaman.id }) }}">show</a>
+                        </li>
+                        {% if is_granted(expression('"ROLE_DICTAMINADOR" in roles or "ROLE_ADMINISTRADOR" in roles')) and dictaman.concurso.estatus.id == 5  %}
+                        <li>
+                            <a href="{{ path('dictamen_edit', { 'id': dictaman.id }) }}">edit</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {% if is_granted(expression('"ROLE_ASISTENTEDIV" in roles or "ROLE_ASISTENTEDEP" in roles or "ROLE_DICTAMINADOR" in roles ')) %}
+        <a class="btn btn-default" href="{{ path('homepage') }}"><span class="glyphicon glyphicon-home"></span>_MENU</a>
+    {% endif %}
+
+    <ul>
+
+        {% if is_granted(expression('"ROLE_ADMINISTRADOR" in roles ')) %}
+        <li>
+            <a href="{{ path('dictamen_new') }}">Create a new dictaman</a>
+        </li>
+        {% endif %}
+    </ul>
+{% endblock %}

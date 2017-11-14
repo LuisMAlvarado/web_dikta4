@@ -1,0 +1,318 @@
+{% extends 'frontend.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('resource/css/tmmdl.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('resource/css/tablaradius.css') }}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block header %}
+
+<br>
+    <table class="table">
+
+        <tr>
+
+            <td> <img src="{{ asset('/resource/img/encabezado.png') }}"  /></td>
+            <td class="text-right "><H3>ASPIRANTES que se solicitaron Registro</H3>  </td>
+        </tr>
+    </table>
+{% endblock %}
+
+{% block content  %}
+
+
+    <table  width="100%">
+        <tbody class="small">
+        <tr>
+            <td colspan="3" width="50%"></td>
+            <th class="table-bordered text-right" >PARA: &nbsp;</th>
+
+            <td class="table-bordered text-center">{{ concurso.clasificacion }}</td></tr>
+
+        </tbody>
+    </table>
+    <br />
+    <table width="100%">
+        <tbody class="small">
+        <tr>
+            <td colspan="3" width="50%"></td>
+            <th class="table-bordered text-right" >No. EC. &nbsp;</th>
+
+            <td class="table-bordered text-center">
+
+                <a href="{{ path('concurso_show', { 'id': concurso.id }) }}"> {{ concurso.numConcurso }}</a>
+
+            </td>
+            <th class="table-bordered text-right" >Fecha de elaboración del Registro: &nbsp;</th>
+
+           {# <td class="table-bordered text-center">{% if concurso.fechaPublicacion %}{{ concurso.fechaPublicacion|date('d-M-Y') }}{% endif %}</td></tr> #}
+            <td class="table-bordered text-center">{% if  "now"|date("d/M/Y")  %} {{ "now"|date("d-M-Y") }} {% endif %}</td></tr>
+
+        </tr>
+        </tbody>
+    </table> <br>
+<TABLE class="table table-bordered">
+    <TBODY>
+
+    <TR>
+        <TD>
+            <strong>COMISIÓN DICTAMINADORA DE LA DIVISIÓN DE:</strong><br />
+            {{ concurso.departamento.division.nombre }}
+        </TD>
+    </TR>
+
+    <TR>
+        <TD>
+            <strong>SECRETARIO ACADÉMICO DE LA DIVISIÓN DE</strong><br />
+            {{ concurso.departamento.division.nombre }}
+        </TD>
+    </TR>
+    </TBODY>
+</TABLE>
+
+
+
+{% for registro in concurso.registros %}
+
+    {{ registro.numRegistro }} Fecha de registro {% if registro.fechaRegistro %}{{ registro.fechaRegistro|date('d-M-Y') }}{% endif %} <br>
+
+
+{% endfor %}
+
+
+
+
+
+
+{% if concurso.estatus.id == 4   %}
+
+    <TABLE class="table table-bordered" >
+
+        <th>
+        ASPIRANTES :
+        </th> <th>DOCUMENTOS</th>
+
+    {% for registro in concurso.registroscompletos %}
+             <tr>
+
+            <td> {{ loop.index }} .-
+                <a href="#" class="modalAsp" data-toggle="modal" data-target="#myModal" idAspirante="{{ registro.aspiranteRfc.rfc }}" idregrfc="{{ registro.id }}">
+                    {{ registro.aspiranteRfc.NombreCompleto }}
+                </a>
+                <p id="cosa" idAspirante="2"></p>
+            </td>
+                 <td> {% if registro.entregoDocs  == true %} ENTREGO {% else %} NO ENTREGO {% endif %}   </td>
+
+            <!-- Button trigger modal -->
+
+        </tr>
+    {% endfor %}
+
+    </TABLE>
+
+
+{% endif %}
+
+    {#
+    {{ form_start(form) }}
+    {% if is_granted(expression('"ROLE_ASISTENTEDIV" in roles')) and concurso.estatus.id == 4   %}
+
+
+        <div>
+            <br>
+
+            <TABLE class="table table-bordered" >
+
+
+                {%  for aspirante in form.registros %}
+                    <tr>
+
+                        <td> {{ loop.index }} .-
+                        #}
+                            {#  <a href="#" class="modalAsp" data-toggle="modal" data-target="#myModal" idAspirante="{{ aspirante.aspiranteRfc.rfc }}" idregrfc="{{ aspirante.id }}">#}
+                        {#    {{ form_widget(aspirante.aspiranteRfc) }}
+                        </td>
+
+                        {#
+                         </a>
+                          #}
+                         {#
+                      <td>
+                            {{ form_label(aspirante.entregoDocs,'PRESENTO DOCUMENTOS?') }}
+                            {{ form_widget(aspirante.entregoDocs) }}
+                            {{ form_errors(aspirante.entregoDocs) }}
+
+                        </td>
+
+                        <!-- Button trigger modal -->
+
+                    </tr>
+                {% endfor %}
+
+            </TABLE>
+
+
+        </div>
+        #}
+
+
+        {#
+            <div class="panel-heading">{{ form_label(form.registros, 'AGREGAR MÁS ASPIRANTES') }}</div>
+            <div class="panel-body">
+
+                <div id="registros-container" data-prototipe="{% filter escape %} {% include 'aspirante/form.html.twig' with {'form': form.registros.vars.prototype } %{% endfilter %}">
+                    {# % for registro in form.registros  %}
+                        <div id="aspirante_{{ loop.index0 }}" class="form-group">
+                            <table class="table table-condensed" width="100%">
+                                <tr>
+                                    <td width="85%">{{ form_label(registro.aspiranteRfc, 'RFC del Aspirante') }}
+                                        {{ form_widget(registro.aspiranteRfc, {'attr': {'class': 'form-control'}}) }}
+                                        <div class="text-danger">{{ form_errors(registro.aspiranteRfc) }}</div></td>
+                                    <td width="10%" >
+                                        {{ form_label(registro.entregoDocs, '¿Presento Documentos?') }}
+                                        {{ form_widget(registro.entregoDocs, {'attr':{'class':'form-control'}}) }}
+
+                                        <div class="text-danger">{{ form_errors(registro.entregoDocs) }}</div>
+                                    </td>
+                                    <td width="5%" align="center" valign="middle">
+                                        <button  id="btn_aspirante_{{ loop.index0 }}" type="button" class="delete" aria-label="Close"><span class="glyphicon glyphicon-trash"></span></button>
+                                    </td>
+                                </tr>
+
+                            </table>
+                        </div>
+
+                    {% endfor %
+
+        </div>
+
+        <div class="form-group">
+            <div class="col-lg-2"></div>
+            <div class="col-lg-10">
+                <a href="#" id="add-another-aspirante" class="btn btn-default"><span class="glyphicon glyphicon-plus-sign"> Agregar ASPIRANTE</span></a>
+            </div>
+        </div>
+
+    </div>
+
+    {% endif %}
+
+    {{ form_end(form) }}
+
+    #}
+
+
+    <table class="table table-bordered">
+        <tr>
+            <td width="50%"  align="right"><br>ACCIONES </td>
+            <td align="left">
+                <div class="hidden-print">
+                    <ul>
+
+                       <li> <a href="{{ path('concurso_show', { 'id': concurso.id }) }}"><span class="glyphicon glyphicon-eye-open"> Cambio de Estado</span></a></li>
+
+                        <li><a href="{{ path('concurso_indexest', {'est':4}) }}">Regresar a Listado de Registro de Aspirantes <span class="glyphicon glyphicon-user"></span></a></li>
+                        <li>
+                            <a href="{{ path('concurso_index') }}">Listado de todas las CONVOCATORIAS</a>
+                        </li>
+                        <li>
+
+                            <a href="{{ path('FORMRAsps_pdf', { 'id': concurso.id }) }}">hacer PDF</a>
+
+                        </li>
+
+
+
+                    </ul>
+                </div></td>
+        </tr>
+    </table>
+
+
+
+
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" id="tmmdl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Información Entregada por el Aspirante</h4>
+                </div>
+                <div id="modal-body" class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+   {#BORRE EL DE HACER UN REGISTRO YA ESTA HECHO!#}
+
+    <br>
+
+
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".modalAsp").click(function () {
+                var idAspirante = $(this).attr('idAspirante');
+                var idregrfc = $(this).attr('idregrfc');
+                var lk = '{{ path('registro_show',{ 'id': '__id1__' }) }}';
+                var link = lk.replace('__id1__', idregrfc);
+
+               // $("#modal-body").html(idAspirante);
+
+                $("#modal-body").html("<div></div>");
+                $.ajax({
+                    // la URL para la petición
+                    url : link,
+
+                    // la información a enviar
+                    // (también es posible utilizar una cadena de datos)
+                    data : { id : idAspirante },
+
+                    // especifica si será una petición POST o GET
+                    type : 'GET',
+
+                    // el tipo de información que se espera de respuesta
+                    dataType : 'html',
+
+                    // código a ejecutar si la petición es satisfactoria;
+                    // la respuesta es pasada como argumento a la función
+                    success : function(responce) {
+                        $("#modal-body").html(responce);
+                    },
+
+                    // código a ejecutar si la petición falla;
+                    // son pasados como argumentos a la función
+                    // el objeto de la petición en crudo y código de estatus de la petición
+                    error : function(xhr, status) {
+                        $("#modal-body").html("<p>Disculpe hubo un problema</p>");
+                    },
+
+                });
+
+            });
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+{% endblock %}

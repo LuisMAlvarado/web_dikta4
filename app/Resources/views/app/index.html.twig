@@ -1,0 +1,94 @@
+{% extends 'frontend.html.twig' %}
+
+{% block content %}
+    <div id="wrapper">
+        <div id="container">
+            <div id="bienvenida">
+                <h1><span>Bienvenid@</span> <br /></h1>{{ usuario.nombre }}
+                <br />puede gestionar las Convocatorias de : {{ usuario.departamento.nombre }} <br /><br />
+
+            </div>
+
+            <div id="status">
+                <p><h2>
+                    Esta Plataforma permite el seguimiento de: <br><br>
+
+                    *Convocatorias de Concursos de Evaluación Curricular (CEC). <br>
+                    *Registro de Aspirantes. <br>
+                    *El Dictamen de la convocatoria <br>
+                </h2>
+                </p>
+            </div>
+<div id="menu">
+
+    <p>
+        {% if is_granted('ROLE_ASISTENTEDIV') %}
+    <ul> <a>CONVOCATORIAS</a>
+        <li><a href="{{ path('concurso_new') }}">Generar Convocatoria</a></li>
+        <li>  <a href="{{ path('concurso_indexest', {'est':1}) }}">Listado de Convocatorias</a></li>
+        <li>   <a href="{{ path('dictamen_index') }}">Convocatorias Dictaminadas</a></li>
+    </ul>
+
+    <a>ASPIRANTES</a>
+        <br>
+        <a href="{{ path('aspirante_index') }}" class=" btn btn-warning btn-xs " ><span class="glyphicon glyphicon-ban-circle"></span> Listado de ASPIRANTES no Activos</a>
+        <br>
+        <a href="{{ path('aspirante_new') }}">ALTA nuevo ASPIRANTE</a>
+       {# <a href="{{ path('registro_index') }}">Registro por ASPIRANTE en CEC</a> #}
+
+    <br>
+   
+    {% endif %}
+
+    {% if is_granted('ROLE_ASISTENTEDEP') %}
+        <ul> <a>CONCURSOS</a>
+            <li><a href="{{ path('concurso_new') }}">Generar Convocatoria</a></li>
+            <li>  <a href="{{ path('concurso_indexest', {'est':1}) }}">Listado de Convocatorias</a></li>
+            <li>   <a href="{{ path('dictamen_index') }}">Convocatorias Dictaminadas</a></li>
+        </ul>
+
+
+    {% endif %}
+
+    {% if is_granted('ROLE_DICTAMINADOR') %}
+        <ul> <a>CONCURSOS</a>
+
+            <li>  <a href="{{ path('concurso_indexest', {'est':5}) }}">Listado de Convocatorias </a></li>
+            <li>   <a href="{{ path('dictamen_index') }}">Listado de Dictamenes</a></li>
+        </ul>
+
+
+
+
+    {% endif %}
+
+    {% if is_granted('ROLE_ADMINISTRADOR') %}
+
+        <ul> <a>ASPIRANTES</a>
+            <li> <a href="{{ path('aspirante_index') }}">Consultar ASPIRANTES</a></li>
+            <li><a href="{{ path('registro_index') }}">Registro de ASPIRANTES en CEC</a></li>
+
+        </ul>
+
+        <ul> <a>USUARIOS</a>
+            <li> <a href="{{ path('usuario_index') }}">Consultar USUARIOS</a></li>
+            <li><a href="{{ path('usuario_new') }}">alta de USUARIOS</a></li>
+
+        </ul>
+
+        <ul><p>CLASIFICACION, CATEGORIA, T.D.</p>
+            <li><a href="{{ path('clatesal_index') }}">Catalogo Prellenado</a></li>
+            <li><a href="{{ path('clatesal_new') }}">Nuevo registro de prellenado</a></li>
+        </ul>
+
+    {% endif %}
+    <br />
+    <a  href="{{ path ('logout') }}" class=" btn btn-success btn-xs "> <span class="glyphicon glyphicon-log-out"></span>_CERRAR SESION</a>
+
+    </p>
+</div>
+
+
+        </div>
+    </div>
+{% endblock %}
