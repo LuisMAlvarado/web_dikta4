@@ -599,7 +599,7 @@ class ConcursoController extends Controller
             'NumConcurso'=> 'EC.'.$concurso->getNumConcurso(),
             'divisionNSEC'=>$concurso->getDepartamento()->getDivision()->getSaNombreCompleto(),
             'divisionCOM'=>$concurso->getDepartamento()->getDivision()->getNombre(),
-            'NumConcursoREF'=>$concurso->getNumConcurso(),
+            'NumConcursoREF'=>'EC.'.$concurso->getNumConcurso(),
             'divisionSEC'=>$concurso->getDepartamento()->getDivision()->getNombre(),
             'FPublicacion'=>$concurso->getFechaPublicacion()->format('d - m - Y'),
 
