@@ -75,7 +75,7 @@
 
     <p class="small" > CONFORME A LO PREVISTO EN EL REGLAMENTO DE INGRESO, PROMOCIÓN Y PERMANENCIA DEL PERSONAL ACADÉMICO, ESTA DIVISIÓN ENVIA LAS <br>
         SOLICITUDES DE REGISTRO DE LOS ASPIRANTES QUE PARTICIPAN EN LA CONVOCATORIA DE EVALUACIÓN CURRICULAR <BR>
-        No. <strong> <u> {{ concurso.numConcurso }} </u> </strong>  PUBLICADA EL  <strong> <u>{% if concurso.fechaPublicacion %}{{ concurso.fechaPublicacion|date('d-M-Y') }}{% endif %}</strong> </u> <BR>
+        No. <strong> <u> EC.{{ concurso.numConcurso }} </u> </strong>  PUBLICADA EL  <strong> <u>{% if concurso.fechaPublicacion %}{{ concurso.fechaPublicacion|date('d-M-Y') }}{% endif %}</strong> </u> <BR>
         ES CONVENIENTE HACER MENCIÓN QUE SE DEBERÁ EMITIR DICTAMEN EN UN TIEMPO NO MAYOR DE 4(CUATRO) O 10(DIEZ) DÍAS HÁBILES, EN EL CASO DE <BR>
         AYUDANTES, CONTADOS A PARTIR DE LA FECHA DE RECEPCIÓN DE ESTE REGISTRO
     </p>
@@ -148,7 +148,7 @@
 
 
         <li>
-            <a href="{{ path('FORMRAsps_pdf', { 'id': concurso.id }) }}">hacer PDF</a>
+            <a href="{{ path('FORMRAsps_pdf', { 'id': concurso.id }) }}">Generar formato en PDF</a>
 
         </li>
     </ul>

@@ -31,7 +31,7 @@
         {% for dictaman in dictamens %}
             <tr>
                 <td><a href="{{ path('dictamen_show', { 'id': dictaman.id }) }}">{{ dictaman.numDictamen }}</a></td>
-                <td><a href="{{ path('concurso_show', { 'id': dictaman.concurso.id }) }}">{{ dictaman.concurso.numConcurso }}</a></td>
+                <td><a href="{{ path('concurso_show', { 'id': dictaman.concurso.id }) }}">EC.{{ dictaman.concurso.numConcurso }}</a></td>
                 <td>{% if dictaman.concurso.fechaPublicacion %}{{ dictaman.concurso.fechaPublicacion|date('d-M-Y') }}{% endif %}</td>
                 <td>{{ dictaman.concurso.clasificacion }}</td>
                 <td>{{ dictaman.concurso.departamento }}</td>

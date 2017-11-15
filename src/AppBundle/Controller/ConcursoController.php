@@ -529,12 +529,14 @@ class ConcursoController extends Controller
      *
      * @Route("/{id}/FORMpdf", name="cecFORM_pdf")
      */
+    //GENERA EL PDF alta de Concurso
+
     public function pdfFAction(Concurso $concurso)
     {
 
         $fields = array(
             'clasificacionn' => $concurso->getClasificacion()->getNombre() ,
-            'numEC'=> $concurso->getNumConcurso(),
+            'numEC'=> 'EC.'.$concurso->getNumConcurso(),
             'fechaEdia'=>$concurso->getCreateAt()->format('d'),
             'fechaEmes'=>$concurso->getCreateAt()->format('m'),
             'fechaEanio'=>$concurso->getCreateAt()->format('Y'),
@@ -594,7 +596,7 @@ class ConcursoController extends Controller
             'FRegDIA'=>date("d"),
             'FRegMES'=>date("m"),
             'FRegANIO'=>date("Y"),
-            'NumConcurso'=> 'REG.'.$concurso->getNumConcurso(),
+            'NumConcurso'=> 'EC.'.$concurso->getNumConcurso(),
             'divisionNSEC'=>$concurso->getDepartamento()->getDivision()->getSaNombreCompleto(),
             'divisionCOM'=>$concurso->getDepartamento()->getDivision()->getNombre(),
             'NumConcursoREF'=>$concurso->getNumConcurso(),
@@ -620,7 +622,7 @@ class ConcursoController extends Controller
         $pdf = new FPDM(__DIR__."/../../../formatosPDF/regAsps22.pdf");
         $pdf->Load($fields, true); // second parameter: false if field values are in ISO-8859-1, true if UTF-8
         $pdf->Merge();
-        $nombre=preg_replace('/\./', '', 'R_'.$concurso->getNumConcurso());
+        $nombre=preg_replace('/\./', '', 'REG_'.$concurso->getNumConcurso());
         $pdf->Output($nombre.'.pdf', 'D');
     }
 

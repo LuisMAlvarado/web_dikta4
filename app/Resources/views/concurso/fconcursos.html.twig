@@ -18,7 +18,7 @@
         <tr>
             <td>
                 <br>
-                <strong><a href="{{ path('concurso_show', { 'id': concurso.id }) }}">{{ concurso.numConcurso }}</a> {{ concurso.clasificacion }} {{ concurso.categoria }} {{ concurso.tiempoDedicacion.nombre }} </strong> <br>
+                <strong><a href="{{ path('concurso_show', { 'id': concurso.id }) }}">EC.{{ concurso.numConcurso }}</a> {{ concurso.clasificacion }} {{ concurso.categoria }} {{ concurso.tiempoDedicacion.nombre }} </strong> <br>
                 <strong>Departamento: {{ concurso.departamento }}</strong> <br>
                 <strong>Salario:</strong> ${{ concurso.salarioA |number_format(2, '.', ',')  }} <br>
                 <strong>Horario: </strong> {{ concurso.horario }} <br>

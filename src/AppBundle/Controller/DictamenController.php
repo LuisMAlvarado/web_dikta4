@@ -115,7 +115,7 @@ class DictamenController extends Controller
             'fechaDictmenANIO'=>$dictaman->getFechaDictmen()->format('Y'),
             'divCOM'=>$concurso->getDepartamento()->getDivision()->getNombre(),
             'divDIR'=>$concurso->getDepartamento()->getDivision()->getNombre(),
-            'numConcurso'=> $concurso->getNumConcurso(),
+            'numConcurso'=> 'EC.'.$concurso->getNumConcurso(),
             'fechaPublicacion'=>$concurso->getFechaPublicacion()->format('d - m - Y'),
 
          //   'pre_0'=> $ganador->getApellidoPaterno().' '.$ganador->getApellidoMaterno().' '.$ganador->getNombre(),

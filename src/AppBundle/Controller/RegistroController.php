@@ -166,7 +166,7 @@ class RegistroController extends Controller
         //var_dump($clasificacion);exit();
         $fields = array(
             'clasificacionn' => $concurso->getClasificacion()->getNombre() ,
-            'numEC'=> $concurso->getNumConcurso(),
+            'numEC'=> 'EC.'.$concurso->getNumConcurso(),
             'FechaDIA'=>$registro->getCreateAt()->format('d'),
             'FechaMES'=>$registro->getCreateAt()->format('m'),
             'FechaANIO'=>$registro->getCreateAt()->format('Y'),
