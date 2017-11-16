@@ -536,7 +536,7 @@ class ConcursoController extends Controller
 
         $fields = array(
             'clasificacionn' => $concurso->getClasificacion()->getNombre() ,
-            'numEC'=> 'EC.'.$concurso->getNumConcurso(),
+            'numEC'=> $concurso->getNumConcurso(),
             'fechaEdia'=>$concurso->getCreateAt()->format('d'),
             'fechaEmes'=>$concurso->getCreateAt()->format('m'),
             'fechaEanio'=>$concurso->getCreateAt()->format('Y'),

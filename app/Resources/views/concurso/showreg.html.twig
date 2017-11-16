@@ -40,7 +40,7 @@
 
             <td class="table-bordered text-center">
 
-                <a href="{{ path('concurso_show', { 'id': concurso.id }) }}"> EC.{{ concurso.numConcurso }}</a>
+                <a href="{{ path('concurso_show', { 'id': concurso.id }) }}">{{ concurso.numConcurso }}</a>
 
             </td>
             <th class="table-bordered text-right" >Fecha de elaboración del Registro: &nbsp;</th>
@@ -217,7 +217,7 @@
                         </li>
                         <li>
 
-                            <a href="{{ path('FORMRAsps_pdf', { 'id': concurso.id }) }}">hacer PDF</a>
+                            <a href="{{ path('FORMRAsps_pdf', { 'id': concurso.id }) }}">Generar Formato PDF</a>
 
                         </li>
 

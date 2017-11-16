@@ -93,7 +93,7 @@
         {% for concurso in concursos %}
             <tr>
                 <td><a href="{{ path('concurso_show', { 'id': concurso.id }) }}"><span class="glyphicon glyphicon-open-file"></span></a></td>
-                <td><a href="{{ path('concurso_show', { 'id': concurso.id }) }}">EC.{{ concurso.numConcurso }}</a></td>
+                <td><a href="{{ path('concurso_show', { 'id': concurso.id }) }}">{{ concurso.numConcurso }}</a></td>
                 <td>{{ concurso.estatus }}</td>
                 <td>{{ concurso.departamento }}</td>
                 {# <td>{% if concurso.createAt %}{{ concurso.createAt|date('Y-m-d H:i:s') }}{% endif %}</td>#}

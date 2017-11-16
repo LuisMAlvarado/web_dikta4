@@ -106,7 +106,7 @@
             <td colspan="3" width="50%"></td>
             <th class="table-bordered text-right small" >No. EC. &nbsp;</th>
 
-            <td class="table-bordered text-center small">EC.{{ concurso.numConcurso }}</td>
+            <td class="table-bordered text-center small">{{ concurso.numConcurso }}</td>
             <th class="table-bordered text-right small" >FECHA: &nbsp;</th>
 
             <td class="table-bordered text-center small">{% if concurso.createAt %}{{ concurso.createAt|date('d-M-Y') }}{% endif %}</td>

@@ -109,7 +109,7 @@
             <td colspan="3" width="50%"></td>
             <th class="table-bordered text-right" >No. EC. &nbsp;</th>
 
-            <td class="table-bordered text-center"> EC.{{ concurso.numConcurso }}</td>
+            <td class="table-bordered text-center"> {{ concurso.numConcurso }}</td>
             <th class="table-bordered text-right" >Fecha de Publicacion: &nbsp;</th>
 
             <td class="table-bordered text-center">{% if concurso.fechaPublicacion %}{{ concurso.fechaPublicacion|date('d-M-Y') }}{% endif %}</td></tr>
