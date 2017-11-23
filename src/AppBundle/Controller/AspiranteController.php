@@ -127,7 +127,7 @@ class AspiranteController extends Controller
 
 
         if (!$aspirante){
-            $aspirante=array('nombre'=>'ASPIRANTE NOP ENCONTRADO','rfc'=>'RFC NO ENCONTRADO');
+            $aspirante=array('nombre'=>'EL RFC QUE INGRESO NO EXISTE EN LA BASE DE DATOS','rfc'=>'RFC NO ENCONTRADO');
          }else{
             $registro = $em->getRepository('AppBundle:Registro')->findOneBy(array(
                 'aspiranteRfc' => $auxrfc,

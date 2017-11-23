@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 
 /**
@@ -11,6 +12,11 @@ use Doctrine\Common\Collections\ArrayCollection;
  *
  * @ORM\Table(name="registro", indexes={@ORM\Index(name="fk_registro_concurso1_idx", columns={"concurso_id"}), @ORM\Index(name="fk_registro_aspirante1_idx", columns={"aspirante_rfc"})})
  * @ORM\Entity(repositoryClass="AppBundle\Entity\RegistroRepository")
+ * @UniqueEntity(
+ *     fields={"concurso", "aspiranteRfc"},
+ *     errorPath="aspiranteRfc",
+ *     message="Aspirante Duplicado."
+ * )
  */
 class Registro
 {
@@ -92,7 +98,7 @@ class Registro
     /**
      * @var \Concurso
      *
-     * @ORM\ManyToOne(targetEntity="Concurso", inversedBy="registros")
+     * @ORM\ManyToOne(targetEntity="Concurso", inversedBy="registros", cascade={"persist"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="concurso_id", referencedColumnName="id")
      * })
@@ -121,7 +127,7 @@ class Registro
 
     public function __construct()
     {
-
+        $this ->entregoDocs=false;
         $this->anexos = new ArrayCollection();
         $this->createAt= new \DateTime('now');
     }
@@ -386,5 +392,29 @@ class Registro
     public function getFechaRegistro()
     {
         return $this->fechaRegistro;
+    }
+
+    /**
+     * Set entregoDocs
+     *
+     * @param boolean $entregoDocs
+     *
+     * @return Registro
+     */
+    public function setEntregoDocs($entregoDocs)
+    {
+        $this->entregoDocs = $entregoDocs;
+
+        return $this;
+    }
+
+    /**
+     * Get entregoDocs
+     *
+     * @return boolean
+     */
+    public function getEntregoDocs()
+    {
+        return $this->entregoDocs;
     }
 }

@@ -1,0 +1,183 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Prefulldictaman edit</h1>
+
+    {{ form_start(edit_form) }}
+        {#{ form_widget(edit_form) }#}
+    <table class="table table-responsive">
+        <tr>
+            <td>{{ form_label(edit_form.id,"Identificador") }}
+                {{ form_widget(edit_form.id) }}
+                {{ form_errors(edit_form.id) }}
+
+
+            </td>
+            <td>{{ form_label(edit_form.division,"DIVISION") }}
+                {{ form_widget(edit_form.division) }}
+                {{ form_errors(edit_form.division) }}
+
+
+            </td>
+        </tr>
+    </table>
+
+    <table class="table table-responsive">
+        <tr>
+
+            <td>PRESIDENTE <br>
+                {{ form_label(edit_form.dicpresGrado,"Grado") }}
+                {{ form_widget(edit_form.dicpresGrado) }}
+                {{ form_errors(edit_form.dicpresGrado) }}
+            </td>
+            <td>{{ form_label(edit_form.dicpresNombre,"Nombre") }}
+                {{ form_widget(edit_form.dicpresNombre) }}
+                {{ form_errors(edit_form.dicpresNombre) }}</td>
+            <td>
+                {{ form_label(edit_form.dicpresApellidoPaterno,"Apellido Pat.") }}
+                {{ form_widget(edit_form.dicpresApellidoPaterno) }}
+                {{ form_errors(edit_form.dicpresApellidoPaterno) }}
+            </td>
+            <td>
+                {{ form_label(edit_form.dicpresApellidoMaterno,"Apellido Mat.") }}
+                {{ form_widget(edit_form.dicpresApellidoMaterno) }}
+                {{ form_errors(edit_form.dicpresApellidoMaterno) }}
+            </td>
+        </tr>
+        <tr>
+
+            <td>SECRETARIO <br>
+                {{ form_label(edit_form.dicsecGrado,"Grado") }}
+                {{ form_widget(edit_form.dicsecGrado) }}
+                {{ form_errors(edit_form.dicsecGrado) }}
+            </td>
+            <td>{{ form_label(edit_form.dicsecNombre,"Nombre") }}
+                {{ form_widget(edit_form.dicsecNombre) }}
+                {{ form_errors(edit_form.dicsecNombre) }}</td>
+            <td>
+                {{ form_label(edit_form.dicsecApellidoPaterno,"Apellido Pat.") }}
+                {{ form_widget(edit_form.dicsecApellidoPaterno) }}
+                {{ form_errors(edit_form.dicsecApellidoPaterno) }}
+            </td>
+            <td>
+                {{ form_label(edit_form.dicsecApellidoMaterno,"Apellido Mat.") }}
+                {{ form_widget(edit_form.dicsecApellidoMaterno) }}
+                {{ form_errors(edit_form.dicsecApellidoMaterno) }}
+            </td>
+        </tr>
+    </table>
+    <table class="table table-responsive">
+        <tr>
+            <td>
+                {{ form_label(edit_form.evaluaciones,"EVALUACIONES") }}
+                {{ form_widget(edit_form.evaluaciones,{'attr':{
+                    'class':'form-control',
+                    'rows' : '2',
+                    'cols' :'30',
+
+                }}) }}
+                {{ form_errors(edit_form.evaluaciones) }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                {{ form_label(edit_form.argumento,"ARGUMENTO") }}
+                {{ form_widget(edit_form.argumento,{'attr':{
+                    'class':'form-control',
+                    'rows' : '3',
+                    'cols' :'30',
+
+                }}) }}
+                {{ form_errors(edit_form.argumento) }}
+            </td>
+        </tr>
+    </table>
+
+    <table class="table table-responsive">
+        <tr>
+            <td>{{ form_label(edit_form.asesor1,"1.-Asesor") }}
+                {{ form_widget(edit_form.asesor1,{'attr':{
+                    'class':'form-control',
+                    'rows' : '1',
+                    'cols' :'15',
+
+                }}) }}
+                {{ form_errors(edit_form.asesor1) }}</td>
+
+            <td>{{ form_label(edit_form.asesor4,"4.-Asesor") }}
+                {{ form_widget(edit_form.asesor4,{'attr':{
+                    'class':'form-control',
+                    'rows' : '1',
+                    'cols' :'15',
+
+                }}) }}
+                {{ form_errors(edit_form.asesor4) }}</td>
+        </tr>
+
+        <tr>
+            <td>{{ form_label(edit_form.asesor2,"2.-Asesor") }}
+                {{ form_widget(edit_form.asesor2,{'attr':{
+                    'class':'form-control',
+                    'rows' : '1',
+                    'cols' :'15',
+
+                }}) }}
+                {{ form_errors(edit_form.asesor2) }}</td>
+
+            <td>{{ form_label(edit_form.asesor5,"5.-Asesor") }}
+                {{ form_widget(edit_form.asesor5,{'attr':{
+                    'class':'form-control',
+                    'rows' : '1',
+                    'cols' :'15',
+
+                }}) }}
+                {{ form_errors(edit_form.asesor5) }}</td>
+        </tr>
+        <tr>
+            <td>
+                {{ form_label(edit_form.asesor3,"3.-Asesor") }}
+                {{ form_widget(edit_form.asesor3,{'attr':{
+                    'class':'form-control',
+                    'rows' : '1',
+                    'cols' :'15',
+
+                }}) }}
+                {{ form_errors(edit_form.asesor3) }}
+            </td>
+            <td>
+                {{ form_label(edit_form.asesor6,"6.-Asesor") }}
+                {{ form_widget(edit_form.asesor6,{'attr':{
+                    'class':'form-control',
+                    'rows' : '1',
+                    'cols' :'15',
+
+                }}) }}
+                {{ form_errors(edit_form.asesor6) }}
+            </td>
+        </tr>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+        <input type="submit" value="Edit" />
+    {{ form_end(edit_form) }}
+
+    <ul>
+        <li>
+            <a href="{{ path('prefulldictamen_index') }}">Back to the list</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

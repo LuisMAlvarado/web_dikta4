@@ -248,10 +248,12 @@ class Concurso
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="Registro", mappedBy="concurso")
+     * @ORM\OneToMany(targetEntity="Registro", mappedBy="concurso", cascade={"all"})
      * @ORM\OrderBy({"aspiranteRfc" = "ASC"})
+     * @Assert\Valid
      */
     private $registros;
+
 
     /**
      * AQUI ESTOY GENERANDO LAS FUNCIONES PUBLICAS
@@ -265,6 +267,7 @@ class Concurso
         $this->unidad = 'IZTAPALAPA';
 
         $this->registros = new ArrayCollection();
+
     }
 
     public function __toString()
@@ -599,24 +602,28 @@ class Concurso
          * ->addViolation();
          * }*/
 
-        if ($this->salarioA < 0) {
-            $context->buildViolation('Salario INICIAL mal escrito')
-                ->atPath('salarioA')
-                ->addViolation();
-        }
+        //3 de NOVIEMBRE 2017 se retira la validacion , por que se insertan los datos y no genere error al editar el concurso-dictamen
+        /**     if ($this->salarioA < 0) {
+                    $context->buildViolation('Salario INICIAL mal escrito')
+                        ->atPath('salarioA')
+                        ->addViolation();
+                }
 
-        if ($this->salarioB < 0) {
-            $context->buildViolation('Salario FINAL mal escrito')
-                ->atPath('salarioB')
-                ->addViolation();
-        }
-        if ($this->salarioB != 0 or $this->salarioB != null) {
-            if ($this->salarioB < $this->salarioA) {
-                $context->buildViolation('Salario FINAL es menor al INICIAL')
-                    ->atPath('salarioB')
-                    ->addViolation();
-            }
-        }
+                if ($this->salarioB < 0) {
+                    $context->buildViolation('Salario FINAL mal escrito')
+                        ->atPath('salarioB')
+                        ->addViolation();
+                }
+                if ($this->salarioB != 0 or $this->salarioB != null) {
+                    if ($this->salarioB < $this->salarioA) {
+                        $context->buildViolation('Salario FINAL es menor al INICIAL')
+                            ->atPath('salarioB')
+                            ->addViolation();
+                    }
+                }
+        */
+        //TERMINA COMENTARIO DE VALIDACION 3NOVIEMBRE 2017
+
     }
 
     /**
@@ -970,6 +977,8 @@ class Concurso
     {
         $this->registros[] = $registro;
 
+        $registro->setConcurso($this);
+
         return $this;
     }
 
@@ -995,10 +1004,13 @@ class Concurso
 
     public function getRegistrosCompletos()
     {
-        $criteria = Criteria::create()
-            ->where(Criteria::expr()->eq('puntaje', 20));
 
-        return $this->registros->matching($criteria);
+        $criteria = Criteria::create()
+            ->where(Criteria::expr()->eq('entregoDocs', true));
+
+        $result = $this->registros->matching($criteria);
+
+        return $result;
     }
 
     public function getGanador()

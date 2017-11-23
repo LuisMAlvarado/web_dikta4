@@ -139,23 +139,102 @@
                 </td>
             </tr>
 
-            </tr>
-            <tr>
-                <td colspan="4">
 
-                    {{ form_label(edit_form.dictamen.asesores,"NOMBRE DE ASESORES") }}
-                    {{ form_widget(edit_form.dictamen.asesores,{'attr':{
+
+            </tbody></table>
+
+
+        <table class="table table-curved" align="center" width="100%">
+            <tr>
+                <td>
+
+                    {{ form_label(edit_form.dictamen.asesor1,"ASESOR 1") }}
+                    {{ form_widget(edit_form.dictamen.asesor1,{'attr':{
                         'class':'form-control',
-                        'rows' : '5'
+                        'rows' : '1'
 
                     }}) }}
-                    {{ form_errors(edit_form.dictamen.asesores) }}
+                    {{ form_errors(edit_form.dictamen.asesor1) }}
+                </td>
+                <td>
 
+                    {{ form_label(edit_form.dictamen.asesor4,"ASESOR 4") }}
+                    {{ form_widget(edit_form.dictamen.asesor4,{'attr':{
+                        'class':'form-control',
+                        'rows' : '1'
 
+                    }}) }}
+                    {{ form_errors(edit_form.dictamen.asesor4) }}
                 </td>
             </tr>
 
-            </tbody></table>
+            <tr>
+                <td>
+
+                    {{ form_label(edit_form.dictamen.asesor2,"ASESOR 2") }}
+                    {{ form_widget(edit_form.dictamen.asesor2,{'attr':{
+                        'class':'form-control',
+                        'rows' : '1'
+
+                    }}) }}
+                    {{ form_errors(edit_form.dictamen.asesor2) }}
+                </td>
+                <td>
+
+                    {{ form_label(edit_form.dictamen.asesor5,"ASESOR 5") }}
+                    {{ form_widget(edit_form.dictamen.asesor5,{'attr':{
+                        'class':'form-control',
+                        'rows' : '1'
+
+                    }}) }}
+                    {{ form_errors(edit_form.dictamen.asesor5) }}
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+
+                    {{ form_label(edit_form.dictamen.asesor3,"ASESOR 3") }}
+                    {{ form_widget(edit_form.dictamen.asesor3,{'attr':{
+                        'class':'form-control',
+                        'rows' : '1'
+
+                    }}) }}
+                    {{ form_errors(edit_form.dictamen.asesor3) }}
+                </td>
+                <td>
+
+                    {{ form_label(edit_form.dictamen.asesor6,"ASESOR 6") }}
+                    {{ form_widget(edit_form.dictamen.asesor6,{'attr':{
+                        'class':'form-control',
+                        'rows' : '1'
+
+                    }}) }}
+                    {{ form_errors(edit_form.dictamen.asesor6) }}
+                </td>
+            </tr>
+
+        </table>
+
+        <br>
+        <table class="table-curved" align="center"  width="100%">
+            <tr>
+                <td> {{ form_label(edit_form.dictamen.presidente,"PRESIDENTE") }}
+                    {{ form_widget(edit_form.dictamen.presidente,{'attr':{
+                        'class':'form-control',
+                        'rows' : '1'
+
+                    }}) }}
+                    {{ form_errors(edit_form.dictamen.secretario) }}</td>
+                <td><td> {{ form_label(edit_form.dictamen.secretario,"SECRETARIO") }}
+                    {{ form_widget(edit_form.dictamen.secretario,{'attr':{
+                        'class':'form-control',
+                        'rows' : '1'
+
+                    }}) }}
+                    {{ form_errors(edit_form.dictamen.secretario) }}</td></td>
+            </tr>
+        </table>
 
 
     {% endif %}
@@ -166,20 +245,20 @@
     <div>
         <br>
         {%  for aspirante in edit_form.registros %}
-            {{ aspirante.puntaje.vars.attr.nombre }}
+           <strong>ASPIRANTE:</strong> {{ aspirante.puntaje.vars.attr.nombre }}
             <br>
-            {{ form_label(aspirante.puntaje) }}
+            {{ form_label(aspirante.puntaje,"PUNTAJE TOTAL") }}
             {{ form_widget(aspirante.puntaje) }}
             {{ form_errors(aspirante.puntaje) }}
 
-            {{ form_label(aspirante.prelacion) }}
+            {{ form_label(aspirante.prelacion,"PRELACIÓN") }}
             {{ form_widget(aspirante.prelacion) }}
             {{ form_errors(aspirante.prelacion) }}
 
-            {{ form_label(aspirante.nivelAsig) }}
+            {{ form_label(aspirante.nivelAsig,"NIVEL:") }}
             {{ form_widget(aspirante.nivelAsig) }}
             {{ form_errors(aspirante.nivelAsig) }}
-            <br>
+            <br><br>
         {% endfor %}
 
     </div>

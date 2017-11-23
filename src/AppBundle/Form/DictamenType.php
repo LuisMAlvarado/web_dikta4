@@ -22,7 +22,14 @@ class DictamenType extends AbstractType
             ->add('nivelAsignado')
             ->add('modalidades')
             ->add('argumento')
-            ->add('asesores')
+            ->add('asesor1')
+            ->add('asesor2')
+            ->add('asesor3')
+            ->add('asesor4')
+            ->add('asesor5')
+            ->add('asesor6')
+            ->add('presidente')
+            ->add('secretario')
             ->add('pdfDictamen')
         ;
     }

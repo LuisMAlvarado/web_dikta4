@@ -75,14 +75,14 @@
         <tbody>
         <tr>
             <td colspan="4"><strong>CONCURSANTE GANADOR</strong><br />
-              {% if concurso.ganador != '' %} {{ concurso.ganador.aspiranteRfc.nombreCompleto }} {% else  %}  {% endif %}
+              {% if concurso.ganador != '' %} {{ concurso.ganador.aspiranteRfc.nombreCompleto }} {% else  %} <strong>Desierta</strong> {% endif %}
             </td>
         </tr>
         <tr>
             <td colspan="2"><strong>CATEGORÍA </strong><br />
                 </td> &nbsp;&nbsp;
             <td>
-                {% if concurso.ganador != '' %} {{ concurso.categoria.nombre }}    {{ concurso.ganador.nivelAsig }} {% else  %}  {% endif %}
+                {% if concurso.ganador != '' %} {{ concurso.categoria.nombre }}    {{ concurso.ganador.nivelAsig }} {% else  %} Desierta {% endif %}
 
             </td>
             <td  colspan="1"> <strong>TIEMPO DE DEDICACIÓN</strong><br>
@@ -117,25 +117,41 @@
         <tr>
             <td colspan="4">
                 <strong>ARGUMENTOS QUE JUSTIFICAN LA DECISIÓN</strong><br>
-                {{ dictaman.argumento }}
+                {{ dictaman.argumento | nl2br }}
 
 
             </td>
         </tr>
 
         </tr>
-        <tr>
-            <td colspan="4"><strong>NOMBRE DE ASESORES</strong><br>
 
-                {{ dictaman.asesores }}
-
-
-            </td>
-        </tr>
 
         </tbody></table>
 
+    <table class="table-curved" align="center"  width="100%">
+        <tr>
+            <td><strong>NOMBRE DE ASESORES</strong><br>
+                1.-{{ dictaman.asesor1 }}
+            </td>
+            <td>
+                {{ dictaman.asesor4 }}
+            </td>
+        </tr>
+        <tr>
+            <td> 2.-{{ dictaman.asesor2 }}</td>
+            <td> {{ dictaman.asesor5 }}</td>
+        </tr>
+        <tr>
+            <td> 3.-{{ dictaman.asesor3 }}</td>
+            <td> {{ dictaman.asesor6 }}</td>
+        </tr>
+    </table>
+
     <br>
+    <table class="table-curved" align="center"  width="100%"><tr>
+            <td><strong>PRESIDENTE</strong> <br>{{ dictaman.presidente }}</td>
+            <td><strong>SECRETARIO</strong> <br> {{ dictaman.secretario }}</td>
+        </tr></table>
 
 <p><strong> ASPIRANTES:</strong></p>
 

@@ -1023,6 +1023,16 @@ class Concurso
         return $result[0];
     }
 
+    public function getNoCalifica()
+    {
+        $criteria = Criteria::create()
+            ->where(Criteria::expr()->eq('prelacion', null));
+
+        $result = $this->registros->matching($criteria);
+
+        return $result[0];
+    }
+
     /**
      * Set clasificacion
      *

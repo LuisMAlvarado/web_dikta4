@@ -16,6 +16,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  * @ORM\Table(name="aspirante", uniqueConstraints={@ORM\UniqueConstraint(name="RFC_UNIQUE", columns={"rfc"})}, indexes={@ORM\Index(name="fk_aspirante_role1_idx", columns={"role_id"})})
  * @ORM\Entity
  * @DoctrineAssert\UniqueEntity("correoElectronico")
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\AspiranteRepository")
  */
 class Aspirante implements AdvancedUserInterface, \Serializable
 {

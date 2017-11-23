@@ -1,0 +1,176 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Nuevos datos de Pre - Llenado</h1>
+
+    {{ form_start(form) }}
+    {#    {{ form_widget(form) }}  #}
+    <table class="table table-responsive">
+        <tr>
+            <td>{{ form_label(form.id,"Identificador") }}
+                {{ form_widget(form.id) }}
+                {{ form_errors(form.id) }}
+
+
+            </td>
+            <td>{{ form_label(form.division,"DIVISION") }}
+                {{ form_widget(form.division) }}
+                {{ form_errors(form.division) }}
+
+
+            </td>
+        </tr>
+    </table>
+
+    <table class="table table-responsive">
+        <tr>
+
+            <td>PRESIDENTE <br>
+                {{ form_label(form.dicpresGrado,"Grado") }}
+                {{ form_widget(form.dicpresGrado) }}
+                {{ form_errors(form.dicpresGrado) }}
+            </td>
+            <td>{{ form_label(form.dicpresNombre,"Nombre") }}
+                {{ form_widget(form.dicpresNombre) }}
+                {{ form_errors(form.dicpresNombre) }}</td>
+            <td>
+                {{ form_label(form.dicpresApellidoPaterno,"Apellido Pat.") }}
+                {{ form_widget(form.dicpresApellidoPaterno) }}
+                {{ form_errors(form.dicpresApellidoPaterno) }}
+            </td>
+            <td>
+                {{ form_label(form.dicpresApellidoMaterno,"Apellido Mat.") }}
+                {{ form_widget(form.dicpresApellidoMaterno) }}
+                {{ form_errors(form.dicpresApellidoMaterno) }}
+            </td>
+        </tr>
+        <tr>
+
+            <td>SECRETARIO <br>
+                {{ form_label(form.dicsecGrado,"Grado") }}
+                {{ form_widget(form.dicsecGrado) }}
+                {{ form_errors(form.dicsecGrado) }}
+            </td>
+            <td>{{ form_label(form.dicsecNombre,"Nombre") }}
+                {{ form_widget(form.dicsecNombre) }}
+                {{ form_errors(form.dicsecNombre) }}</td>
+            <td>
+                {{ form_label(form.dicsecApellidoPaterno,"Apellido Pat.") }}
+                {{ form_widget(form.dicsecApellidoPaterno) }}
+                {{ form_errors(form.dicsecApellidoPaterno) }}
+            </td>
+            <td>
+                {{ form_label(form.dicsecApellidoMaterno,"Apellido Mat.") }}
+                {{ form_widget(form.dicsecApellidoMaterno) }}
+                {{ form_errors(form.dicsecApellidoMaterno) }}
+            </td>
+        </tr>
+    </table>
+    <table class="table table-responsive">
+        <tr>
+            <td>
+                {{ form_label(form.evaluaciones,"EVALUACIONES") }}
+                {{ form_widget(form.evaluaciones,{'attr':{
+                    'class':'form-control',
+                    'rows' : '2',
+                    'cols' :'30',
+
+                }}) }}
+                {{ form_errors(form.evaluaciones) }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                {{ form_label(form.argumento,"ARGUMENTO") }}
+                {{ form_widget(form.argumento,{'attr':{
+                    'class':'form-control',
+                    'rows' : '3',
+                    'cols' :'30',
+
+                }}) }}
+                {{ form_errors(form.argumento) }}
+            </td>
+        </tr>
+    </table>
+
+    <table class="table table-responsive">
+        <tr>
+            <td>{{ form_label(form.asesor1,"1.-Asesor") }}
+                {{ form_widget(form.asesor1,{'attr':{
+                    'class':'form-control',
+                    'rows' : '1',
+                    'cols' :'15',
+
+                }}) }}
+                {{ form_errors(form.asesor1) }}</td>
+
+            <td>{{ form_label(form.asesor4,"4.-Asesor") }}
+                {{ form_widget(form.asesor4,{'attr':{
+                    'class':'form-control',
+                    'rows' : '1',
+                    'cols' :'15',
+
+                }}) }}
+                {{ form_errors(form.asesor4) }}</td>
+        </tr>
+
+        <tr>
+            <td>{{ form_label(form.asesor2,"2.-Asesor") }}
+                {{ form_widget(form.asesor2,{'attr':{
+                    'class':'form-control',
+                    'rows' : '1',
+                    'cols' :'15',
+
+                }}) }}
+                {{ form_errors(form.asesor2) }}</td>
+
+            <td>{{ form_label(form.asesor5,"5.-Asesor") }}
+                {{ form_widget(form.asesor5,{'attr':{
+                    'class':'form-control',
+                    'rows' : '1',
+                    'cols' :'15',
+
+                }}) }}
+                {{ form_errors(form.asesor5) }}</td>
+        </tr>
+        <tr>
+            <td>
+                {{ form_label(form.asesor3,"3.-Asesor") }}
+                {{ form_widget(form.asesor3,{'attr':{
+                    'class':'form-control',
+                    'rows' : '1',
+                    'cols' :'15',
+
+                }}) }}
+                {{ form_errors(form.asesor3) }}
+            </td>
+            <td>
+                {{ form_label(form.asesor6,"6.-Asesor") }}
+                {{ form_widget(form.asesor6,{'attr':{
+                    'class':'form-control',
+                    'rows' : '1',
+                    'cols' :'15',
+
+                }}) }}
+                {{ form_errors(form.asesor6) }}
+            </td>
+        </tr>
+    </table>
+
+
+
+
+
+
+
+
+
+        <input type="submit" value="Create" />
+    {{ form_end(form) }}
+
+    <ul>
+        <li>
+            <a href="{{ path('prefulldictamen_index') }}">Back to the list</a>
+        </li>
+    </ul>
+{% endblock %}

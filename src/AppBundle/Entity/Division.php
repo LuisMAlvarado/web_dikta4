@@ -37,7 +37,7 @@ class Division
     /**
      * @var string
      *
-     * @ORM\Column(name="dGrado", type="string", length=4, nullable=true)
+     * @ORM\Column(name="dGrado", type="string", length=10, nullable=true)
      */
     private $dGrado;
 
@@ -65,7 +65,7 @@ class Division
     /**
      * @var string
      *
-     * @ORM\Column(name="saGrado", type="string", length=4, nullable=true)
+     * @ORM\Column(name="saGrado", type="string", length=10, nullable=true)
      */
     private $saGrado;
 

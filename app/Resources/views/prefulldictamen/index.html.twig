@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Prefulldictamens list</h1>
+
+    {#{ dump(prefullDictamenes) } #}
+
+    <table class="table table-responsive">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Division</th>
+                <th>Presidente</th>
+                <th>Secretario</th>
+                <th>Asesores</th>
+
+
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for prefullDictamen in prefullDictamenes %}
+            <tr>
+                <td><a href="{{ path('prefulldictamen_show', { 'id': prefullDictamen.id }) }}">{{ prefullDictamen.id }}</a></td>
+                <td>{{ prefullDictamen.division }}</td>
+                <td>{{ prefullDictamen.NombreCompletoPres }}</td>
+                <td>{{ prefullDictamen.NombreCompletoSec }}</td>
+                <td >{{ prefullDictamen.AllAsores }}</td>
+
+
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('prefulldictamen_show', { 'id': prefullDictamen.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('prefulldictamen_edit', { 'id': prefullDictamen.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="5">
+                  <strong> Evaluaciones</strong> {{ prefullDictamen.evaluaciones }} <br>
+                    <strong>Argumento</strong> {{ prefullDictamen.argumento }}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('prefulldictamen_new') }}">Create a new prefullDictaman</a>
+        <li>
+            <a href="{{ path('homepage') }}">regresar a INICIO</a>
+        </li>
+        </li>
+    </ul>
+{% endblock %}

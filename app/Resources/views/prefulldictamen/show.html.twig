@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h3>Datos de pre llenado para los Dictamenes de</h3> <br> <h3>{{ prefullDictamen.division.nombre }}</h3>
+
+    <table class="table table-responsive">
+        <tbody>
+            <tr>
+
+                <th>Id</th>
+                <td>{{ prefullDictamen.id }}</td>
+
+            </tr>
+            <tr>
+                <th>Evaluaciones</th>
+                <td>{{ prefullDictamen.evaluaciones }}</td>
+            </tr>
+            <tr>
+                <th>Argumento</th>
+                <td>{{ prefullDictamen.argumento }}</td>
+            </tr>
+            <tr>
+                <th>Presidente</th>
+                <td>{{ prefullDictamen.NombreCompletoPres }}</td>
+            </tr>
+            <tr>
+                <th>Secretario</th>
+                <td>{{ prefullDictamen.NombreCompletoSec }}</td>
+            </tr>
+
+            <tr>
+                <th>Asesores</th>
+                <td>{{ prefullDictamen.AllAsores | nl2br  }}</td>
+            </tr>
+
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('prefulldictamen_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('prefulldictamen_edit', { 'id': prefullDictamen.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

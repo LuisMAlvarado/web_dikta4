@@ -60,11 +60,36 @@ class DictamenController extends Controller
             $dictaman = new Dictamen();
             $idc = $request->query->get('id');
             $concurso = $em->getRepository('AppBundle:Concurso')->find($idc);
+            $idDivconcurso= $concurso->getDepartamento()->getDivision();
+            $prefilldic=$em->getRepository('AppBundle:PrefullDictamen')->findBy(array('division'=> $idDivconcurso));
+            $prefilldic = $prefilldic[0];
+            //var_dump($prefilldic);exit();
 
             if($concurso->getDictamen() != null ){
                 return $this->redirectToRoute('dictamen_show', array('id' => $concurso->getDictamen()->getId()));
             }
-
+           //INICIA EL PRELLENADO DEL DICTAMEN
+            $presidente=$prefilldic->getNombreCompletoPres();
+            $secretario =$prefilldic->getNombreCompletoSec();
+            $asesor1 =$prefilldic->getAsesor1();
+            $asesor2 =$prefilldic->getAsesor2();
+            $asesor3 =$prefilldic->getAsesor3();
+            $asesor4 =$prefilldic->getAsesor4();
+            $asesor5 =$prefilldic->getAsesor5();
+            $asesor6 =$prefilldic->getAsesor6();
+            $evaluaciones=$prefilldic->getEvaluaciones();
+            $argumento=$prefilldic->getArgumento();
+            //var_dump($asesor1,$asesor2,$asesor3,$asesor4,$asesor5,$asesor6);exit();
+            $dictaman->setPresidente($presidente);
+            $dictaman->setSecretario($secretario);
+            $dictaman->setAsesor1($asesor1);
+            $dictaman->setAsesor2($asesor2);
+            $dictaman->setAsesor3($asesor3);
+            $dictaman->setAsesor4($asesor4);
+            $dictaman->setAsesor5($asesor5);
+            $dictaman->setAsesor6($asesor6);
+            $dictaman->setModalidades($evaluaciones);
+            $dictaman->setArgumento($argumento);
            // $dictaman->setConcurso($concurso);
             $concurso->setDictamen($dictaman);
         }else{
@@ -128,7 +153,16 @@ class DictamenController extends Controller
 
             'modalidades'=>$dictaman->getModalidades(),
             'argumento1'=>$dictaman->getArgumento(),
-            'asesores_0'=>$dictaman->getAsesores(),
+            'asesores_1'=>$dictaman->getAsesor1(),
+            'asesores_2'=>$dictaman->getAsesor2(),
+            'asesores_3'=>$dictaman->getAsesor3(),
+            'asesores_4'=>$dictaman->getAsesor4(),
+            'asesores_5'=>$dictaman->getAsesor5(),
+            'asesores_6'=>$dictaman->getAsesor6(),
+            'presidenteCOM'=>$dictaman->getPresidente(),
+            'secretarioCOM'=>$dictaman->getSecretario(),
+            'presidenteCOM2'=>$dictaman->getPresidente(),
+            'secretarioCOM2'=>$dictaman->getSecretario(),
             'clasificacion2'=>$concurso->getClasificacion()->getNombre(),
             'numDictamen2'=>$concurso->getDictamen()->getNumDictamen(),
             'fechaDictmenDIA2'=>$dictaman->getFechaDictmen()->format('d'),
@@ -136,6 +170,10 @@ class DictamenController extends Controller
             'fechaDictmenANIO2'=>$dictaman->getFechaDictmen()->format('Y'),
 
         );
+        if($Regs==null){
+            $fields['pre_0']='Desierta';
+        }
+
         if($Regs!= null){
             $ganador= $concurso->getGanador()->getAspiranteRfc();
 
@@ -209,6 +247,37 @@ class DictamenController extends Controller
 
         //$editForm = $this->createForm('AppBundle\Form\DictamenType', $dictaman);
         $editForm->handleRequest($request);
+         $argumentopre= $dictaman->getArgumento();
+        $concurso=$dictaman->getConcurso();
+
+       /**INTENTO IMPRIMIR LOS NOMBRE DEL GANADOR Y LOS NO CUMPLEN EN EL ARGUMENTO
+       $registros=$concurso->getRegistros();
+       $ganador= $concurso->getGanador();
+        if($ganador!= null) {
+            $prelado0 = $concurso->getGanador()->getAspiranteRfc()->getNombreCompleto();
+            $argumentopre=$argumentopre."\n".$prelado0."-- SI CUMPLE CON LOS REQUISITOS";
+            foreach ($registros as $registro) {
+                if ( empty($registro->getPrelacion()) ) {
+
+                    $argumentopre=$argumentopre."\n".$registro->getAspiranteRfc()->getNombreCompleto()." -- NO CUMPLE CON LOS REQUISITOS";
+                }
+            }
+
+
+        } elseif ($ganador == null){
+
+            foreach ($registros as $registro) {
+                if ($registro->getPrelacion() == null) {
+
+                    $argumentopre=$argumentopre."\n".$registro->getAspiranteRfc()->getNombreCompleto()." -- NO CUMPLE CON LOS REQUISITOS";
+                }
+            }
+
+        }
+
+         //var_dump($argumentopre);exit();
+         $dictaman->setArgumento($argumentopre);
+        */
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();

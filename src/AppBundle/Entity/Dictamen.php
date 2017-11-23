@@ -47,7 +47,7 @@ class Dictamen
     /**
      * @var string
      *
-     * @ORM\Column(name="nivelasignado", type="string", length=45, nullable=false)
+     * @ORM\Column(name="nivelasignado", type="string", length=45, nullable=true)
      */
     private $nivelAsignado;
 
@@ -68,9 +68,58 @@ class Dictamen
     /**
      * @var string
      *
-     * @ORM\Column(name="asesores", type="text", nullable=true)
+     * @ORM\Column(name="asesor1", type="text", nullable=true)
      */
-    private $asesores;
+    private $asesor1;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="asesor2", type="text", nullable=true)
+     */
+    private $asesor2;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="asesor3", type="text", nullable=true)
+     */
+    private $asesor3;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="asesor4", type="text", nullable=true)
+     */
+    private $asesor4;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="asesor5", type="text", nullable=true)
+     */
+    private $asesor5;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="asesor6", type="text", nullable=true)
+     */
+    private $asesor6;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="presidente", type="text", nullable=true)
+     */
+    private $presidente;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="secretario", type="text", nullable=true)
+     */
+    private $secretario;
 
     /**
      * @var string
@@ -232,29 +281,7 @@ class Dictamen
         return $this->argumento;
     }
 
-    /**
-     * Set asesores
-     *
-     * @param string $asesores
-     *
-     * @return Dictamen
-     */
-    public function setAsesores($asesores)
-    {
-        $this->asesores = $asesores;
 
-        return $this;
-    }
-
-    /**
-     * Get asesores
-     *
-     * @return string
-     */
-    public function getAsesores()
-    {
-        return $this->asesores;
-    }
 
     /**
      * Set pdfDictamen
@@ -369,5 +396,197 @@ class Dictamen
             }
         }
 
+    }
+
+    /**
+     * Set presidente
+     *
+     * @param string $presidente
+     *
+     * @return Dictamen
+     */
+    public function setPresidente($presidente)
+    {
+        $this->presidente = $presidente;
+
+        return $this;
+    }
+
+    /**
+     * Get presidente
+     *
+     * @return string
+     */
+    public function getPresidente()
+    {
+        return $this->presidente;
+    }
+
+    /**
+     * Set secretario
+     *
+     * @param string $secretario
+     *
+     * @return Dictamen
+     */
+    public function setSecretario($secretario)
+    {
+        $this->secretario = $secretario;
+
+        return $this;
+    }
+
+    /**
+     * Get secretario
+     *
+     * @return string
+     */
+    public function getSecretario()
+    {
+        return $this->secretario;
+    }
+
+    /**
+     * Set asesor1
+     *
+     * @param string $asesor1
+     *
+     * @return Dictamen
+     */
+    public function setAsesor1($asesor1)
+    {
+        $this->asesor1 = $asesor1;
+
+        return $this;
+    }
+
+    /**
+     * Get asesor1
+     *
+     * @return string
+     */
+    public function getAsesor1()
+    {
+        return $this->asesor1;
+    }
+
+    /**
+     * Set asesor2
+     *
+     * @param string $asesor2
+     *
+     * @return Dictamen
+     */
+    public function setAsesor2($asesor2)
+    {
+        $this->asesor2 = $asesor2;
+
+        return $this;
+    }
+
+    /**
+     * Get asesor2
+     *
+     * @return string
+     */
+    public function getAsesor2()
+    {
+        return $this->asesor2;
+    }
+
+    /**
+     * Set asesor3
+     *
+     * @param string $asesor3
+     *
+     * @return Dictamen
+     */
+    public function setAsesor3($asesor3)
+    {
+        $this->asesor3 = $asesor3;
+
+        return $this;
+    }
+
+    /**
+     * Get asesor3
+     *
+     * @return string
+     */
+    public function getAsesor3()
+    {
+        return $this->asesor3;
+    }
+
+    /**
+     * Set asesor4
+     *
+     * @param string $asesor4
+     *
+     * @return Dictamen
+     */
+    public function setAsesor4($asesor4)
+    {
+        $this->asesor4 = $asesor4;
+
+        return $this;
+    }
+
+    /**
+     * Get asesor4
+     *
+     * @return string
+     */
+    public function getAsesor4()
+    {
+        return $this->asesor4;
+    }
+
+    /**
+     * Set asesor5
+     *
+     * @param string $asesor5
+     *
+     * @return Dictamen
+     */
+    public function setAsesor5($asesor5)
+    {
+        $this->asesor5 = $asesor5;
+
+        return $this;
+    }
+
+    /**
+     * Get asesor5
+     *
+     * @return string
+     */
+    public function getAsesor5()
+    {
+        return $this->asesor5;
+    }
+
+    /**
+     * Set asesor6
+     *
+     * @param string $asesor6
+     *
+     * @return Dictamen
+     */
+    public function setAsesor6($asesor6)
+    {
+        $this->asesor6 = $asesor6;
+
+        return $this;
+    }
+
+    /**
+     * Get asesor6
+     *
+     * @return string
+     */
+    public function getAsesor6()
+    {
+        return $this->asesor6;
     }
 }

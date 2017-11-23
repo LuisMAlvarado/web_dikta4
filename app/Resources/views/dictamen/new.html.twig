@@ -69,137 +69,216 @@
         <br>
         <p class="small" > RESPECTO A LA CONVOCATORIA A CONCURSO DE EVALUACIÓN CURRICULAR
             No. <strong> <u> &nbsp;&nbsp;EC.{{ concurso.numConcurso }} &nbsp;&nbsp;</u> </strong>  PUBLICADA  EN LA FECHA <BR>  <strong> <u>&nbsp;&nbsp;{% if concurso.fechaPublicacion %}{{ concurso.fechaPublicacion|date('d-M-Y') }}{% endif %}</strong> &nbsp;&nbsp;</u>
-           DESPUÉS DE CONSIDERAR A LOS ASPIRANTES REGISTRADOS Y EVALUAR A LOS CONCURSANTES, ESTA <BR> COMISIÓN EMITE EL SIGUIENTE
+            DESPUÉS DE CONSIDERAR A LOS ASPIRANTES REGISTRADOS Y EVALUAR A LOS CONCURSANTES, ESTA <BR> COMISIÓN EMITE EL SIGUIENTE
 
         </p>
         <h3 align="center">DICTAMEN</h3>
 
-<table class="table-curved" align="center"  width="100%">
-    <tbody>
-    <tr>
-        <td colspan="4"><strong>CONCURSANTE GANADOR</strong><br /></td>
-    </tr>
-    <tr>
-        <td colspan="2"><strong>CATEGORÍA </strong><br />
-            {{ concurso.clasificacion }}</td> &nbsp;&nbsp;
-        <td>
-            {{ form_label(form.dictamen.nivelAsignado,"Y NIVEL ASIGNADO") }}
-            {{ form_widget(form.dictamen.nivelAsignado) }}
-            <div class="alert-danger">{{ form_errors(form.dictamen.nivelAsignado) }} </div>
+        <table class="table-curved" align="center"  width="100%">
+            <tbody>
+            <tr>
+                <td colspan="4"><strong>CONCURSANTE GANADOR</strong><br /></td>
+            </tr>
+            <tr>
+                <td colspan="2"><strong>CATEGORÍA </strong><br />
+                    {{ concurso.clasificacion }}</td> &nbsp;&nbsp;
+                <td>
+                    {{ form_label(form.dictamen.nivelAsignado,"Y NIVEL ASIGNADO") }}
+                    {{ form_widget(form.dictamen.nivelAsignado) }}
+                    <div class="alert-danger">{{ form_errors(form.dictamen.nivelAsignado) }} </div>
 
-         </td>
-        <td  colspan="1"> <strong>TIEMPO DE DEDICACIÓN</strong><br>
-            {{ concurso.tiempoDedicacion.nombre }}
-        </td>
-    </tr>
-    <tr>
-        <td > <strong>UNIDAD</strong><br>
-            {{ concurso.unidad }}
-        </td>
-        <td colspan="2" ><strong>DIVISIÓN</strong><br />
-            {{ concurso.departamento.division.nombre }}
-        </td>
-        <td  > <strong>DEPARTAMENTO</strong><br>
-            {{ concurso.departamento.nombre}}
-        </td>
-    </tr>
+                </td>
+                <td  colspan="1"> <strong>TIEMPO DE DEDICACIÓN</strong><br>
+                    {{ concurso.tiempoDedicacion.nombre }}
+                </td>
+            </tr>
+            <tr>
+                <td > <strong>UNIDAD</strong><br>
+                    {{ concurso.unidad }}
+                </td>
+                <td colspan="2" ><strong>DIVISIÓN</strong><br />
+                    {{ concurso.departamento.division.nombre }}
+                </td>
+                <td  > <strong>DEPARTAMENTO</strong><br>
+                    {{ concurso.departamento.nombre}}
+                </td>
+            </tr>
 
-    <tr>
-        <td colspan="4"> <strong>ÁREA DEPARTAMENTAL</strong><br>
-            {{ concurso.areaDepartamental }}
-        </td>
-    </tr>
+            <tr>
+                <td colspan="4"> <strong>ÁREA DEPARTAMENTAL</strong><br>
+                    {{ concurso.areaDepartamental }}
+                </td>
+            </tr>
 
-    <tr>
-    <tr>
-        <td colspan="4">
+            <tr>
+            <tr>
+                <td colspan="4">
 
-            {{ form_label(form.dictamen.modalidades,"EVALUACIONES REALIZADAS") }}
-            {{ form_widget(form.dictamen.modalidades,{'attr':{
-                'class':'form-control',
-                'rows' : '5'
+                    {{ form_label(form.dictamen.modalidades,"EVALUACIONES REALIZADAS") }}
+                    {{ form_widget(form.dictamen.modalidades,{'attr':{
+                        'class':'form-control',
+                        'rows' : '5'
 
-            }}) }}
-            {{ form_errors(form.dictamen.modalidades) }}
-        </td>
-    </tr>
-    <tr>
-        <td colspan="4">
+                    }}) }}
+                    {{ form_errors(form.dictamen.modalidades) }}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
 
-            {{ form_label(form.dictamen.argumento,"ARGUMENTOS QUE JUSTIFICAN LA DECISIÓN") }}
-            {{ form_widget(form.dictamen.argumento,{'attr':{
-                'class':'form-control',
-                'rows' : '5'
+                    {{ form_label(form.dictamen.argumento,"ARGUMENTOS QUE JUSTIFICAN LA DECISIÓN") }}
+                    {{ form_widget(form.dictamen.argumento,{'attr':{
+                        'class':'form-control',
+                        'rows' : '5'
 
-            }}) }}
-            {{ form_errors(form.dictamen.argumento) }}
-
-
-        </td>
-    </tr>
-
-    </tr>
-    <tr>
-        <td colspan="4">
-
-            {{ form_label(form.dictamen.asesores,"NOMBRE DE ASESORES") }}
-            {{ form_widget(form.dictamen.asesores,{'attr':{
-                'class':'form-control',
-                'rows' : '5'
-
-            }}) }}
-            {{ form_errors(form.dictamen.asesores) }}
+                    }}) }}
+                    {{ form_errors(form.dictamen.argumento) }}
 
 
-        </td>
-    </tr>
+                </td>
+            </tr>
 
-    </tbody></table>
+            </tbody></table>
+
+        <table class="table table-curved" align="center" width="100%">
+            <tr>
+                <td>
+
+                    {{ form_label(form.dictamen.asesor1,"ASESOR 1") }}
+                    {{ form_widget(form.dictamen.asesor1,{'attr':{
+                        'class':'form-control',
+                        'rows' : '1'
+
+                    }}) }}
+                    {{ form_errors(form.dictamen.asesor1) }}
+                </td>
+                <td>
+
+                    {{ form_label(form.dictamen.asesor4,"ASESOR 4") }}
+                    {{ form_widget(form.dictamen.asesor4,{'attr':{
+                        'class':'form-control',
+                        'rows' : '1'
+
+                    }}) }}
+                    {{ form_errors(form.dictamen.asesor4) }}
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+
+                    {{ form_label(form.dictamen.asesor2,"ASESOR 2") }}
+                    {{ form_widget(form.dictamen.asesor2,{'attr':{
+                        'class':'form-control',
+                        'rows' : '1'
+
+                    }}) }}
+                    {{ form_errors(form.dictamen.asesor2) }}
+                </td>
+                <td>
+
+                    {{ form_label(form.dictamen.asesor5,"ASESOR 5") }}
+                    {{ form_widget(form.dictamen.asesor5,{'attr':{
+                        'class':'form-control',
+                        'rows' : '1'
+
+                    }}) }}
+                    {{ form_errors(form.dictamen.asesor5) }}
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+
+                    {{ form_label(form.dictamen.asesor3,"ASESOR 3") }}
+                    {{ form_widget(form.dictamen.asesor3,{'attr':{
+                        'class':'form-control',
+                        'rows' : '1'
+
+                    }}) }}
+                    {{ form_errors(form.dictamen.asesor3) }}
+                </td>
+                <td>
+
+                    {{ form_label(form.dictamen.asesor6,"ASESOR 6") }}
+                    {{ form_widget(form.dictamen.asesor6,{'attr':{
+                        'class':'form-control',
+                        'rows' : '1'
+
+                    }}) }}
+                    {{ form_errors(form.dictamen.asesor6) }}
+                </td>
+            </tr>
+
+        </table>
+
+        <table class="table-curved" align="center"  width="100%">
+            <tr>
+                <td> {{ form_label(form.dictamen.presidente,"PRESIDENTE") }}
+                    {{ form_widget(form.dictamen.presidente,{'attr':{
+                        'class':'form-control',
+                        'rows' : '1'
+
+                    }}) }}
+                    {{ form_errors(form.dictamen.secretario) }}</td>
+                <td><td> {{ form_label(form.dictamen.secretario,"SECRETARIO") }}
+                    {{ form_widget(form.dictamen.secretario,{'attr':{
+                        'class':'form-control',
+                        'rows' : '1'
+
+                    }}) }}
+                    {{ form_errors(form.dictamen.secretario) }}</td></td>
+            </tr>
+        </table>
 
 
     {% endif %}
 
 
 
-    <br>
-
-    <div>
         <br>
-        {%  for aspirante in form.registros %}
-            {{ aspirante.puntaje.vars.attr.nombre }}
+
+        <div>
             <br>
-            {{ form_label(aspirante.puntaje) }}
-            {{ form_widget(aspirante.puntaje) }}
-            {{ form_errors(aspirante.puntaje) }}
 
-            {{ form_label(aspirante.prelacion) }}
-            {{ form_widget(aspirante.prelacion) }}
-            {{ form_errors(aspirante.prelacion) }}
+                    <br>
+                {%  for aspirante in form.registros %}
+                    <strong>ASPIRANTE:</strong> {{ aspirante.puntaje.vars.attr.nombre }}
+                    <br>
+                    {{ form_label(aspirante.puntaje,"PUNTAJE TOTAL") }}
+                    {{ form_widget(aspirante.puntaje) }}
+                    {{ form_errors(aspirante.puntaje) }}
 
-            {{ form_label(aspirante.nivelAsig) }}
-            {{ form_widget(aspirante.nivelAsig) }}
-            {{ form_errors(aspirante.nivelAsig) }}
-            <br>
-        {% endfor %}
+                    {{ form_label(aspirante.prelacion,"PRELACIÓN") }}
+                    {{ form_widget(aspirante.prelacion) }}
+                    {{ form_errors(aspirante.prelacion) }}
 
-    </div>
-    <br>
+                    {{ form_label(aspirante.nivelAsig,"NIVEL:") }}
+                    {{ form_widget(aspirante.nivelAsig) }}
+                    {{ form_errors(aspirante.nivelAsig) }}
+                    <br><br>
+                {% endfor %}
+
+        </div>
+        <br>
 
 
 
 
         <input type="submit" value="Create" />
-    {{ form_end(form) }}
+        {{ form_end(form) }}
 
 
 
 
-    <ul>
-        <li>
-            <a href="{{ path('dictamen_index') }}">Listado de todos los DICTAMENES</a>
-        </li>
-    </ul>
-
-
+        <ul>
+            <li>
+                <a href="{{ path('dictamen_index') }}">Listado de todos los DICTAMENES</a>
+            </li>
+        </ul>
 
 {% endblock %}
+
+
+
+

@@ -37,7 +37,7 @@ class Division
     /**
      * @var string
      *
-     * @ORM\Column(name="dGrado", type="string", length=4, nullable=true)
+     * @ORM\Column(name="dGrado", type="string", length=10, nullable=true)
      */
     private $dGrado;
 
@@ -65,7 +65,7 @@ class Division
     /**
      * @var string
      *
-     * @ORM\Column(name="saGrado", type="string", length=4, nullable=true)
+     * @ORM\Column(name="saGrado", type="string", length=10, nullable=true)
      */
     private $saGrado;
 
@@ -274,5 +274,111 @@ class Division
     public function getDApellidoMaterno()
     {
         return $this->dApellidoMaterno;
+    }
+
+    /**
+     * Set saGrado
+     *
+     * @param string $saGrado
+     *
+     * @return Division
+     */
+    public function setSaGrado($saGrado)
+    {
+        $this->saGrado = $saGrado;
+
+        return $this;
+    }
+
+    /**
+     * Get saGrado
+     *
+     * @return string
+     */
+    public function getSaGrado()
+    {
+        return $this->saGrado;
+    }
+
+    /**
+     * Set saNombre
+     *
+     * @param string $saNombre
+     *
+     * @return Division
+     */
+    public function setSaNombre($saNombre)
+    {
+        $this->saNombre = $saNombre;
+
+        return $this;
+    }
+
+    /**
+     * Get saNombre
+     *
+     * @return string
+     */
+    public function getSaNombre()
+    {
+        return $this->saNombre;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSaNombreCompleto()
+    {
+        return $this->saGrado." ".$this->saNombre." ".$this->saApellidoPaterno." ".$this->saApellidoMaterno;
+
+    }
+
+
+    /**
+     * Set saApellidoPaterno
+     *
+     * @param string $saApellidoPaterno
+     *
+     * @return Division
+     */
+    public function setSaApellidoPaterno($saApellidoPaterno)
+    {
+        $this->saApellidoPaterno = $saApellidoPaterno;
+
+        return $this;
+    }
+
+    /**
+     * Get saApellidoPaterno
+     *
+     * @return string
+     */
+    public function getSaApellidoPaterno()
+    {
+        return $this->saApellidoPaterno;
+    }
+
+    /**
+     * Set saApellidoMaterno
+     *
+     * @param string $saApellidoMaterno
+     *
+     * @return Division
+     */
+    public function setSaApellidoMaterno($saApellidoMaterno)
+    {
+        $this->saApellidoMaterno = $saApellidoMaterno;
+
+        return $this;
+    }
+
+    /**
+     * Get saApellidoMaterno
+     *
+     * @return string
+     */
+    public function getSaApellidoMaterno()
+    {
+        return $this->saApellidoMaterno;
     }
 }
