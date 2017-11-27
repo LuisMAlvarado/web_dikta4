@@ -13,13 +13,14 @@
 {% block content %}
 
     {% if is_granted('IS_AUTHENTICATED_ANONYMOUSLY') %}
-        <h3>Listado de Concursos de Evaluacion Vigentes </h3>
+        <h3>Listado de Concursos de Evaluación Vigentes </h3>
 
     {% endif %}
 
-    {% if is_granted(expression('"ROLE_ADMININISTRADOR" in roles or "ROLE_ASISTENTE" in roles or "ROLE_DICTAMINADOR" in roles')) %}
+    {% if is_granted(expression('"ROLE_ADMININISTRADOR" in roles or "ROLE_ASISTENTEDEP" in roles or "ROLE_ASISTENTEDIV" in roles or "ROLE_DICTAMINADOR" in roles')) %}
 
-    <a href="{{ path('homepage') }}">HOME</a>
+    <a class="btn btn-info btn-sm" href="{{ path('homepage') }}">REGRESAR AL MENÚ <span class=" glyphicon glyphicon-cog"></span></a>
+        <br>
     {% endif %}
 
     {% if is_granted(expression('"ROLE_ASPIRANTE" in roles')) %}
@@ -32,12 +33,14 @@
     <table class="tableaviso"  >
         <tr>
             <td class="tdaviso" align="center" >
-                Los datos en este portal son  de caracter Informativo , la Difusion e Informacion OFICIAL de las CONVOCATORIAS
+                Los datos en este portal son  de carácter Informativo , la Difusión e Información OFICIAL de las CONVOCATORIAS
                     <br> se puede consultar en <a href="http://www.uam.mx/convoacad/index.html" target="_blank">UAM.CONVOCATORIAS</a>
             </td>
         </tr>
     </table>
     <br />
+
+
 
     {% if is_granted(expression('"ROLE_ASPIRANTE" in roles')) %}
 
@@ -60,10 +63,9 @@
             </tr>
         </table>
 
-        <div class="row">
-        <div id="formatAsp-concursos" class="col-md-9">
+<div class="row">
+            <div id="formatAsp-concursos" class="col-md-9"></div>
 
-        </div>
             <br />
     {% elseif is_granted('IS_AUTHENTICATED_ANONYMOUSLY') %}
 
@@ -87,10 +89,9 @@
         </tr>
     </table>
 
-            <div class="row">
-                <div id="format-concursos" class="col-md-9">
 
-                </div>
+    <div class="row">
+                <div id="format-concursos" class="col-md-9"></div>
 
     {% endif %}
     <br>
@@ -125,48 +126,59 @@
                 </div>
 
             </form>
-            <br><br>
+            <br/><br/>
             <a  href="{{ path('aspirante_prenew') }}">Solicitar Acceso como ASPIRANTE</a>
 
         </aside>
     </div>
         {% endif %}
 
+</div>
 
 
 
 
 
-    <footer>
-        <br>&copy; {{ 'now' |date('Y') }}- DICTAMINADORA-UAMI
-        <br>
-        <a href="#">Ayuda</a>
-        <a href="#">Contacto</a>
-        <a href="#">Privacidad</a>
-        <a href="#">Sobre nosotros</a>
-    </footer>
 
 
 
 
 
-   <ul>
+
+
+
     {% if is_granted(expression('"ROLE_ADMINISTRADOR" in roles')) %}
-
+       <ul>
             <li>
                 <a href="{{ path('concurso_new') }}">Create a new entry</a>
             </li>
+       </ul>
     {% endif %}
-                {% if is_granted(expression('"ROLE_ADMINISTRADOR" in roles or "ROLE_ASISTENTE" in roles or "ROLE_DICTAMINADOR" in roles')) %}
-                    <li> <a href="{{ path('homepage') }}">HOMES</a> </li>
-                </ul>
-                {% endif %}
+
+    {% if is_granted(expression('"ROLE_ADMININISTRADOR" in roles or "ROLE_ASISTENTEDEP" in roles or "ROLE_ASISTENTEDIV" in roles or "ROLE_DICTAMINADOR" in roles')) %}
+
+        <a class="btn btn-info btn-sm" href="{{ path('homepage') }}">REGRESAR AL MENÚ <span class=" glyphicon glyphicon-cog"></span></a>
+    {% endif %}
+
                     {% if is_granted(expression('"ROLE_ASPIRANTE" in roles')) %}
 
-                       <a href="{{ path('aspirante_aspshow',{'id' : aspirante.rfc}) }}">Regresar a sitio</a>
+                        <a class="btn btn-info btn-sm" href="{{ path('aspirante_aspshow',{'id' : aspirante.rfc}) }}">Regresar a INICIO <span class=" glyphicon glyphicon-home"></span></a>
 
                     {% endif %}
 
+    <br><br>
+    <footer>
+        <div class="row">
+            <div class="col-xs-12 col-md-8">&copy; {{ 'now' |date('Y') }}- DICTAMINADORA-UAMI</div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-3"><a href="#">Ayuda</a></div>
+            <div class="col-md-3"><a href="#">Contacto</a></div>
+            <div class="col-md-3"><a href="#">Privacidad</a></div>
+            <div class="col-md-3"><a href="#">Sobre nosotros</a></div>
+        </div>
+    </footer>
 {% endblock %}
 
 
@@ -259,8 +271,8 @@
 
     <script>
         $(document).ready(function () {
-            $("#formatAsp-concursos").html('<iframe width="100%" height="400px" scrolling="yes" src="{{ path('concursoAsp_formatop',{'div': ' ', 'dep': ' ' }) }}"  frameborder="0"> </iframe>')
-            var iframeaux= '<iframe width="100%" height="400px" scrolling="yes" src="{{ path('concursoAsp_formatop',{'div': '__div__', 'dep': '__dep__' }) }}" frameborder="0"> </iframe>';
+            $("#formatAsp-concursos").html('<iframe width="100%" height="600px" scrolling="yes" src="{{ path('concursoAsp_formatop',{'div': ' ', 'dep': ' ' }) }}"  frameborder="0"> </iframe>')
+            var iframeaux= '<iframe width="100%" height="600px" scrolling="yes" src="{{ path('concursoAsp_formatop',{'div': '__div__', 'dep': '__dep__' }) }}" frameborder="0"> </iframe>';
 
             $("#selectAsp-div").change(function () {
                 var div = $(this).val();
