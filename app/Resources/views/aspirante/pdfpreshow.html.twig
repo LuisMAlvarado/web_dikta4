@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+</head>
+
+<body>
+
+<header>
+    <table align="center" class="table">
+        <tr>
+            <td> <img src="{{ asset('resource/img/encabezado.png') }}"  /></td>
+            <td class="text-right"><strong>Formato alta DICTAMINADORA</strong></td>
+        </tr>
+    </table>
+</header>
+
+<h1>Solicito mi alta a la plataforma como ASPIRANTE</h1>
+
+<table width="100%">
+    <tbody>
+    <tr>
+        <td colspan="3" width="50%"></td>
+        <th class="table-bordered text-right" >Fecha de Solicitud &nbsp;</th>
+
+        <td class="table-bordered text-center">{% if aspirante.createAt %}{{  aspirante.createAt|date('d-M-Y') }}{% endif %}</td>
+    </tr>
+
+    </tbody>
+</table>
+<br/><br/><br/>
+
+<table class="table table-bordered">
+    <tr >
+
+        <td><strong>Apellido Paterno</strong> <br/>
+            {{ aspirante.apellidoPaterno }}
+        </td>
+        <td><strong>Apellido Materno</strong> <br/>
+            {{ aspirante.apellidoMaterno }}
+        </td>
+        <td><strong>Nombre</strong> <br/>
+            {{ aspirante.nombre }}
+        </td>
+
+    </tr>
+</table>
+<br><br><br>
+    <table class="table table-bordered">
+    <tr>
+
+        <td> <strong>RFC</strong><br>
+            {{ aspirante.rfc }}
+        </td>
+        <td><strong>No.Empleado</strong><br>
+            {{ aspirante.numeroEconomico }}
+        </td>
+
+        <td><strong>Fecha de Nacimiento</strong><br>
+            {% if aspirante.fechaBirthday %}{{  aspirante.fechaBirthday|date('d-M-Y') }}{% endif %}
+        </td>
+
+    </tr>
+    </table>
+<br><br><br>
+        <table class="table table-bordered">
+    <tr>
+        <td><strong>Telefonos</strong><br>
+            {{ aspirante.telefonos }}
+        </td>
+        <td><strong>Correo Electronico</strong><br>
+            {{ aspirante.correoElectronico }}
+        </td>
+        <td><strong>EDAD</strong><br>
+            {{ aspirante.edad }}
+        </td>
+
+    </tr>
+
+
+     </table>
+
+</body>

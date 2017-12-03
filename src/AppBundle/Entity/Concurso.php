@@ -455,7 +455,7 @@ class Concurso
      */
     public function setAreaDepartamental($areaDepartamental)
     {
-        $this->areaDepartamental = $areaDepartamental;
+        $this->areaDepartamental = mb_strtoupper($areaDepartamental,"UTF-8");
 
         return $this;
     }
@@ -480,7 +480,7 @@ class Concurso
      */
     public function setHorario($horario)
     {
-        $this->horario = $horario;
+        $this->horario = mb_strtoupper($horario,"UTF-8");
 
         return $this;
     }
@@ -659,7 +659,7 @@ class Concurso
      */
     public function setAConocimiento($aConocimiento)
     {
-        $this->aConocimiento = $aConocimiento;
+        $this->aConocimiento = mb_strtoupper($aConocimiento,"UTF-8");
 
         return $this;
     }
@@ -683,7 +683,7 @@ class Concurso
      */
     public function setDisciplina($disciplina)
     {
-        $this->disciplina = $disciplina;
+        $this->disciplina = mb_strtoupper($disciplina,"UTF-8");
 
         return $this;
     }
@@ -1114,7 +1114,7 @@ class Concurso
      */
     public function setCausaltxt($causaltxt)
     {
-        $this->causaltxt = $causaltxt;
+        $this->causaltxt = mb_strtoupper($causaltxt,"UTF-8");
 
         return $this;
     }

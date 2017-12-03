@@ -20,6 +20,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  */
 class Aspirante implements AdvancedUserInterface, \Serializable
 {
+    //CAMBIE AL MAYUSCULA OBLIGATIRIOS ALGUNOS ATRIBUTOS
     /**
      * @var string
      *
@@ -340,7 +341,7 @@ return $this->rfc;
      */
     public function setRfc($rfc)
     {
-        $this->rfc = $rfc;
+        $this->rfc = mb_strtoupper($rfc,"UTF-8");
 
         return $this;
     }
@@ -364,7 +365,7 @@ return $this->rfc;
      */
     public function setNombre($nombre)
     {
-        $this->nombre = $nombre;
+        $this->nombre = mb_strtoupper($nombre,"UTF-8");
 
         return $this;
     }
@@ -381,7 +382,7 @@ return $this->rfc;
 
     public function getNombreCompleto()
     {
-        return $this->nombre." ".$this->apellidoPaterno." ".$this->apellidoMaterno;
+        return $this->apellidoPaterno." ".$this->apellidoMaterno." ".$this->nombre;
     }
 
 
@@ -394,7 +395,7 @@ return $this->rfc;
      */
     public function setApellidoPaterno($apellidoPaterno)
     {
-        $this->apellidoPaterno = $apellidoPaterno;
+        $this->apellidoPaterno = mb_strtoupper($apellidoPaterno,"UTF-8");
 
         return $this;
     }
@@ -418,7 +419,7 @@ return $this->rfc;
      */
     public function setApellidoMaterno($apellidoMaterno)
     {
-        $this->apellidoMaterno = $apellidoMaterno;
+        $this->apellidoMaterno = mb_strtoupper($apellidoMaterno,"UTF-8");
 
         return $this;
     }
@@ -490,7 +491,7 @@ return $this->rfc;
      */
     public function setCurp($curp)
     {
-        $this->curp = $curp;
+        $this->curp = mb_strtoupper($curp,"UTF-8");
 
         return $this;
     }
@@ -538,7 +539,7 @@ return $this->rfc;
      */
     public function setNacionalidad($nacionalidad)
     {
-        $this->nacionalidad = $nacionalidad;
+        $this->nacionalidad = mb_strtoupper($nacionalidad,"UTF-8");
 
         return $this;
     }
@@ -634,7 +635,7 @@ return $this->rfc;
      */
     public function setTelefonos($telefonos)
     {
-        $this->telefonos = $telefonos;
+        $this->telefonos = mb_strtoupper($telefonos,"UTF-8");
 
         return $this;
     }
@@ -658,7 +659,7 @@ return $this->rfc;
      */
     public function setDireccion($direccion)
     {
-        $this->direccion = $direccion;
+        $this->direccion = mb_strtoupper($direccion,"UTF-8");
 
         return $this;
     }
@@ -884,7 +885,7 @@ return $this->rfc;
      */
     public function setCalle($calle)
     {
-        $this->calle = $calle;
+        $this->calle = mb_strtoupper($calle,"UTF-8");
 
         return $this;
     }
@@ -908,7 +909,7 @@ return $this->rfc;
      */
     public function setNoExt($noExt)
     {
-        $this->noExt = $noExt;
+        $this->noExt = mb_strtoupper($noExt,"UTF-8");
 
         return $this;
     }
@@ -932,7 +933,7 @@ return $this->rfc;
      */
     public function setEdif($edif)
     {
-        $this->edif = $edif;
+        $this->edif = mb_strtoupper($edif,"UTF-8");
 
         return $this;
     }
@@ -956,7 +957,7 @@ return $this->rfc;
      */
     public function setDepto($depto)
     {
-        $this->depto = $depto;
+        $this->depto = mb_strtoupper($depto,"UTF-8");
 
         return $this;
     }
@@ -980,7 +981,7 @@ return $this->rfc;
      */
     public function setColoniaFracc($coloniaFracc)
     {
-        $this->coloniaFracc = $coloniaFracc;
+        $this->coloniaFracc = mb_strtoupper($coloniaFracc,"UTF-8");
 
         return $this;
     }
@@ -1004,7 +1005,7 @@ return $this->rfc;
      */
     public function setDelegMunc($delegMunc)
     {
-        $this->delegMunc = $delegMunc;
+        $this->delegMunc = mb_strtoupper($delegMunc,"UTF-8");
 
         return $this;
     }
@@ -1028,7 +1029,7 @@ return $this->rfc;
      */
     public function setEstado($estado)
     {
-        $this->estado = $estado;
+        $this->estado = mb_strtoupper($estado,"UTF-8");
 
         return $this;
     }

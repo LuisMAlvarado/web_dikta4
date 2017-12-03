@@ -148,7 +148,7 @@ class DictamenController extends Controller
 
             'unidad'=>$concurso->getUnidad(),
             'division'=>$concurso->getDepartamento()->getDivision()->getNombre(),
-            'departamento'=>$concurso->getDepartamento()->getNombre(),
+            'departamento'=>mb_strtoupper($concurso->getDepartamento()->getNombre(),"UTF-8"),
             'areaDepartamental'=>$concurso->getAreaDepartamental(),
 
             'modalidades'=>$dictaman->getModalidades(),

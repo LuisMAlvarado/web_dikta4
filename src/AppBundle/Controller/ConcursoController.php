@@ -396,15 +396,9 @@ class ConcursoController extends Controller
      */
     public function showregAction(Concurso $concurso)
     {
+        // REGISTRO DE ASPIRANTES EN ESTAPA DE PUBLICACION
+
         $deleteForm = $this->createDeleteForm($concurso);
-
-        // $dias = $concurso->getFechaIn()->diff($concurso->getFechaTer())->format('%Y AÑOS - %M MESES - %D DÍAS');
-       // $form = $this->createForm('AppBundle\Form\ConcursoRegistroType', $concurso);
-
-        //$registros= $concurso->getRegistrosCompletos();//SE DEBE HACER EL INPUT(SELECTOR PALOMITA)URGE ARREGLO LMAP
-        //dump($registros); exit();  //   CAMBIAR LA FORMA DE SELECIONAR LOS REGISTROS!!!!!
-
-
         return $this->render('concurso/showreg.html.twig', array(
             'concurso' => $concurso,
          //   'form' => $form->createView(),
@@ -566,11 +560,27 @@ class ConcursoController extends Controller
             'numplaza'=>$concurso->getPlaza(),
             'codigoplaza'=>$concurso->getClavePlaza(),
             'jdnombrecompl'=>$concurso->getDepartamento()->getDpNombreCompleto(),
-            'dirnombrecompl'=>$concurso->getDepartamento()->getDivision()->getDNombreCompleto(),
+
             'subdirRL'=>'M. EN C. HIPÓLITO LARA RESÉNDIZ',
-            'nombrectrlplantilla'=>'LIC. CIRO M. DÍAZ ROJAS',
+            'nombrectrlplantilla'=>' ',
 
         );
+
+   $divfunciones=$concurso->getDepartamento()->getDivision()->getId();
+
+        if($divfunciones==4){
+            $fields['dirnombrecompl']='DRA. MARGARITA E. GALLEGOS MARTINEZ       EN FUNCIONES';
+        }
+
+        if($divfunciones!= 4){
+
+
+            // $fields[pre_0]=2;
+            $fields['dirnombrecompl']=$concurso->getDepartamento()->getDivision()->getDNombreCompleto();
+
+                }
+
+
         $pdf = new FPDM(__DIR__."/../../../formatosPDF/regCEC.pdf");
         $pdf->Load($fields, true); // second parameter: false if field values are in ISO-8859-1, true if UTF-8
         $pdf->Merge();

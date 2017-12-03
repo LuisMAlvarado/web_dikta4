@@ -72,12 +72,6 @@
 
 
 
-{% for registro in concurso.registros %}
-
-    {{ registro.numRegistro }} Fecha de registro {% if registro.fechaRegistro %}{{ registro.fechaRegistro|date('d-M-Y') }}{% endif %} <br>
-
-
-{% endfor %}
 
 
 
@@ -113,93 +107,6 @@
 
 {% endif %}
 
-    {#
-    {{ form_start(form) }}
-    {% if is_granted(expression('"ROLE_ASISTENTEDIV" in roles')) and concurso.estatus.id == 4   %}
-
-
-        <div>
-            <br>
-
-            <TABLE class="table table-bordered" >
-
-
-                {%  for aspirante in form.registros %}
-                    <tr>
-
-                        <td> {{ loop.index }} .-
-                        #}
-                            {#  <a href="#" class="modalAsp" data-toggle="modal" data-target="#myModal" idAspirante="{{ aspirante.aspiranteRfc.rfc }}" idregrfc="{{ aspirante.id }}">#}
-                        {#    {{ form_widget(aspirante.aspiranteRfc) }}
-                        </td>
-
-                        {#
-                         </a>
-                          #}
-                         {#
-                      <td>
-                            {{ form_label(aspirante.entregoDocs,'PRESENTO DOCUMENTOS?') }}
-                            {{ form_widget(aspirante.entregoDocs) }}
-                            {{ form_errors(aspirante.entregoDocs) }}
-
-                        </td>
-
-                        <!-- Button trigger modal -->
-
-                    </tr>
-                {% endfor %}
-
-            </TABLE>
-
-
-        </div>
-        #}
-
-
-        {#
-            <div class="panel-heading">{{ form_label(form.registros, 'AGREGAR MÁS ASPIRANTES') }}</div>
-            <div class="panel-body">
-
-                <div id="registros-container" data-prototipe="{% filter escape %} {% include 'aspirante/form.html.twig' with {'form': form.registros.vars.prototype } %{% endfilter %}">
-                    {# % for registro in form.registros  %}
-                        <div id="aspirante_{{ loop.index0 }}" class="form-group">
-                            <table class="table table-condensed" width="100%">
-                                <tr>
-                                    <td width="85%">{{ form_label(registro.aspiranteRfc, 'RFC del Aspirante') }}
-                                        {{ form_widget(registro.aspiranteRfc, {'attr': {'class': 'form-control'}}) }}
-                                        <div class="text-danger">{{ form_errors(registro.aspiranteRfc) }}</div></td>
-                                    <td width="10%" >
-                                        {{ form_label(registro.entregoDocs, '¿Presento Documentos?') }}
-                                        {{ form_widget(registro.entregoDocs, {'attr':{'class':'form-control'}}) }}
-
-                                        <div class="text-danger">{{ form_errors(registro.entregoDocs) }}</div>
-                                    </td>
-                                    <td width="5%" align="center" valign="middle">
-                                        <button  id="btn_aspirante_{{ loop.index0 }}" type="button" class="delete" aria-label="Close"><span class="glyphicon glyphicon-trash"></span></button>
-                                    </td>
-                                </tr>
-
-                            </table>
-                        </div>
-
-                    {% endfor %
-
-        </div>
-
-        <div class="form-group">
-            <div class="col-lg-2"></div>
-            <div class="col-lg-10">
-                <a href="#" id="add-another-aspirante" class="btn btn-default"><span class="glyphicon glyphicon-plus-sign"> Agregar ASPIRANTE</span></a>
-            </div>
-        </div>
-
-    </div>
-
-    {% endif %}
-
-    {{ form_end(form) }}
-
-    #}
 
 
     <table class="table table-bordered">

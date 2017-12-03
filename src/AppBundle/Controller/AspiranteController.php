@@ -224,6 +224,58 @@ class AspiranteController extends Controller
     }
 
 
+    /**
+     * Finds and genera PDFs a Concurso entity.
+     *
+     * @Route("/prenew/{id}/prepdf", name="preasp_showpdfs")
+     * @Method("GET")
+     */
+    public function showpdfsAction(Aspirante $aspirante)
+    {
+
+        /**return $this->render('aspirante/pdfpreshow.html.twig', array(
+            'aspirante' => $aspirante,
+
+        ));
+        */
+
+        $html = $this->renderView('aspirante/pdfpreshow.html.twig', array(
+            'aspirante' => $aspirante,
+
+        ));
+
+        // set style for barcode
+        $style = array(
+            'border' => 0,
+            'vpadding' => 'auto',
+            'hpadding' => 'auto',
+            'fgcolor' => array(0,0,0),
+            'bgcolor' => false, //array(255,255,255)
+            'module_width' => 1, // width of a single module in points
+            'module_height' => 1 // height of a single module in points
+        );
+
+// QRCODE,L : QR-CODE Low error correction
+
+
+        $pdfObj = $this->get("white_october.tcpdf")->create();
+        $pdfObj->setPrintHeader(false);
+        $pdfObj->setPrintFooter(false);
+        $pdfObj->SetAuthor('LuisM-Dictaminadora');
+        $pdfObj->SetTitle('preAspirante_' . $aspirante->getRfc());
+        $pdfObj->SetFont('helvetica', '', 7);
+        $pdfObj->AddPage('P', 'mm', 'Letter');
+        $pdfObj->writeHTML($html, true, true, true, false, '');
+        $pdfObj->write2DBarcode('siipi.izt.uam.mx/dictaminadoras/aspirante/'.$aspirante->getRfc(), 'QRCODE,Q', 130, 100, 30, 30, $style, 'N');
+        $pdfObj->Text(130, 130, 'CODIGO DE '.$aspirante->getRfc());
+     //   $pdfObj->AddPage('P', 'mm', 'Letter');
+       // $pdfObj->writeHTML($html2, true, true, true, false, '');
+        // $y1=$pdfObj->GetY()-50;
+        //  $pdfObj->writeHTMLCell(194, '', 6, 90, $html2, 0, 1, 0, true, 'L', true);
+
+        $pdfObj->Output('preAspirante_'.$aspirante->getRfc().'.pdf', 'I');
+
+    }
 
     /**
      * Finds and displays a aspirante entity.

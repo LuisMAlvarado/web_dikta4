@@ -175,7 +175,7 @@ class Archivo
      */
     public function setDescripcion($descripcion)
     {
-        $this->descripcion = $descripcion;
+        $this->descripcion = mb_strtoupper($descripcion,"UTF-8");
 
         return $this;
     }

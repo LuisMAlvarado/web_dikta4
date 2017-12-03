@@ -128,7 +128,7 @@ class Departamento
      */
     public function setNombre($nombre)
     {
-        $this->nombre = $nombre;
+        $this->nombre = mb_strtoupper($nombre,"UTF-8");
 
         return $this;
     }
@@ -152,7 +152,7 @@ class Departamento
      */
     public function setAbreviatura($abreviatura)
     {
-        $this->abreviatura = $abreviatura;
+        $this->abreviatura = mb_strtoupper($abreviatura,"UTF-8");
 
         return $this;
     }

@@ -35,7 +35,7 @@ class AspirantePreType extends AbstractType
             ->add('telefonos')
            ->add('fechaBirthday',BirthdayType::class,array(
                    'format'=>'dd-MM-yyyy',
-                   'years'=>range(date('Y')-55,date('Y')),
+                   'years'=>range(date('Y')-70,date('Y')),
                    'placeholder' => array('year' => 'AñO','day' => 'DIA','month' => 'MES',)
                )
            )
