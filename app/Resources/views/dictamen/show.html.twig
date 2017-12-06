@@ -75,14 +75,14 @@
         <tbody>
         <tr>
             <td colspan="4"><strong>CONCURSANTE GANADOR</strong><br />
-              {% if concurso.ganador != '' %} {{ concurso.ganador.aspiranteRfc.nombreCompleto }} {% else  %} <strong>Desierta</strong> {% endif %}
+              {% if concurso.ganador != '' %} {{ concurso.ganador.aspiranteRfc.nombreCompleto }} {% else  %} <strong>DESIERTA</strong> {% endif %}
             </td>
         </tr>
         <tr>
             <td colspan="2"><strong>CATEGORÍA </strong><br />
                 </td> &nbsp;&nbsp;
             <td>
-                {% if concurso.ganador != '' %} {{ concurso.categoria.nombre }}    {{ concurso.ganador.nivelAsig }} {% else  %} Desierta {% endif %}
+                {% if concurso.ganador != '' %} {{ concurso.categoria.nombre }}    {{ concurso.ganador.nivelAsig }} {% else  %} {{ concurso.clasificacion.abreviacion }} &nbsp; {{ concurso.categoria.abreviacion }} {% endif %}
 
             </td>
             <td  colspan="1"> <strong>TIEMPO DE DEDICACIÓN</strong><br>
