@@ -281,10 +281,9 @@ class Concurso
         $this->id = null;
         $this->createAt = new \DateTime('now');
         $this->fechaPublicacion = new \DateTime('now');
-        $this->fechaIn = null;
-        $this->fechaTer = null;
         $this->pdfConcurso = null;
         $this->estatus = null;
+        $this->dictamen = null;
 
         $this->registros = new ArrayCollection();
         // TODO: Implement __clone() method.

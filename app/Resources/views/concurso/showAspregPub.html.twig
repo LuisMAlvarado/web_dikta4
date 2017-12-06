@@ -167,28 +167,61 @@
     {% endif %}
      #}
     {{ form_start(form) }}
+
     {% if is_granted(expression('"ROLE_ASISTENTEDIV" in roles')) and concurso.estatus.id == 3   %}
 
 
             <br>
 
 
-            <div class="row">
 
-                {%  for aspirante in form.registros %}
 
-                <div class="col-md-4" >{{ loop.index }} .- {{ form_widget(aspirante.aspiranteRfc) }}</div>
+        {%  for aspirante in form.registros %}
+            {% if aspirante.entregoDocs.vars.attr.regID is defined %}
+                <div class="row">
+                <div class="col-md-4" >{{ loop.index }} .- {{ form_widget(aspirante.aspiranteRfc) }} {{ form_errors(aspirante.aspiranteRfc) }}</div>
                 <div class="col-md-4">  {% if (aspirante.entregoDocs.vars.attr.nombre is defined ) %}    {{ aspirante.entregoDocs.vars.attr.nombre }}{%  endif %}</div>
                 <div class="col-md-2"> {{ form_label(aspirante.entregoDocs,'¿DOCUMENTOS?') }}
                     {{ form_widget(aspirante.entregoDocs) }}
                     {{ form_errors(aspirante.entregoDocs) }}</div>
-                    <div class="col-md-2">  {% if (aspirante.entregoDocs.vars.attr.nombre is defined ) %}
-                            <a href="{{ path('RAspFORM_pdf',{'id': aspirante.entregoDocs.vars.attr.regID }) }}"><span class="glyphicon glyphicon-save-file">PDF</span></a> {%  endif %}</div>
+                <div class="col-md-2">  {% if (aspirante.entregoDocs.vars.attr.nombre is defined ) %}
+                        <a href="{{ path('RAspFORM_pdf',{'id': aspirante.entregoDocs.vars.attr.regID }) }}"><span class="glyphicon glyphicon-save-file">PDF</span></a> {%  endif %}</div>
+                </div>
+            {% endif %}
 
-                {% endfor %}
-            </div>
+        {% endfor %}
+
+        <div class="show">
+            <div class="col-md12"><hr /></div>
+        </div>
+
+        {{ form_errors(form) }}
+
+        {%  for aspirante in form.registros %}
+            {% if aspirante.entregoDocs.vars.attr.regID is not defined %}
 
 
+
+                <div class="row">
+                    <div  class="col-md-3 text-danger rfcer" id="rfc_{{ loop.index }}"  >{{ loop.index }} .- {{ form_label(aspirante.aspiranteRfc, 'RFC con PROBLEMAS') }}
+                       <div > {{ form_widget(aspirante.aspiranteRfc, {'attr': {'class': 'form-control rfcer'}}) }}</div>
+                        <div class="alert-danger">{{ form_errors(aspirante.aspiranteRfc) }}</div>
+                    </div>
+
+                    <div  class="col-md-5 nombreAsperr" id="aspirante_{{ loop.index }}"> <br> INGRESE EL RFC CORRECTO O USE [BORRAR --></strong>
+                    </div>
+                    <div class="col-md-2" > {{ form_label(aspirante.entregoDocs, '¿PRESENTO DOCUMENTOS?') }}
+                        {{ form_widget(aspirante.entregoDocs, {'attr':{'class':'form-control'}}) }}
+
+                        <div class="alert-danger">{{ form_errors(aspirante.entregoDocs) }}</div></div>
+
+                    <div class="col-md-2">
+                        <button  id="btn_aspirante_{{ loop.index }}" type="button" class="delete" aria-label="Close"><span class="glyphicon glyphicon-trash"></span> BORRAR</button>
+                    </div>
+                </div>
+
+            {% endif %}
+        {% endfor %}
 
 
 
@@ -229,7 +262,7 @@
             </div>
         </div>
 
-        <input CLASS="btn bg-danger" type="submit" value="CONFIRMAR" />
+        <input id="confirmabtn" class="btn bg-danger" type="submit" value="CONFIRMAR" />
 
     </div>
 
@@ -411,6 +444,10 @@
                 btnBorraElement('#btn_aspirante_'+c, '#aspirante_'+c);
             }
 
+            $('.delete').click(function(){
+                $(this).parent().parent().remove();
+            });
+
             addArrayElement('#add-another-aspirante', '#aspirante-container' ,'#aspirante_', registrosCount);
 
             {# END ASPIRANTES #}
@@ -428,8 +465,6 @@
                      //console.log(link);
                      var elemento = $(this).parent().parent().find(".nombreAsp");
                      //console.log(elemento);
-
-
                      //alert(cadena);
                      $.ajax({
                          // la URL para la petición
@@ -450,6 +485,16 @@
                          success : function(nombrerfc) {
                              elemento.html('<p><br/><strong>'+nombrerfc.nombre+'</strong></p>');
                              //console.log(nombrerfc.nombre);
+                             console.log(nombrerfc.rfc);
+
+                             if (nombrerfc.rfc ==1 ){
+
+                                 alert('¡EL RFC DEL ASPIRANTE QUE INGRESO YA TIENE REGISTRO EN ESTE CONCURSO!, USE EL BOTON DE [BORRAR]' );
+                                {# $('#confirmabtn').hide();#}
+                             } else {
+                                 $('#confirmabtn').show();
+                             }
+
                          },
 
                          // código a ejecutar si la petición falla;
@@ -460,23 +505,85 @@
                          },
 
                      });
-
-
-
-
-
-
-
-
                      //var responde = {"rfc": "cadena", "nombre": "prueba"};
-
                     // $(this).parent().parent().find('.nombre').html('<p>'+responde.nombre+'</p>');
-
                  });
              }
 
+//INGRESO NVO AJAX
+
+
+
+      //TERIMA NVO AJAX
+
+
         });
     </script>
+
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            //alert(registrosCount);
+
+            function apiranteAjax() {
+                $('.rfcer').bind('input', function () {
+
+                    var cadena = $(this).val();
+                    var link = '{{ path('rfc_consulta', {'concurso': concurso.id}) }}';
+                    //var lk = '{#{ path('rfc_consulta',{ 'auxrfc': '__cadena__' }) }#}';
+                    //var link = lk.replace('__cadena__', cadena);
+                    //console.log(link);
+                    var elemento = $(this).parent().parent().find(".nombreAsperr");
+                    //console.log(elemento);
+                    alert(cadena);
+                    $.ajax({
+                        // la URL para la petición
+                        url : link,
+
+                        // la información a enviar
+                        // (también es posible utilizar una cadena de datos)
+                        data : { 'auxrfc' : cadena },
+
+                        // especifica si será una petición POST o GET
+                        type : 'GET',
+
+                        // el tipo de información que se espera de respuesta
+                        dataType : 'json',
+
+                        // código a ejecutar si la petición es satisfactoria;
+                        // la respuesta es pasada como argumento a la función
+                        success : function(nombrerfc) {
+                            elemento.html('<p><br/><strong>'+nombrerfc.nombre+'</strong></p>');
+                            //console.log(nombrerfc.nombre);
+                           // console.log(nombrerfc.rfc);
+
+
+                        },
+
+                        // código a ejecutar si la petición falla;
+                        // son pasados como argumentos a la función
+                        // el objeto de la petición en crudo y código de estatus de la petición
+                        error : function(xhr, status) {
+                            elemento.html("<p>EXISTIO UN ERROR</p>");
+                        },
+
+                    });
+                    //var responde = {"rfc": "cadena", "nombre": "prueba"};
+                    // $(this).parent().parent().find('.nombre').html('<p>'+responde.nombre+'</p>');
+                });
+            }
+
+        });
+    </script>
+
+
+
+
+
+
+
 
 
     <script>

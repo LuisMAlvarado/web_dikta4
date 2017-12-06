@@ -1,7 +1,7 @@
 <div class="row">
        <div id="rfc___name__" class="col-md-3" >__name__ .- {{ form_label(form.aspiranteRfc, 'RFC del Aspirante') }}
             {{ form_widget(form.aspiranteRfc, {'attr': {'class': 'form-control rfc'}}) }}
-            <div class="text-danger">{{ form_errors(form.aspiranteRfc) }}</div>
+            <div class="alert-danger">{{ form_errors(form.aspiranteRfc) }}</div>
        </div>
 
         <div  id="aspirante___name__" class="col-md-5 nombreAsp">
@@ -12,6 +12,6 @@
             <div class="text-danger">{{ form_errors(form.entregoDocs) }}</div></div>
 
         <div class="col-md-2">
-            <button  id="btn_aspirante___name__" type="button" class="delete" aria-label="Close"><span class="glyphicon glyphicon-trash"></span></button>
+            <button  id="btn_aspirante___name__" type="button" class="delete" aria-label="Close"><span class="glyphicon glyphicon-trash"></span> BORRAR</button>
         </div>
 </div>

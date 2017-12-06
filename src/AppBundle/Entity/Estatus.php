@@ -14,8 +14,8 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class Estatus
 {
-    const EnRevision = 1;
-    const EnviadoRG = 2;
+    const Revisando = 1;
+    const EnAprobacion = 2;
     const Publicado = 3;//DEFINICION DE CONSTANTES QUE PUEDEN SER UTILES EN LOS CONTRALADORES
     const CierredeRegAsp = 4;
     const Dictaminando = 5;

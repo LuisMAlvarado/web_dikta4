@@ -10,12 +10,12 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * Registro
  *
- * @ORM\Table(name="registro", indexes={@ORM\Index(name="fk_registro_concurso1_idx", columns={"concurso_id"}), @ORM\Index(name="fk_registro_aspirante1_idx", columns={"aspirante_rfc"})})
+ * @ORM\Table(name="registro", uniqueConstraints={@ORM\UniqueConstraint(name="Registro_Unico", columns={"aspirante_rfc", "concurso_id"})}, indexes={@ORM\Index(name="fk_registro_concurso1_idx", columns={"concurso_id"}), @ORM\Index(name="fk_registro_aspirante1_idx", columns={"aspirante_rfc"})})
  * @ORM\Entity(repositoryClass="AppBundle\Entity\RegistroRepository")
  * @UniqueEntity(
  *     fields={"concurso", "aspiranteRfc"},
  *     errorPath="aspiranteRfc",
- *     message="Aspirante Duplicado."
+ *     message="Aspirante(S) Duplicado(S), use el botón de [BORRAR]"
  * )
  */
 class Registro

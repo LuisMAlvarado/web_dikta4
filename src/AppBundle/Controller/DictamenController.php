@@ -172,6 +172,7 @@ class DictamenController extends Controller
         );
         if($Regs==null){
             $fields['pre_0']='Desierta';
+            $fields['nivpre_0']=$concurso->getClasificacion()->getAbreviacion().'  '.$concurso->getCategoria()->getAbreviacion();
         }
 
         if($Regs!= null){

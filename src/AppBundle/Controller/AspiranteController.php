@@ -127,14 +127,14 @@ class AspiranteController extends Controller
 
 
         if (!$aspirante){
-            $aspirante=array('nombre'=>'EL RFC QUE INGRESO NO EXISTE EN LA BASE DE DATOS','rfc'=>'RFC NO ENCONTRADO');
+            $aspirante=array('nombre'=>'EL RFC QUE INGRESO NO EXISTE EN LA BASE DE DATOS','rfc'=>'2');
          }else{
             $registro = $em->getRepository('AppBundle:Registro')->findOneBy(array(
                 'aspiranteRfc' => $auxrfc,
                 'concurso' => $concurso,
             ));
             if ($registro) {
-                $aspirante=array('nombre'=>'ASPIRANTE YA REGISTRADO','rfc'=> '');
+                $aspirante=array('nombre'=>'ASPIRANTE YA REGISTRADO, [BORRAR] ESTE REGISTRO -->','rfc'=> '1');
             }else {
                 $aspirante = $aspirante[0];
             }

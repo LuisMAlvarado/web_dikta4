@@ -722,7 +722,7 @@ public function reconvocarAction(Request $request, Concurso $concurso)// SE USA 
 {
     $reconcurso = clone $concurso;
 
-    $newestatus = $this->getDoctrine()->getRepository('AppBundle:Estatus')->find(Estatus::EnRevision); //Estatus::"nombre_variable" definida en ENTIDAD en este caso Estatus
+    $newestatus = $this->getDoctrine()->getRepository('AppBundle:Estatus')->find(Estatus::EnAprobacion); //Estatus::"nombre_variable" definida en ENTIDAD en este caso Estatus
     $reconcurso ->setEstatus($newestatus);
 
     $form = $this->createForm('AppBundle\Form\ConcursoType', $reconcurso);
