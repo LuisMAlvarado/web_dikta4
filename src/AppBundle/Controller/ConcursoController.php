@@ -310,7 +310,7 @@ class ConcursoController extends Controller
         $em = $this->getDoctrine()->getManager();
         
         $concurso = new Concurso();
-        $newestatus = $this->getDoctrine()->getRepository('AppBundle:Estatus')->find(Estatus::EnRevision); //Estatus::"nombre_variable" definida en ENTIDAD en este caso Estatus
+        $newestatus = $this->getDoctrine()->getRepository('AppBundle:Estatus')->find(Estatus::Revisando); //Estatus::"nombre_variable" definida en ENTIDAD en este caso Estatus
         $concurso ->setEstatus($newestatus);
 
         if ($this->isGranted(new Expression(' "ROLE_ASISTENTEDEP" in roles'))){
@@ -568,11 +568,11 @@ class ConcursoController extends Controller
 
    $divfunciones=$concurso->getDepartamento()->getDivision()->getId();
 
-        if($divfunciones==4){
+        if($divfunciones==5){
             $fields['dirnombrecompl']='DRA. MARGARITA E. GALLEGOS MARTINEZ       EN FUNCIONES';
         }
 
-        if($divfunciones!= 4){
+        if($divfunciones!= 5){
 
 
             // $fields[pre_0]=2;
