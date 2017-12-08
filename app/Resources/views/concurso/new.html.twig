@@ -14,7 +14,7 @@
             <td class="table-bordered text-right">
                 {{ form_label(form.clasificacion,"PARA: ") }}
                 {{ form_widget(form.clasificacion) }}
-                {{ form_errors(form.clasificacion) }}
+                <div class="alert-danger"> {{ form_errors(form.clasificacion) }} </div>
             </td>
             </tr>
         </div>
@@ -56,17 +56,17 @@
            <div id="selectcategoria">
             <td colspan="2">
 
-                {{ form_label(form.categoria) }}
+                {{ form_label(form.categoria,'Categoría') }}
                 {{ form_widget(form.categoria) }}
-                {{ form_errors(form.categoria) }}
+                <div class="alert-danger">  {{ form_errors(form.categoria) }} </div>
 
             </td>
            </div>
             <td colspan="2">
 
-                {{ form_label(form.tiempoDedicacion) }}
+                {{ form_label(form.tiempoDedicacion,'Tiempo de Dedicación') }}
                 {{ form_widget(form.tiempoDedicacion) }}
-                {{ form_errors(form.tiempoDedicacion) }}
+                <div class="alert-danger"> {{ form_errors(form.tiempoDedicacion) }}</div>
 
             </td>
 
@@ -157,7 +157,7 @@
                     'cols' : '1'
 
                 }}) }}
-                {{ form_errors(form.horario) }}
+                <div class="alert-danger">  {{ form_errors(form.horario) }} </div>
 
 
             </td>

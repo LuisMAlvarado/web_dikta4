@@ -266,7 +266,7 @@ class AspiranteController extends Controller
         $pdfObj->SetFont('helvetica', '', 7);
         $pdfObj->AddPage('P', 'mm', 'Letter');
         $pdfObj->writeHTML($html, true, true, true, false, '');
-        $pdfObj->write2DBarcode('siipi.izt.uam.mx/dictaminadoras/aspirante/'.$aspirante->getRfc(), 'QRCODE,Q', 130, 100, 30, 30, $style, 'N');
+        $pdfObj->write2DBarcode('https://siipi.izt.uam.mx/dictaminadoras/aspirante/'.$aspirante->getRfc(), 'QRCODE,Q', 130, 100, 30, 30, $style, 'N');
         $pdfObj->Text(130, 130, 'CODIGO DE '.$aspirante->getRfc());
      //   $pdfObj->AddPage('P', 'mm', 'Letter');
        // $pdfObj->writeHTML($html2, true, true, true, false, '');

@@ -2,12 +2,15 @@
 
 namespace AppBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
+
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Context\ExecutionContext;
-use Symfony\Component\Validator\Context\ExecutionContextInterface;
-use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\Criteria;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineAssert;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * Concurso
@@ -1132,4 +1135,71 @@ class Concurso
     {
         return $this->causal." ".$this->causaltxt;
     }
+
+
+
+    /**
+     * @Assert\Callback
+     * @param ExecutionContextInterface $context
+     *
+     */
+    public function horarioValido(ExecutionContextInterface $context)
+    {
+        if ($this->estatus != null && $this->horario == null ){
+            $context->buildViolation('Escribe el HORARIO')
+                ->atPath('horario')
+                ->addViolation();
+
+        }
+
+    }
+
+    /**
+     * @Assert\Callback
+     * @param ExecutionContextInterface $context
+     *
+     */
+    public function clasificacionValido(ExecutionContextInterface $context)
+    {
+        if ($this->estatus != null && $this->clasificacion == null ){
+            $context->buildViolation('Seleccione PARA:')
+                ->atPath('clasificacion')
+                ->addViolation();
+
+        }
+
+    }
+
+    /**
+     * @Assert\Callback
+     * @param ExecutionContextInterface $context
+     *
+     */
+    public function categorianValido(ExecutionContextInterface $context)
+    {
+        if ($this->estatus != null && $this->categoria == null ){
+            $context->buildViolation('Seleccione Categoría:')
+                ->atPath('categoria')
+                ->addViolation();
+
+        }
+
+    }
+
+    /**
+     * @Assert\Callback
+     * @param ExecutionContextInterface $context
+     *
+     */
+    public function tiempodedinValido(ExecutionContextInterface $context)
+    {
+        if ($this->estatus != null && $this->tiempoDedicacion == null ){
+            $context->buildViolation('Seleccione Tiempo de Dicación:')
+                ->atPath('tiempoDedicacion')
+                ->addViolation();
+
+        }
+
+    }
+
 }
