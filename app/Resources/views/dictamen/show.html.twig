@@ -171,7 +171,7 @@
         <tr>
             <td>
                {# {{ registro.aspiranteRfc.nombre }}  {{ registro.aspiranteRfc.apellidoPaterno }} {{ registro.aspiranteRfc.apellidoMaterno }}  #}
-                {{ registro.aspiranteRfc.nombreCompleto }}
+                {{ loop.index }}.-  {{ registro.aspiranteRfc.nombreCompleto }}
             </td>
             {% if is_granted(expression('"ROLE_DICTAMINADOR"  in roles '))%}
             <td>

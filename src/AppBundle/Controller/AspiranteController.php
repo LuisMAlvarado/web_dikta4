@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Archivo;
 use AppBundle\Entity\Aspirante;
 use AppBundle\Entity\Concurso;
+use FPDM\FPDM;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -265,9 +266,13 @@ class AspiranteController extends Controller
         $pdfObj->SetTitle('preAspirante_' . $aspirante->getRfc());
         $pdfObj->SetFont('helvetica', '', 7);
         $pdfObj->AddPage('P', 'mm', 'Letter');
+        $pdfObj->Image(__DIR__.'/../../../web/resource/img/encabezadopre.jpg',10,10,0,15,'JPG','','N');
         $pdfObj->writeHTML($html, true, true, true, false, '');
-        $pdfObj->write2DBarcode('https://siipi.izt.uam.mx/dictaminadoras/aspirante/'.$aspirante->getRfc(), 'QRCODE,Q', 130, 100, 30, 30, $style, 'N');
-        $pdfObj->Text(130, 130, 'CODIGO DE '.$aspirante->getRfc());
+
+        //$pdfObj->write2DBarcode('https://siipi.izt.uam.mx/dictaminadoras/aspirante/'.$aspirante->getRfc(), 'QRCODE,Q', 130, 100, 30, 30, $style, 'N');
+        $pdfObj->write2DBarcode('http://localhost:8000/aspirante/'.$aspirante->getRfc(), 'QRCODE,Q', 130, 100, 30, 30, $style, 'N');
+
+        $pdfObj->Text(130, 130, 'CODIGO DEL '.$aspirante->getRfc());
      //   $pdfObj->AddPage('P', 'mm', 'Letter');
        // $pdfObj->writeHTML($html2, true, true, true, false, '');
         // $y1=$pdfObj->GetY()-50;
@@ -412,6 +417,40 @@ class AspiranteController extends Controller
 
     }
 
+    /**
+     *
+     * @Route("/{id}/Medicard", name="medicard_pdf")
+     * @Method({"GET", "POST"})
+     */
+    public function pdfFRAspAction(Request $request, Aspirante $aspirante)
+    {
+
+
+        //$clasificacion = $concurso->getClasificacion();
+        //var_dump($clasificacion);exit();
+        $fields = array(
+            'Nombre' => $aspirante->getNombreCompleto() ,
+            'No'=>$aspirante->getRfc(),
+
+
+        );
+        /*
+                foreach ($concurso->getRegistros() as $i => $registro)
+                {
+                    $fields['aspirante_'.$i] = $registro->getAspiranteRfc()->getNombreCompleto();
+                }
+        */
+        //       dump($fields); exit();
+        $pdf = new FPDM(__DIR__."/../../../formatosPDF/TARJETAE.pdf");
+
+        //$pdf = new FPDM(__DIR__."/../../../formatosPDF/solregAsp.pdf");
+        $pdf->Load($fields, true); // second parameter: false if field values are in ISO-8859-1, true if UTF-8
+
+        $pdf->Merge();
+       // $nombre=preg_replace('/\./', '', $aspi->getRfc().'_'.$concurso->getNumConcurso());
+        // $pdf->Output($nombre.'.pdf', 'I');
+        $pdf->Output($aspirante->getNombre().'.pdf', 'I');
+    }
 
 
 

@@ -243,7 +243,7 @@
 
                     <br>
                 {%  for aspirante in form.registros %}
-                    <strong>ASPIRANTE:</strong> {{ aspirante.puntaje.vars.attr.nombre }}
+                    <strong>ASPIRANTE:</strong> {{ loop.index }}.- {{ aspirante.puntaje.vars.attr.nombre }}
                     <br>
                     {{ form_label(aspirante.puntaje,"PUNTAJE TOTAL") }}
                     {{ form_widget(aspirante.puntaje) }}

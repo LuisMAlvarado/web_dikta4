@@ -55,8 +55,8 @@
                     <td>{{ registro.concurso.dictamen }}</td>
 
                 {% endif %}
-
-                <td>{{ registro.prelacion }}</td>
+                <td>{% if registro.prelacion is null %}NO CALIFICA {% elseif registro.prelacion == 0  %} GANADOR  {% else %} {{ registro.prelacion  }} {% endif %}</td>
+               {# <td>{{ registro.prelacion }}</td>#}
 
                 {% if is_granted('ROLE_ASISTENTEDIV') %}
                     <td> {{ registro.aspiranteRfc }} </td>

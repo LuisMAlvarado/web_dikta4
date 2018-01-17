@@ -184,18 +184,41 @@ class DictamenController extends Controller
         }
 
 
-
-        foreach ($registros as $regis )
+        $preextra = "\n SI EL CONCURSANTE GANADOR NO OCUPA LA PLAZA, EL ORDEN DE PRELACIÓN SERÁ: \n\n";
+        foreach ($registros as $k => $regis )
         {
             if($regis->getPrelacion()==0) {continue;}
-            $fields['pre_'.$regis->getPrelacion()]=$regis->getAspiranteRfc()->getNombreCompleto();
-            $fields['nivpre_'.$regis->getPrelacion()]=$regis->getNivelAsig();
-        }
-      //  dump($fields);exit();
+            if($k<11){//TOMO LOS PRIMEROS 10 REGISTROS PARA PINTARLOS EN EL FORMATO DICTAMEN HOJA 1, PERO SI REVAZA EL NUMERO DE REGISTROS CON PRELACION LO PINTO EN LA HOJA 2
+                $fields['pre_'.$regis->getPrelacion()]=$regis->getAspiranteRfc()->getNombreCompleto();
+                $fields['nivpre_'.$regis->getPrelacion()]=$regis->getNivelAsig();
 
+            }
+            if($k>=11){
+
+                $preextra.=$regis->getPrelacion().'.- '.$regis->getAspiranteRfc()->getNombreCompleto().' '.' - CON EL NIVEL ASIGNADO:'.' '.$regis->getNivelAsig()."\n";
+                $fields['argumento2']=$preextra;
+            }
+
+            //if($regis->getPrelacion()==0) {continue;}
+           // $fields['pre_'.$regis->getPrelacion()]=$regis->getAspiranteRfc()->getNombreCompleto();
+           // $fields['nivpre_'.$regis->getPrelacion()]=$regis->getNivelAsig();
+        }
+
+        $aspextra = "\n\n  C O N C U R S A N T E S: \n\n";
+        //SI EL NUMERO DE CONCURANTES ES MAYOR A 10 DEBO PINTAR LOS PARTICIPANTES 11,12...ETC EN LA OTRA HOJA2
         foreach ($registros as $i => $registro)
         {
-            $fields['asp_'.$i] = $registro->getAspiranteRfc()->getNombreCompleto();
+            if($i<10){
+                $fields['asp_'.$i] = $registro->getAspiranteRfc()->getNombreCompleto();
+            }
+
+            if($i>=10){
+                $aspextra.=($i+1).'.-'.$registro->getAspiranteRfc()->getNombreCompleto()."\n";
+                if($registro->getPrelacion()>=10){
+                $fields['argumento2']=$preextra.$aspextra;
+            }
+             else    ($fields['argumento2']=$aspextra);
+            }
         }
 
       //  dump($fields);exit();

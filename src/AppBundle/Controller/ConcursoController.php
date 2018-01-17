@@ -751,90 +751,57 @@ public function reconvocarAction(Request $request, Concurso $concurso)// SE USA 
      *
      */
 
-    public function nestatusAction(Request $request, Concurso $concurso, $nest)// SE USA JUNTO CON EL @rotue {"propiedad"} y en conjunto con el twig cuando pasas Ruta(Controlador) pasas a la funcion esa Entidad
+    public function nestatusAction(Request $request, Concurso $concurso, $nest)
+        // SE USA JUNTO CON EL @rotue {"propiedad"} y en conjunto con el twig cuando pasas Ruta(Controlador) pasas a la funcion esa Entidad
     {
-
-
         $newestatus = $this->getDoctrine()->getRepository('AppBundle:Estatus')->find($nest);
         $em = $this->getDoctrine()->getManager();
         $deleteForm = $this->createDeleteForm($concurso);
         $editForm = $this->createForm('AppBundle\Form\ConcursoType', $concurso);
         $editForm->handleRequest($request);
         //Estatus::"nombre_variable" definida en ENTIDAD en este caso Estatus
-        $v1=$concurso->getEstatus()->getId();
-        $v2=$concurso->getNumConcurso();
-       // var_dump($v1,$v2);exit();
-        if ($concurso->getEstatus()->getId() < 3 && $concurso->getNumConcurso() == null) {
 
-            return $this->redirectToRoute('concurso_edit', array('id' => $concurso->getId(),
-                //    'concurso' => $concurso,
-                //    'edit_form' => $editForm->createView(),
-                //    'delete_form' => $deleteForm->createView(),
-            ));
-        }
 
-        if ($concurso->getEstatus()->getId() == 4 ) {
-            //Recorrido de registros Docs = false
-            // $em = $this->getDoctrine()->getManager();
-            //$registros = $request->query->get('registros');
-            $registros = $concurso->getRegistros();
-           // $numRegistro = 'REG.'.$concurso->getNumConcurso();
-           // $fechaRegistro = new \DateTime('now');
-            foreach ($registros as $registro) {
-                if ($registro->getEntregoDocs() == false) {
-                    $em->remove($registro);
+            if ($concurso->getEstatus()->getId() < 3 && $concurso->getNumConcurso() == null ) {
+
+                return $this->redirectToRoute(
+                    'concurso_edit',
+                    array(
+                        'id' => $concurso->getId(),
+                    )
+                );
+            }
+
+            if ($concurso->getEstatus()->getId() == 4) {
+                //Recorrido de registros Docs = false
+                $registros = $concurso->getRegistros();
+                foreach ($registros as $registro) {
+                    if ($registro->getEntregoDocs() == false or $registro->getAspiranteRfc()->getEnable()==false) {
+
+                        $em->remove($registro);
+                    }
                 }
+                $em->flush();
+
+                $numRegistro = 'REG.'.$concurso->getNumConcurso();
+                $fechaRegistro = new \DateTime('now');
+                foreach ($registros as $registro) {
+                    $registro->setNumRegistro($numRegistro);
+                    $registro->setFechaRegistro($fechaRegistro);
+                    //dump($registro);
+                    $em->persist($registro);
+                }
+                $em->flush();
+                //exit();
             }
-             $em->flush();
-
-            $numRegistro='REG.'.$concurso->getNumConcurso();
-            $fechaRegistro=new \DateTime('now');
-            foreach ($registros as $registro)
-            {
-                $registro->setNumRegistro($numRegistro);
-                $registro->setFechaRegistro($fechaRegistro);
-                //dump($registro);
-                $em->persist($registro);
-            }
-            $em->flush();
-            //exit();
-
-        }
-
-
-
-        //termina recorrido de registros de Docs = false
-
-
-        $concurso ->setEstatus($newestatus);
-
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($concurso);
-        //$em->flush();
-        $em->flush($concurso);
-        return $this->redirectToRoute('concurso_show', array('id' => $concurso->getId()));
-
-       // return $this->render('concurso/edit.html.twig', array(
-       //     'concurso' => $concurso,
-       //     'edit_form' => $editForm->createView(),
-       //     'delete_form' => $deleteForm->createView(),
-       // ));
-
-       /**QUITO ESTO PARA QUE ENVIE DIRECTO AL CAMBIO
-        * $form = $this->createForm('AppBundle\Form\ConcursoType', $reconcurso);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
+            //termina recorrido de registros de Docs = false
+            $concurso->setEstatus($newestatus);
             $em = $this->getDoctrine()->getManager();
-            $em->persist($reconcurso);
-            $em->flush($reconcurso);
+            $em->persist($concurso);
+            $em->flush();
+            //$em->flush($concurso);
+            return $this->redirectToRoute('concurso_show', array('id' => $concurso->getId()));
 
-            return $this->redirectToRoute('concurso_show', array('id' => $reconcurso->getId()));
-        }
-
-        return $this->render('concurso/new.html.twig', array(
-            'concurso' => $reconcurso,
-            'form' => $form->createView(),
-        )); */
 
     }
 
