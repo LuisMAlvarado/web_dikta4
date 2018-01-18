@@ -269,8 +269,8 @@ class AspiranteController extends Controller
         $pdfObj->Image(__DIR__.'/../../../web/resource/img/encabezadopre.jpg',10,10,0,15,'JPG','','N');
         $pdfObj->writeHTML($html, true, true, true, false, '');
 
-        //$pdfObj->write2DBarcode('https://siipi.izt.uam.mx/dictaminadoras/aspirante/'.$aspirante->getRfc(), 'QRCODE,Q', 130, 100, 30, 30, $style, 'N');
-        $pdfObj->write2DBarcode('http://localhost:8000/aspirante/'.$aspirante->getRfc(), 'QRCODE,Q', 130, 100, 30, 30, $style, 'N');
+        $pdfObj->write2DBarcode('https://siipi.izt.uam.mx/dictaminadoras/aspirante/'.$aspirante->getRfc(), 'QRCODE,Q', 130, 100, 30, 30, $style, 'N');
+        //$pdfObj->write2DBarcode('https://localhost:8000/aspirante/'.$aspirante->getRfc(), 'QRCODE,Q', 130, 100, 30, 30, $style, 'N');
 
         $pdfObj->Text(130, 130, 'CODIGO DEL '.$aspirante->getRfc());
      //   $pdfObj->AddPage('P', 'mm', 'Letter');

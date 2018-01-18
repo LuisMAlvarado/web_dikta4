@@ -188,12 +188,13 @@ class DictamenController extends Controller
         foreach ($registros as $k => $regis )
         {
             if($regis->getPrelacion()==0) {continue;}
-            if($k<11){//TOMO LOS PRIMEROS 10 REGISTROS PARA PINTARLOS EN EL FORMATO DICTAMEN HOJA 1, PERO SI REVAZA EL NUMERO DE REGISTROS CON PRELACION LO PINTO EN LA HOJA 2
+            if($regis->getPrelacion()<11){//TOMO LOS PRIMEROS 10 REGISTROS PARA PINTARLOS EN EL FORMATO DICTAMEN HOJA 1, PERO SI REVAZA EL NUMERO DE REGISTROS CON PRELACION LO PINTO EN LA HOJA 2
                 $fields['pre_'.$regis->getPrelacion()]=$regis->getAspiranteRfc()->getNombreCompleto();
                 $fields['nivpre_'.$regis->getPrelacion()]=$regis->getNivelAsig();
+               //var_dump($fields);
 
             }
-            if($k>=11){
+            if($regis->getPrelacion()>=11){
 
                 $preextra.=$regis->getPrelacion().'.- '.$regis->getAspiranteRfc()->getNombreCompleto().' '.' - CON EL NIVEL ASIGNADO:'.' '.$regis->getNivelAsig()."\n";
                 $fields['argumento2']=$preextra;
