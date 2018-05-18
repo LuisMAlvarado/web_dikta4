@@ -5,7 +5,7 @@
     {% block header %}
         <table class="table">
             <tr>
-                <td> <img src="{{ asset('/resource/img/encabezado.png') }}"  /></td>
+                <td> <img src="{{ asset('resource/img/encabezado.png') }}"  /></td>
                 <td class="text-right"><H4>SOLICITUD DE REGISTRO A CONCURSO <br> DE EVALUACIÓN CURRICULAR </H4></td>
             </tr>
         </table>
@@ -26,6 +26,8 @@
                     <td class="table-bordered text-center">{% if registro.createAt %}{{ registro.createAt|date('d-M-Y') }}{% endif %}</td></tr>
 
                 </tr>
+
+
 
                 </tbody>
             </table> <br>

@@ -216,12 +216,17 @@
         {% endif %}
 
         {% if is_granted(expression('"ROLE_ASPIRANTE" in roles')) and concurso.estatus.id == 3 %}
+        {#       {% if is_granted(expression('"ROLE_ASPIRANTE" in roles')) and {% set masdias1= '+ 2 day'%} concurso.fechaPublicacion|date_modify(masdias1) > date() and concurso.estatus.id == 3 %}
+        #}
+            {#        {% if is_granted(expression('"ROLE_ASPIRANTE" in roles')) and concurso.estatus.id == 3 %}
+#}
 
             SI DECIDES NO PARTICIPAR PUEDES_
             {{ form_start(delete_form) }}
             <input type="submit" class="btn btn-danger btn-group-xs" value="BORRAR REGISTRO">
             {{ form_end(delete_form) }}
-            _ANTES DEL {% if concurso.fechaPublicacion %}{{ concurso.fechaPublicacion|date('d-M-Y') }}{% endif %}</td></tr>
+            {% set masdias= '+ 2 day' %}
+            _ANTES DE {% if concurso.fechaPublicacion %}{{ concurso.fechaPublicacion|date_modify(masdias)|date('d-M-Y') }}{% endif %}</td></tr>
         {% endif %}
     </ul>
 {% endblock %}

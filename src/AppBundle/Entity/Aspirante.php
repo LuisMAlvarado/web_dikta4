@@ -246,7 +246,7 @@ class Aspirante implements AdvancedUserInterface, \Serializable
     public function __construct()
     {
         $this ->createAt = new \DateTime('now');
-        $this ->loked =true;
+        $this ->loked =false;
         $this ->enable=false;
         $this ->expired=7;
         $this->archivos = new ArrayCollection();
@@ -318,7 +318,7 @@ return $this->rfc;
 
     public function isAccountNonLocked()
     {
-        return true;
+        return !$this->loked;
     }
 
     public function isCredentialsNonExpired()

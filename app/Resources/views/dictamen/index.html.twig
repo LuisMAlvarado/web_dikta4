@@ -18,7 +18,12 @@
         <thead>
             <tr>
 
+                {% if is_granted(expression('"ROLE_ASISTENTEDIV" in roles')) %}
                 <th>No. Dictamen</th>
+                {% endif %}
+                {% if is_granted(expression('"ROLE_ASISTENTEDEP" in roles')) %}
+                <th>No. Dictamen</th>
+                {% endif %}
                 <th>No. Concurso</th>
                 <th>Fecha de Publicación</th>
                 <th>PARA:</th>
@@ -30,7 +35,14 @@
         <tbody>
         {% for dictaman in dictamens %}
             <tr>
+                {% if is_granted(expression('"ROLE_ASISTENTEDIV" in roles')) %}
                 <td><a href="{{ path('dictamen_show', { 'id': dictaman.id }) }}">{{ dictaman.numDictamen }}</a></td>
+                {% endif %}
+
+                {% if is_granted(expression('"ROLE_ASISTENTEDEP" in roles')) %}
+                <td>{{ dictaman.numDictamen }}</a></td>
+                {% endif %}
+
                 <td><a href="{{ path('concurso_show', { 'id': dictaman.concurso.id }) }}">EC.{{ dictaman.concurso.numConcurso }}</a></td>
                 <td>{% if dictaman.concurso.fechaPublicacion %}{{ dictaman.concurso.fechaPublicacion|date('d-M-Y') }}{% endif %}</td>
                 <td>{{ dictaman.concurso.clasificacion }}</td>

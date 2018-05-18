@@ -53,7 +53,7 @@ class Registro
     /**
      * @var string
      *
-     * @ORM\Column(name="puntaje", type="string", length=5, nullable=true)
+     * @ORM\Column(name="puntaje", type="string", length=6, nullable=true)
      */
     private $puntaje;
 
