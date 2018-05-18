@@ -53,7 +53,7 @@
                 {% if is_granted(expression('"ROLE_ASISTENTEDIV" in roles or "ROLE_ASPIRANTE" in roles or "ROLE_ASISTENTEDEP" in roles or "ROLE_ADMINISTRADOR" in roles ')) %}
 
                     <td>EC.{{ registro.concurso.numConcurso }}</td>
-                    <td>{{ registro.concurso.dictamen }}</td>
+                    <td>{% if registro.concurso.dictamen is null %} DICTAMEN PENDIENTE  {% else %} CONSULTAR A LA DIVISIÓN {% endif %}</td>
 
                 {% endif %}
 

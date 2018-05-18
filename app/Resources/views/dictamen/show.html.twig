@@ -69,6 +69,8 @@
         DESPUÉS DE CONSIDERAR A LOS ASPIRANTES REGISTRADOS Y EVALUAR A LOS CONCURSANTES, ESTA <BR> COMISIÓN EMITE EL SIGUIENTE
 
     </p>
+
+    {% if is_granted(expression('"ROLE_DICTAMINADOR"  in roles or "ROLE_ASISTENTEDIV"  in roles'))%}
     <h3 align="center">DICTAMEN</h3>
 
     <table class="table-curved" align="center"  width="100%">
@@ -153,6 +155,8 @@
             <td><strong>SECRETARIO</strong> <br> {{ dictaman.secretario }}</td>
         </tr></table>
 
+
+
 <p><strong> ASPIRANTES:</strong></p>
 
 
@@ -220,6 +224,11 @@
 
 
         {% endif %}
+{% endif %}
+
+    {% if is_granted(expression('"ROLE_ASISTENTEDEP"  in roles '))%}
+        <a class="btn btn-info" href="{{ path('homepage') }}"><span class="glyphicon glyphicon-home"></span> Regresar a Inicio</a>
+    {% endif %}
 
 
 
