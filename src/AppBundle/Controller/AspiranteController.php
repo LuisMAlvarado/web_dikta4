@@ -114,37 +114,42 @@ class AspiranteController extends Controller
         //$auxrfc = 'LUKE123456';
         //$auxrfc = 'AAAPL741215';
 
-        if($request->query->get('auxrfc'))
-        {
+        if ($request->query->get('auxrfc')) {
             $auxrfc = $request->query->get('auxrfc');
         }
 
 
         $em = $this->getDoctrine();
-        $aspirante = $em->getRepository('AppBundle:Aspirante')->getArrayByRfcNombre($auxrfc);
+        $aspirante = $em->getRepository('AppBundle:Aspirante')->find($auxrfc);
 
-        //(var_dump($aspirante);exit();
+        // var_dump($aspirante);exit();
 
 
-
-        if (!$aspirante){
-            $aspirante=array('nombre'=>'EL RFC QUE INGRESO NO EXISTE EN LA BASE DE DATOS','rfc'=>'2');
-         }else{
+        if (!$aspirante) {
+            $result = array('nombre' => 'EL RFC QUE INGRESO NO EXISTE EN LA BASE DE DATOS', 'rfc' => '2');
+        } elseif ($aspirante->getEnable() == 0) {
+            $result = array('nombre' => 'ASPIRANTE NO HABILITADO', 'rfc' => '3');
+        } else {
             $registro = $em->getRepository('AppBundle:Registro')->findOneBy(array(
                 'aspiranteRfc' => $auxrfc,
                 'concurso' => $concurso,
             ));
-            if ($registro) {
-                $aspirante=array('nombre'=>'ASPIRANTE YA REGISTRADO, [BORRAR] ESTE REGISTRO -->','rfc'=> '1');
+
+             if($registro){
+                 $result=array('nombre'=>'ASPIRANTE YA REGISTRADO, [BORRAR] ESTE REGISTRO -->','rfc'=> '1');
             }else {
-                $aspirante = $aspirante[0];
+                $result = array(
+                    'rfc' => $aspirante->getRfc(),
+                    'nombre' => $aspirante->getNombreCompleto()
+                );
             }
+
         }
 
-        //var_dump($aspirante);exit();
+        // var_dump($aspirante);exit();
 
 
-        $reponse = new JsonResponse($aspirante);
+        $reponse = new JsonResponse($result);
 
         return $reponse;
     }

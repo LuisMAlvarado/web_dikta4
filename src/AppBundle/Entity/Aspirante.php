@@ -329,7 +329,7 @@ return $this->rfc;
     public function isEnabled()
     {
         return $this->enable;
-        //return $this->isActive;
+        //return $this->isActive; ESTO FORZA A SIEMPRE ACTIVO
     }
 
     /**

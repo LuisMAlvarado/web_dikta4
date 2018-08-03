@@ -79,7 +79,7 @@
         <tr>
 
             <td> <img src="{{ asset('resource/img/encabezado.png') }}"  /></td>
-            <td class="text-right "><H3>ASPIRANTES que han solicitaron registro <br/> en etapa Publicado </H3> </td>
+            <td class="text-right "><H3>ASPIRANTES que han solicitaron registro <br/> en etapa Publicadoooo </H3> </td>
         </tr>
     </table>
 
@@ -141,31 +141,7 @@
 
 
     <p><strong> ASPIRANTES:</strong></p>
-    {#
-    {% if concurso.estatus.id != 4   %}
 
-    <TABLE class="table table-bordered" >
-
-    {% for registro in concurso.registros %}
-             <tr>
-
-            <td> {{ loop.index }} .-
-                <a href="#" class="modalAsp" data-toggle="modal" data-target="#myModal" idAspirante="{{ registro.aspiranteRfc.rfc }}" idregrfc="{{ registro.id }}">
-                    {{ registro.aspiranteRfc.nombre }}  {{ registro.aspiranteRfc.apellidoPaterno }} {{ registro.aspiranteRfc.apellidoMaterno }}
-                </a>
-                <p id="cosa" idAspirante="2"></p>
-            </td>
-
-            <!-- Button trigger modal -->
-
-        </tr>
-    {% endfor %}
-
-    </TABLE>
-
-
-    {% endif %}
-     #}
     {{ form_start(form) }}
 
     {% if is_granted(expression('"ROLE_ASISTENTEDIV" in roles')) and concurso.estatus.id == 3   %}
@@ -174,44 +150,48 @@
             <br>
 
 
-
-
         {%  for aspirante in form.registros %}
             {% if aspirante.entregoDocs.vars.attr.regID is defined %}
                 <div class="row">
-                <div class="col-md-4" >{{ loop.index }} .- {{ form_widget(aspirante.aspiranteRfc) }} {{ form_errors(aspirante.aspiranteRfc) }}</div>
-                <div class="col-md-4">  {% if (aspirante.entregoDocs.vars.attr.nombre is defined ) %}    {{ aspirante.entregoDocs.vars.attr.nombre }}{%  endif %}</div>
-                <div class="col-md-2"> {{ form_label(aspirante.entregoDocs,'¿DOCUMENTOS?') }}
-                    {{ form_widget(aspirante.entregoDocs) }}
-                    {{ form_errors(aspirante.entregoDocs) }}</div>
-                <div class="col-md-2">  {% if (aspirante.entregoDocs.vars.attr.nombre is defined ) %}
-                        <a href="{{ path('RAspFORM_pdf',{'id': aspirante.entregoDocs.vars.attr.regID }) }}"><span class="glyphicon glyphicon-save-file">PDF</span></a> {%  endif %}</div>
+                    <div class="col-md-4" >{{ loop.index }} .- {{ form_widget(aspirante.aspiranteRfc) }} {{ form_errors(aspirante.aspiranteRfc) }}</div>
+                    <div class="col-md-4">  {% if (aspirante.entregoDocs.vars.attr.nombre is defined ) %}    {{ aspirante.entregoDocs.vars.attr.nombre }}{%  endif %}</div>
+                    <div class="col-md-2">
+                        {{ form_label(aspirante.entregoDocs,'¿DOCUMENTOS?') }}
+                        {{ form_widget(aspirante.entregoDocs) }}
+                        {{ form_errors(aspirante.entregoDocs) }}
+                    </div>
+                    <div class="col-md-2">
+                        {% if (aspirante.entregoDocs.vars.attr.nombre is defined ) %}
+                            <a href="{{ path('RAspFORM_pdf',{'id': aspirante.entregoDocs.vars.attr.regID }) }}">
+                                <span class="glyphicon glyphicon-save-file">PDF</span>
+                            </a>
+                        {%  endif %}
+                    </div>
                 </div>
             {% endif %}
 
         {% endfor %}
 
-        <div class="show">
-            <div class="col-md12"><hr /></div>
+        <div class="row">
+            <div class="col-md-12"><hr /></div>
         </div>
+
 
         {{ form_errors(form) }}
 
         {%  for aspirante in form.registros %}
             {% if aspirante.entregoDocs.vars.attr.regID is not defined %}
-
-
-
                 <div class="row">
-                    <div  class="col-md-3 text-danger rfcer" id="rfc_{{ loop.index }}"  >{{ loop.index }} .- {{ form_label(aspirante.aspiranteRfc, 'RFC con PROBLEMAS') }}
-                       <div > {{ form_widget(aspirante.aspiranteRfc, {'attr': {'class': 'form-control rfcer'}}) }}</div>
+                    <div  class="col-md-3 text-danger rfcer" id="rfc_{{ loop.index }}"  >
+                        {{ loop.index }} .- {{ form_label(aspirante.aspiranteRfc, 'RFC CON PROBLEMAS') }}
+                        <div> {{ form_widget(aspirante.aspiranteRfc, {'attr': {'class': 'form-control rfcer'}}) }}</div>
                         <div class="alert-danger">{{ form_errors(aspirante.aspiranteRfc) }}</div>
                     </div>
 
-                    <div  class="col-md-5 nombreAsperr" id="aspirante_{{ loop.index }}"> <br> INGRESE EL RFC CORRECTO O USE [BORRAR --></strong>
+                    <div  class="col-md-5 nombreAsperr" id="aspirante_{{ loop.index }}"> <br> <strong> INGRESE EL RFC CORRECTO O USE [BORRAR]--></strong>
                     </div>
                     <div class="col-md-2" > {{ form_label(aspirante.entregoDocs, '¿PRESENTO DOCUMENTOS?') }}
-                        {{ form_widget(aspirante.entregoDocs, {'attr':{'class':'form-control'}}) }}
+                        {{ form_widget(aspirante.entregoDocs, {'attr':{'class':''}}) }}
 
                         <div class="alert-danger">{{ form_errors(aspirante.entregoDocs) }}</div></div>
 
@@ -219,7 +199,7 @@
                         <button  id="btn_aspirante_{{ loop.index }}" type="button" class="delete" aria-label="Close"><span class="glyphicon glyphicon-trash"></span> BORRAR</button>
                     </div>
                 </div>
-
+                <hr />
             {% endif %}
         {% endfor %}
 
@@ -491,7 +471,12 @@
 
                                  alert('¡EL RFC DEL ASPIRANTE QUE INGRESO YA TIENE REGISTRO EN ESTE CONCURSO!, USE EL BOTON DE [BORRAR]' );
                                 {# $('#confirmabtn').hide();#}
-                             } else {
+                             }
+                             if(nombrerfc.rfc == 3){
+                                 alert('EL RFC NECESITA ESTAR HABILITADO' );
+
+                             }
+                                else {
                                  $('#confirmabtn').show();
                              }
 
@@ -558,7 +543,10 @@
                             elemento.html('<p><br/><strong>'+nombrerfc.nombre+'</strong></p>');
                             //console.log(nombrerfc.nombre);
                            // console.log(nombrerfc.rfc);
+                            if(nombrerfc.rfc == 3){
+                                alert('EL RFC NECESITA ESTAR HABILITADO' );
 
+                            }
 
                         },
 

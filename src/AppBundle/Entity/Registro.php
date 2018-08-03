@@ -5,7 +5,10 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-
+use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineAssert;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContext;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * Registro
@@ -416,5 +419,20 @@ class Registro
     public function getEntregoDocs()
     {
         return $this->entregoDocs;
+    }
+
+    /**
+     * @Assert\Callback
+     * @param ExecutionContextInterface $context
+     */
+
+    public function validaAspirante(ExecutionContextInterface $context)
+    {
+        if ($this->aspiranteRfc AND $this->aspiranteRfc->getEnable()== FALSE  ){
+            $context->buildViolation('Aspirante no HABILITADO')
+                ->atPath('entregoDocs')
+                ->addViolation();
+
+        }
     }
 }
