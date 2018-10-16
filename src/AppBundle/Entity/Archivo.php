@@ -79,7 +79,7 @@ class Archivo
     /**
      * @var \Aspirante
      *
-     * @ORM\ManyToOne(targetEntity="Aspirante" , inversedBy="archivos")
+     * @ORM\ManyToOne(targetEntity="Aspirante" , inversedBy="archivos", cascade={"persist"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="aspirante_rfc", referencedColumnName="rfc")
      * })

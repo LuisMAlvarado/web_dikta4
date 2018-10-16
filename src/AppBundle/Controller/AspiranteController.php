@@ -381,6 +381,48 @@ class AspiranteController extends Controller
         ));
     }
 
+    /**
+     * Muestra datos del aspirante y los archivos agregados y la opcion de ADD_Archivsss
+     *
+     * @Route("/{id}/edit_archivos", name="aspirante_archivos_edit")
+     * @Method({"GET", "POST"})
+     * @Security("has_role('ROLE_ADMINISTRADOR')or has_role('ROLE_ASISTENTEDIV') or (has_role('ROLE_ASPIRANTE_UPDATE') and user.getRfc() == aspirante.getRfc()) ")
+     */
+
+
+    //Muestra datos del aspirante y los archivos agregados y la opcion de ADD_Archivsss
+
+    public function editAspArchAction(Request $request, Aspirante $aspirante)
+    {
+        $archivos = clone $aspirante->getArchivos();
+        $deleteForm= $this->createDeleteForm($aspirante);
+        $form = $this->createForm('AppBundle\Form\AspiranteArchivosType',$aspirante);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            foreach ($archivos as $archivo){
+                if (false === $aspirante->getArchivos()->contains($archivo)){
+                    $em->remove($archivo);
+                }
+            }
+            $this->getDoctrine()->getManager()->flush();
+            return $this->redirectToRoute('aspirante_archivos_edit', array('id' => $aspirante->getRfc() ));
+        }
+
+        return $this->render('aspirante/showAspArch.html.twig', array(
+
+            'aspirante' => $aspirante,
+            'form' => $form->createView(),
+            'delete_form' => $deleteForm->createView(),
+            //   'dias' => $dias,
+        ));
+
+
+
+    }
+
+
 
     /**
      * @Route("/{aspirante}/enable/", name="aspirante_enable")

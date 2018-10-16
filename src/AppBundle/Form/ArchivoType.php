@@ -20,7 +20,8 @@ class ArchivoType extends AbstractType
             ->add('isActive')
             ->add('isDelete')
             ->add('updateAt')
-            ->add('aspiranteRfc')        ;
+            //->add('aspiranteRfc')
+        ;
     }
     
     /**

@@ -1,0 +1,93 @@
+{% extends 'frontend.html.twig' %}
+
+{% block header %}
+     <table class="table">
+         <tr>
+            <td> <img src="{{ asset('resource/img/encabezado.png') }}"  /></td>
+             <td class="text-right"><strong>Informacion  <br />  para su Registro a CEC</strong></td>
+         </tr>
+     </table>
+{% endblock %}
+
+{% block content %}
+    <h1>Actividades del ASPIRANTE</h1>
+
+    <table width="100%">
+        <tbody>
+        <tr>
+            <td colspan="3" width="50%"></td>
+            <th class="table-bordered text-right" >Cuenta activada desde: &nbsp;</th>
+
+            <td class="table-bordered text-center">{% if aspirante.createAt %}{{  aspirante.createAt|date('d-M-Y') }}{% endif %}</td></tr>
+
+        </tbody>
+    </table><BR>
+
+    <table  align="center" class="table table-bordered">
+        <tbody>
+        <tr>
+            <td colspan="2"><strong>Apellido Paterno</strong><br />
+                {{ aspirante.apellidoPaterno }}
+            </td>
+            <td colspan="2"> <strong>Apellido Materno</strong><br>
+                {{ aspirante.apellidoMaterno }}
+            </td>
+            <td><strong>Nombre</strong><br>
+                {{ aspirante.nombre }}
+            </td>
+
+        </tr>
+
+
+         </tbody>
+    </table>
+<br>
+
+
+    <br><br>
+
+
+{{ dump(aspirante.archivos) }}
+   {# {% for archivo in aspirante.achivos %}
+
+    {% endfor %}   #}
+
+    {{ form_start(form) }}
+
+
+    {{ form_end(form) }}
+
+
+
+
+
+
+
+    <h3>TIIPA</h3>
+    <ul>
+
+        <li>
+            <a href="{{ path('concurso_index') }}">Listado vigente de CEC</a>
+        </li>
+        <li>
+            <a href="{{ path('registro_index') }}">Listado de Convocatorias donde me Registre</a>
+        </li>
+    </ul>
+
+    <h3>ASPIRANTE</h3>
+    <ul>
+        <li>
+            <a href="{{ path('aspirante_aspshow', { 'id': aspirante.rfc }) }}">Regresar a mi Principal</a>
+        </li>
+
+        {#
+       <li>
+            <a href="{{ path('medicard_pdf', { 'id': aspirante.rfc }) }}">Tarjeta Med</a>
+        </li>
+        #}
+        <li>
+            <a href="{{ path('logout') }}">Cerrar Sesion </a>
+        </li>
+
+    </ul>
+{% endblock %}
